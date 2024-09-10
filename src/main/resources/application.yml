@@ -9,6 +9,11 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        format_sql: true
         default_batch_fetch_size: 100
         dialect: org.hibernate.dialect.MariaDBDialect
+        show_sql: true
+        format_sql: true
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: TRACE
