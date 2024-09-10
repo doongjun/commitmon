@@ -39,6 +39,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("com.github.f4b6a3:tsid-creator:5.2.6")
 
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
