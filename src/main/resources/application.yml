@@ -17,3 +17,9 @@ spring:
 logging:
   level:
     org.hibernate.orm.jdbc.bind: TRACE
+
+app:
+  github:
+    token: ${GITHUB_TOKEN}
+    graphql:
+      base-url: https://api.github.com/graphql
