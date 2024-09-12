@@ -23,3 +23,5 @@ app:
     token: ${GITHUB_TOKEN}
     graphql:
       base-url: https://api.github.com/graphql
+    rest:
+      base-url: https://api.github.com

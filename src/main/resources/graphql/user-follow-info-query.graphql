@@ -1,0 +1,27 @@
+query(
+    $login: String!,
+    $first: Int
+) {
+    user(login: $login) {
+        followers(first: $first) {
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                databaseId
+                login
+            }
+        }
+        following(first: $first) {
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                id
+                login
+            }
+        }
+    }
+}

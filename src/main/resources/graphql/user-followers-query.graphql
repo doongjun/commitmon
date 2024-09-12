@@ -1,0 +1,18 @@
+query(
+    $login: String!,
+    $first: Int,
+    $after: String
+) {
+    user(login: $login) {
+        followers(first: $first, after: $after) {
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                databaseId
+                login
+            }
+        }
+    }
+}

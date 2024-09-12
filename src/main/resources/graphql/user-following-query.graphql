@@ -1,0 +1,18 @@
+query(
+    $login: String!,
+    $first: Int,
+    $after: String
+) {
+    user(login: $login) {
+        following(first: $first, after: $after) {
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                id
+                login
+            }
+        }
+    }
+}
