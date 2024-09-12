@@ -1,9 +1,9 @@
-package com.doongjun.commitmon.data
+package com.doongjun.commitmon.app.data
 
 import com.doongjun.commitmon.domain.User
 import java.time.Instant
 
-data class UserDto(
+data class GetUserDto(
     val id: Long,
     val githubId: Long,
     val name: String,
@@ -11,8 +11,8 @@ data class UserDto(
     val lastModifiedDate: Instant,
 ) {
     companion object {
-        fun from(user: User): UserDto =
-            UserDto(
+        fun from(user: User): GetUserDto =
+            GetUserDto(
                 id = user.id,
                 githubId = user.githubId,
                 name = user.name,

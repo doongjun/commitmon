@@ -1,9 +1,12 @@
 package com.doongjun.commitmon.domain
 
 import com.doongjun.commitmon.core.BaseEntity
+import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType.LAZY
 import jakarta.persistence.Index
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -12,8 +15,49 @@ class User(
     @Column(name = "github_id", unique = true, nullable = false)
     val githubId: Long,
     name: String,
+    totalCommitCount: Long = 0,
+    followers: List<User> = emptyList(),
+    following: List<User> = emptyList(),
 ) : BaseEntity() {
     @Column(name = "name", nullable = false)
     var name: String = name
         protected set
+
+    @Column(name = "total_commit_count", nullable = false)
+    var totalCommitCount: Long = totalCommitCount
+        protected set
+
+    @OneToMany(mappedBy = "follower", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
+    protected val mutableFollowers: MutableList<Follow> = toFollowers(followers)
+    val followers: List<User> get() = mutableFollowers.map { it.following }
+
+    @OneToMany(mappedBy = "following", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
+    protected val mutableFollowing: MutableList<Follow> = toFollowing(following)
+    val following: List<User> get() = mutableFollowing.map { it.follower }
+
+    fun update(
+        name: String,
+        totalCommitCount: Long,
+        followers: List<User>,
+        following: List<User>,
+    ) {
+        this.name = name
+        this.totalCommitCount = totalCommitCount
+        updateFollowers(followers)
+        updateFollowing(following)
+    }
+
+    private fun updateFollowers(followers: List<User>) {
+        mutableFollowers.clear()
+        mutableFollowers.addAll(toFollowers(followers))
+    }
+
+    private fun updateFollowing(following: List<User>) {
+        mutableFollowing.clear()
+        mutableFollowing.addAll(toFollowing(following))
+    }
+
+    private fun toFollowers(followers: List<User>) = followers.map { Follow(follower = this, following = it) }.toMutableList()
+
+    private fun toFollowing(following: List<User>) = following.map { Follow(follower = it, following = this) }.toMutableList()
 }

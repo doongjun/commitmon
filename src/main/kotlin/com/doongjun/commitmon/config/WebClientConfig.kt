@@ -13,11 +13,11 @@ class WebClientConfig {
     @Bean(name = ["githubGraphqlWebClient"])
     fun githubGraphqlWebClient(
         @Value("\${app.github.token}") token: String,
-        @Value("\${app.github.graphql.base-url}") baseUrl: String,
+        @Value("\${app.github.base-url}") baseUrl: String,
     ): WebClient =
         WebClient
             .builder()
-            .baseUrl(baseUrl)
+            .baseUrl("$baseUrl/graphql")
             .defaultHeaders { httpHeaders ->
                 httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
@@ -26,7 +26,7 @@ class WebClientConfig {
     @Bean(name = ["githubRestWebClient"])
     fun githubRestWebClient(
         @Value("\${app.github.token}") token: String,
-        @Value("\${app.github.rest.base-url}") baseUrl: String,
+        @Value("\${app.github.base-url}") baseUrl: String,
     ): WebClient =
         WebClient
             .builder()
