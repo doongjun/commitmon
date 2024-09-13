@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient
 class GithubRestApi(
     private val githubRestWebClient: WebClient,
 ) {
-    fun fetchUserCommitTotalCount(username: String): UserCommitTotalCountResponse? =
+    fun fetchUserCommitTotalCount(username: String): Long =
         githubRestWebClient
             .get()
             .uri { uriBuilder ->
@@ -19,5 +19,7 @@ class GithubRestApi(
                     .build()
             }.retrieve()
             .bodyToMono(UserCommitTotalCountResponse::class.java)
-            .block()
+            .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user commit count: $error") }
+            .block()!!
+            .totalCount
 }

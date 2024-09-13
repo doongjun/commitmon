@@ -1,14 +1,26 @@
 package com.doongjun.commitmon.infra.data
 
 data class UserFollowInfoResponse(
-    val data: Data,
+    val user: User?,
 ) {
-    data class Data(
-        val user: User,
-    ) {
-        data class User(
-            val followers: UserFollowersResponse.Data.User.Followers,
-            val following: UserFollowingResponse.Data.User.Following,
-        )
-    }
+    data class User(
+        val followers: FollowInfo,
+        val following: FollowInfo,
+    )
 }
+
+data class FollowInfo(
+    val totalCount: Int,
+    val pageInfo: FollowPageInfo,
+    val nodes: List<FollowNode>,
+)
+
+data class FollowPageInfo(
+    val hasNextPage: Boolean,
+    val endCursor: String,
+)
+
+data class FollowNode(
+    val login: String,
+    val databaseId: Long,
+)

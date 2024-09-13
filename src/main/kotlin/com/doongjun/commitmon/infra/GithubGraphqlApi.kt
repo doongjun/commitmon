@@ -1,60 +1,42 @@
 package com.doongjun.commitmon.infra
 
 import com.doongjun.commitmon.infra.data.GraphqlRequest
-import com.doongjun.commitmon.infra.data.UserContributionsResponse
-import com.doongjun.commitmon.infra.data.UserContributionsVariables
+import com.doongjun.commitmon.infra.data.GraphqlResponse
 import com.doongjun.commitmon.infra.data.UserFollowInfoResponse
 import com.doongjun.commitmon.infra.data.UserFollowInfoVariables
 import com.doongjun.commitmon.infra.data.UserFollowersResponse
+import com.doongjun.commitmon.infra.data.UserFollowingResponse
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import java.nio.charset.Charset
-import java.time.Year
 
 @Component
 class GithubGraphqlApi(
     private val githubGraphqlWebClient: WebClient,
 ) {
     companion object {
-        private val userContributionsQuery =
+        private val userFollowInfoQuery =
             ClassPathResource(
-                "graphql/user-contributions-query.graphql",
+                "graphql/user-follow-info-query.graphql",
             ).getContentAsString(Charset.defaultCharset())
 
         private val userFollowersQuery =
             ClassPathResource(
                 "graphql/user-followers-query.graphql",
             ).getContentAsString(Charset.defaultCharset())
-    }
 
-    fun fetchUserContributionsByYear(
-        username: String,
-        year: Year,
-    ): UserContributionsResponse? {
-        val variables =
-            UserContributionsVariables.of(
-                login = username,
-                year = year,
-            )
-        val requestBody =
-            GraphqlRequest(
-                query = userContributionsQuery,
-                variables = variables,
-            )
-
-        return githubGraphqlWebClient
-            .post()
-            .bodyValue(requestBody)
-            .retrieve()
-            .bodyToMono(UserContributionsResponse::class.java)
-            .block()
+        private val userFollowingQuery =
+            ClassPathResource(
+                "graphql/user-following-query.graphql",
+            ).getContentAsString(Charset.defaultCharset())
     }
 
     fun fetchUserFollowInfo(
         username: String,
         size: Int,
-    ): UserFollowInfoResponse? {
+    ): UserFollowInfoResponse.User {
         val variables =
             UserFollowInfoVariables(
                 login = username,
@@ -62,23 +44,30 @@ class GithubGraphqlApi(
             )
         val requestBody =
             GraphqlRequest(
-                query = userFollowersQuery,
+                query = userFollowInfoQuery,
                 variables = variables,
             )
+        val response =
+            githubGraphqlWebClient
+                .post()
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(object : ParameterizedTypeReference<GraphqlResponse<UserFollowInfoResponse>>() {})
+                .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user follow info: $error") }
+                .block()!!
 
-        return githubGraphqlWebClient
-            .post()
-            .bodyValue(requestBody)
-            .retrieve()
-            .bodyToMono(UserFollowInfoResponse::class.java)
-            .block()
+        if (isError(response)) {
+            throw IllegalArgumentException("Failed to fetch user follow info: ${response.errors}")
+        }
+
+        return response.data.user!!
     }
 
     fun fetchUserFollowers(
         username: String,
         size: Int,
         after: String? = null,
-    ): UserFollowersResponse? {
+    ): UserFollowersResponse.User {
         val variables =
             UserFollowInfoVariables(
                 login = username,
@@ -90,20 +79,27 @@ class GithubGraphqlApi(
                 query = userFollowersQuery,
                 variables = variables,
             )
+        val response =
+            githubGraphqlWebClient
+                .post()
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(object : ParameterizedTypeReference<GraphqlResponse<UserFollowersResponse>>() {})
+                .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user followers: $error") }
+                .block()!!
 
-        return githubGraphqlWebClient
-            .post()
-            .bodyValue(requestBody)
-            .retrieve()
-            .bodyToMono(UserFollowersResponse::class.java)
-            .block()
+        if (isError(response)) {
+            throw IllegalArgumentException("Failed to fetch user followers: ${response.errors}")
+        }
+
+        return response.data.user!!
     }
 
     fun fetchUserFollowing(
         username: String,
         size: Int,
         after: String? = null,
-    ): UserFollowersResponse? {
+    ): UserFollowingResponse.User {
         val variables =
             UserFollowInfoVariables(
                 login = username,
@@ -112,15 +108,24 @@ class GithubGraphqlApi(
             )
         val requestBody =
             GraphqlRequest(
-                query = userFollowersQuery,
+                query = userFollowingQuery,
                 variables = variables,
             )
+        val response =
+            githubGraphqlWebClient
+                .post()
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(object : ParameterizedTypeReference<GraphqlResponse<UserFollowingResponse>>() {})
+                .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user following: $error") }
+                .block()!!
 
-        return githubGraphqlWebClient
-            .post()
-            .bodyValue(requestBody)
-            .retrieve()
-            .bodyToMono(UserFollowersResponse::class.java)
-            .block()
+        if (isError(response)) {
+            throw IllegalArgumentException("Failed to fetch user following: ${response.errors}")
+        }
+
+        return response.data.user!!
     }
+
+    private fun isError(response: GraphqlResponse<*>): Boolean = response.errors != null
 }
