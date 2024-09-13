@@ -1,6 +1,7 @@
 package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateOrUpdateUserDto
+import com.doongjun.commitmon.domain.CommitmonLevel
 import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
 import org.assertj.core.api.Assertions.assertThat
@@ -63,6 +64,7 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.name).isEqualTo(request.name)
         assertThat(findUser?.githubId).isEqualTo(request.githubId)
         assertThat(findUser?.totalCommitCount).isEqualTo(request.totalCommitCount)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(findUser?.followers).isEmpty()
         assertThat(findUser?.following).isEmpty()
     }
@@ -93,6 +95,7 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.name).isEqualTo(request.name)
         assertThat(findUser?.githubId).isEqualTo(request.githubId)
         assertThat(findUser?.totalCommitCount).isEqualTo(request.totalCommitCount)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
         assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
     }
@@ -121,6 +124,7 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.name).isEqualTo(request.name)
         assertThat(findUser?.githubId).isEqualTo(request.githubId)
         assertThat(findUser?.totalCommitCount).isEqualTo(request.totalCommitCount)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(findUser?.followers).isEmpty()
         assertThat(findUser?.following).isEmpty()
     }
@@ -138,7 +142,7 @@ class UserServiceTest : BaseAppTest() {
             CreateOrUpdateUserDto(
                 githubId = 1L,
                 name = "doongjunKim",
-                totalCommitCount = 10L,
+                totalCommitCount = 1600L,
                 followerGithubIds = listOf(2L, 3L),
                 followingGithubIds = listOf(3L, 4L),
             )
@@ -152,6 +156,7 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.name).isEqualTo(request.name)
         assertThat(findUser?.githubId).isEqualTo(request.githubId)
         assertThat(findUser?.totalCommitCount).isEqualTo(request.totalCommitCount)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.ULTIMATE)
         assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
         assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
     }

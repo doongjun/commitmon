@@ -29,6 +29,8 @@ class UserTest {
         assertThat(user.name).isEqualTo(name)
         assertThat(user.createdDate).isNotNull()
         assertThat(user.lastModifiedDate).isNotNull()
+        assertThat(user.totalCommitCount).isEqualTo(0)
+        assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.EGG)
     }
 
     @Test
@@ -48,6 +50,7 @@ class UserTest {
         assertThat(user.githubId).isEqualTo(githubId)
         assertThat(user.name).isEqualTo(name)
         assertThat(user.totalCommitCount).isEqualTo(totalCommitCount)
+        assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(user.followers).containsExactlyElementsOf(followers)
         assertThat(user.following).containsExactlyElementsOf(following)
         assertThat(user.createdDate).isNotNull()
@@ -88,9 +91,10 @@ class UserTest {
         )
 
         // then
-
+        assertThat(user.id).isNotNull()
         assertThat(user.name).isEqualTo(updateName)
         assertThat(user.totalCommitCount).isEqualTo(updateTotalCommitCount)
+        assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.IN_TRAINING)
         assertThat(user.followers).containsExactlyElementsOf(updateFollowers)
         assertThat(user.following).containsExactlyElementsOf(updateFollowing)
     }

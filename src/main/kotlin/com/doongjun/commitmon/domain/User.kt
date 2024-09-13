@@ -4,6 +4,8 @@ import com.doongjun.commitmon.core.BaseEntity
 import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType.LAZY
 import jakarta.persistence.Index
 import jakarta.persistence.OneToMany
@@ -27,6 +29,11 @@ class User(
     var totalCommitCount: Long = totalCommitCount
         protected set
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "commitmon", nullable = false)
+    var commitmon: Commitmon = Commitmon.randomCommitmon(CommitmonLevel.fromExp(totalCommitCount))
+        protected set
+
     @OneToMany(mappedBy = "follower", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
     protected val mutableFollowers: MutableList<Follow> = toFollowers(followers)
     val followers: List<User> get() = mutableFollowers.map { it.following }
@@ -43,8 +50,15 @@ class User(
     ) {
         this.name = name
         this.totalCommitCount = totalCommitCount
+        evolveCommitmon(CommitmonLevel.fromExp(totalCommitCount))
         updateFollowers(followers)
         updateFollowing(following)
+    }
+
+    private fun evolveCommitmon(level: CommitmonLevel) {
+        if (this.commitmon.level.order < level.order) {
+            this.commitmon = Commitmon.randomLevelTreeCommitmon(level, this.commitmon)
+        }
     }
 
     private fun updateFollowers(followers: List<User>) {
