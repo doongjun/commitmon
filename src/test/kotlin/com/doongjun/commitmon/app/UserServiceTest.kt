@@ -156,7 +156,7 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.name).isEqualTo(request.name)
         assertThat(findUser?.githubId).isEqualTo(request.githubId)
         assertThat(findUser?.totalCommitCount).isEqualTo(request.totalCommitCount)
-        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.ULTIMATE)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.PERFECT)
         assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
         assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
     }

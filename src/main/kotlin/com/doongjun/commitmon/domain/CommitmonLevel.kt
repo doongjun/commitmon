@@ -9,7 +9,8 @@ enum class CommitmonLevel(
     IN_TRAINING(200, 2),
     ROOKIE(400, 3),
     CHAMPION(800, 4),
-    ULTIMATE(1600, 5),
+    PERFECT(1600, 5),
+    ULTIMATE(3200, 5),
     ;
 
     companion object {
