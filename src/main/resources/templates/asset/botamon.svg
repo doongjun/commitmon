@@ -1,0 +1,72 @@
+<svg fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+    <a href="https://github.com/[[${username}]]">
+        <g id="body-[[${id}]]">
+            <g id="frame1-[[${id}]]">
+                <path stroke="#000000" d="M9 3h6M18 3h6M9 4h6M18 4h6M9 5h6M18 5h6M6 6h21M6 7h21M6 8h21M3 9h24M3 10h24M3 11h24M0 12h6M9 12h9M21 12h9M0 13h6M9 13h9M21 13h9M0 14h6M9 14h9M21 14h9M0 15h6M9 15h6M21 15h9M0 16h6M9 16h6M21 16h9M0 17h6M9 17h6M21 17h9M0 18h30M0 19h30M0 20h30M3 21h24M3 22h24M3 23h24M9 24h12M9 25h12M9 26h12" />
+                <path stroke="#ffffff" d="M6 12h3M18 12h3M6 13h3M18 13h3M6 14h3M18 14h3M6 15h3M15 15h6M6 16h3M15 16h6M6 17h3M15 17h6" />
+            </g>
+            <g id="frame2-[[${id}]]">
+                <path stroke="#000000" d="M9 0h6M18 0h6M9 1h6M18 1h6M9 2h6M18 2h6M6 3h21M6 4h21M6 5h21M3 6h24M3 7h24M3 8h24M0 9h6M9 9h9M21 9h9M0 10h6M9 10h9M21 10h9M0 11h6M9 11h9M21 11h9M0 12h6M9 12h6M21 12h9M0 13h6M9 13h6M21 13h9M0 14h6M9 14h6M21 14h9M0 15h30M0 16h30M0 17h30M0 18h30M0 19h30M0 20h30M3 21h24M3 22h24M3 23h24M9 24h12M9 25h12M9 26h12" />
+                <path stroke="#ffffff" d="M6 9h3M18 9h3M6 10h3M18 10h3M6 11h3M18 11h3M6 12h3M15 12h6M6 13h3M15 13h6M6 14h3M15 14h6" />
+            </g>
+        </g>
+        <g id="username-[[${id}]]">
+            <text style="stroke:white; stroke-width:0.6em">[[${username}]]</text>
+            <text style="fill:black">[[${username}]]</text>
+        </g>
+    </a>
+    <style>
+        #frame1-[[${id}]] {
+            animation: 1s frameToggle infinite;
+        }
+        #frame2-[[${id}]] {
+            animation: 1s frameToggle infinite reverse;
+        }
+        #body-[[${id}]] {
+            animation: move-body-[[${id}]] [[${motion.duration}]]s infinite;
+        }
+        #username-[[${id}]] {
+            animation: move-username-[[${id}]] [[${motion.duration}]]s infinite;
+        }
+        @keyframes move-body-[[${id}]] {
+            0%, 10% {
+                transform: translate([[${motion.positions[0].x}]]%, [[${y}]]%) scaleX([[${motion.positions[0].direction}]]);
+            }
+            20%, 30% {
+                transform: translate([[${motion.positions[1].x}]]%, [[${y}]]%) scaleX([[${motion.positions[1].direction}]]);
+            }
+            40%, 50% {
+                transform: translate([[${motion.positions[2].x}]]%, [[${y}]]%) scaleX([[${motion.positions[2].direction}]]);
+            }
+            50.01% {
+                transform: translate([[${motion.positions[3].x}]]%, [[${y}]]%) scaleX([[${motion.positions[3].direction}]]);
+            }
+            60%, 70% {
+                transform: translate([[${motion.positions[4].x}]]%, [[${y}]]%) scaleX([[${motion.positions[4].direction}]]);
+            }
+            80%, 100% {
+                transform: translate([[${motion.positions[5].x}]]%, [[${y}]]%) scaleX([[${motion.positions[5].direction}]]);
+            }
+        }
+        @keyframes move-username-[[${id}]] {
+            0%, 10% {
+                transform: translate([[${motion.namePositions[0].x}]]%, [[${y}-1]]%);
+            }
+            20%, 30% {
+                transform: translate([[${motion.namePositions[1].x}]]%, [[${y}-1]]%);
+            }
+            40%, 50% {
+                transform: translate([[${motion.namePositions[2].x}]]%, [[${y}-1]]%);
+            }
+            50.01% {
+                transform: translate([[${motion.namePositions[3].x}]]%, [[${y}-1]]%);
+            }
+            60%, 70% {
+                transform: translate([[${motion.namePositions[4].x}]]%, [[${y}-1]]%);
+            }
+            80%, 100% {
+                transform: translate([[${motion.namePositions[5].x}]]%, [[${y}-1]]%);
+            }
+        }
+    </style>
+</svg>
