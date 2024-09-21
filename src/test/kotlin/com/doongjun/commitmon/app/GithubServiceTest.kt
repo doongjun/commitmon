@@ -29,7 +29,7 @@ class GithubServiceTest {
     private lateinit var githubGraphqlApi: GithubGraphqlApi
 
     @Test
-    fun getCommitCount_Test() {
+    fun getTotalCommitCount_Test() {
         // given
         val username = "doongjun"
         val commitCount = 10L
@@ -38,7 +38,7 @@ class GithubServiceTest {
             .willReturn(commitCount)
 
         // when
-        val result = githubService.getCommitCount(username)
+        val result = githubService.getTotalCommitCount(username)
 
         // then
         assertThat(result).isEqualTo(commitCount)

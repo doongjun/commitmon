@@ -11,7 +11,7 @@ class GithubService(
     private val githubRestApi: GithubRestApi,
     private val githubGraphqlApi: GithubGraphqlApi,
 ) {
-    fun getCommitCount(username: String): Long = githubRestApi.fetchUserCommitTotalCount(username)
+    fun getTotalCommitCount(username: String): Long = githubRestApi.fetchUserCommitTotalCount(username)
 
     fun getFollowInfo(
         username: String,

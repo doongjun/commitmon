@@ -71,15 +71,16 @@ class UserTest {
 
         val updateName = "dongjunKim"
         val updateTotalCommitCount = 200L
+        val mutualFollower = User(4L, "frank")
         val updateFollowers =
             listOf(
                 User(3L, "david"),
-                User(5L, "frank"),
+                mutualFollower,
             )
         val updateFollowing =
             listOf(
-                User(6L, "george"),
-                User(7L, "harry"),
+                mutualFollower,
+                User(5L, "george"),
             )
 
         // when
@@ -97,5 +98,6 @@ class UserTest {
         assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.IN_TRAINING)
         assertThat(user.followers).containsExactlyElementsOf(updateFollowers)
         assertThat(user.following).containsExactlyElementsOf(updateFollowing)
+        assertThat(user.mutualFollowers).containsExactlyElementsOf(listOf(mutualFollower))
     }
 }

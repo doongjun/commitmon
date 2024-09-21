@@ -42,6 +42,8 @@ class User(
     protected val mutableFollowing: MutableList<Follow> = toFollowing(following)
     val following: List<User> get() = mutableFollowing.map { it.follower }
 
+    val mutualFollowers: List<User> get() = following.filter { it in followers }
+
     fun update(
         name: String,
         totalCommitCount: Long,
