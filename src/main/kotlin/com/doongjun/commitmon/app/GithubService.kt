@@ -1,6 +1,7 @@
 package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.GetFollowInfoDto
+import com.doongjun.commitmon.app.data.GetUserCommitInfo
 import com.doongjun.commitmon.infra.GithubGraphqlApi
 import com.doongjun.commitmon.infra.GithubRestApi
 import com.doongjun.commitmon.infra.data.FollowInfo
@@ -11,7 +12,14 @@ class GithubService(
     private val githubRestApi: GithubRestApi,
     private val githubGraphqlApi: GithubGraphqlApi,
 ) {
-    fun getTotalCommitCount(username: String): Long = githubRestApi.fetchUserCommitTotalCount(username)
+    fun getUserCommitInfo(username: String): GetUserCommitInfo {
+        val (totalCount, items) = githubRestApi.fetchUserCommitSearchInfo(username)
+
+        return GetUserCommitInfo(
+            totalCommitCount = totalCount,
+            githubId = items.first().author.id,
+        )
+    }
 
     fun getFollowInfo(
         username: String,

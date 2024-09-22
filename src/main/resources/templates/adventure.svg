@@ -1,4 +1,8 @@
-<svg fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 600 400" width="600" height="400" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="150" width="600" height="250" fill="#7DD21D"/>
+    <rect x="0" y="150" width="600" height="3" fill="#8ec241"/>
+    <rect x="0" y="150" width="600" height="3" fill="#8ec241"/>
+    <rect x="0" y="390" width="600" height="10" fill="#b76948"/>
     <style>
         @keyframes frameToggle {
             0%, 49.99% {

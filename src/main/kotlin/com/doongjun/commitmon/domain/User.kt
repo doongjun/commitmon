@@ -35,11 +35,11 @@ class User(
         protected set
 
     @OneToMany(mappedBy = "follower", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
-    protected val mutableFollowers: MutableList<Follow> = toFollowers(followers)
+    protected val mutableFollowers: MutableSet<Follow> = toFollowers(followers)
     val followers: List<User> get() = mutableFollowers.map { it.following }
 
     @OneToMany(mappedBy = "following", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
-    protected val mutableFollowing: MutableList<Follow> = toFollowing(following)
+    protected val mutableFollowing: MutableSet<Follow> = toFollowing(following)
     val following: List<User> get() = mutableFollowing.map { it.follower }
 
     val mutualFollowers: List<User> get() = following.filter { it in followers }
@@ -64,16 +64,20 @@ class User(
     }
 
     private fun updateFollowers(followers: List<User>) {
-        mutableFollowers.clear()
-        mutableFollowers.addAll(toFollowers(followers))
+        val removals = this.followers - followers.toSet()
+        val additions = followers - this.followers.toSet()
+        mutableFollowers.removeAll { it.following in removals }
+        mutableFollowers.addAll(toFollowers(additions))
     }
 
     private fun updateFollowing(following: List<User>) {
-        mutableFollowing.clear()
-        mutableFollowing.addAll(toFollowing(following))
+        val removals = this.following - following.toSet()
+        val additions = following - this.following.toSet()
+        mutableFollowing.removeAll { it.follower in removals }
+        mutableFollowing.addAll(toFollowing(additions))
     }
 
-    private fun toFollowers(followers: List<User>) = followers.map { Follow(follower = this, following = it) }.toMutableList()
+    private fun toFollowers(followers: List<User>) = followers.map { Follow(follower = this, following = it) }.toMutableSet()
 
-    private fun toFollowing(following: List<User>) = following.map { Follow(follower = it, following = this) }.toMutableList()
+    private fun toFollowing(following: List<User>) = following.map { Follow(follower = it, following = this) }.toMutableSet()
 }

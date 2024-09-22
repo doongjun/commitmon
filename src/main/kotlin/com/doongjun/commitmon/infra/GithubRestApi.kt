@@ -1,6 +1,6 @@
 package com.doongjun.commitmon.infra
 
-import com.doongjun.commitmon.infra.data.UserCommitTotalCountResponse
+import com.doongjun.commitmon.infra.data.UserCommitSearchResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient
 class GithubRestApi(
     private val githubRestWebClient: WebClient,
 ) {
-    fun fetchUserCommitTotalCount(username: String): Long =
+    fun fetchUserCommitSearchInfo(username: String): UserCommitSearchResponse =
         githubRestWebClient
             .get()
             .uri { uriBuilder ->
@@ -18,8 +18,7 @@ class GithubRestApi(
                     .queryParam("per_page", 1)
                     .build()
             }.retrieve()
-            .bodyToMono(UserCommitTotalCountResponse::class.java)
+            .bodyToMono(UserCommitSearchResponse::class.java)
             .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user commit count: $error") }
             .block()!!
-            .totalCount
 }

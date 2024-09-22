@@ -5,6 +5,7 @@ import com.doongjun.commitmon.infra.GithubRestApi
 import com.doongjun.commitmon.infra.data.FollowInfo
 import com.doongjun.commitmon.infra.data.FollowNode
 import com.doongjun.commitmon.infra.data.FollowPageInfo
+import com.doongjun.commitmon.infra.data.UserCommitSearchResponse
 import com.doongjun.commitmon.infra.data.UserFollowInfoResponse
 import com.doongjun.commitmon.infra.data.UserFollowersResponse
 import com.doongjun.commitmon.infra.data.UserFollowingResponse
@@ -29,19 +30,35 @@ class GithubServiceTest {
     private lateinit var githubGraphqlApi: GithubGraphqlApi
 
     @Test
-    fun getTotalCommitCount_Test() {
+    fun getUserCommitInfo_Test() {
         // given
         val username = "doongjun"
+        val githubId = 1L
         val commitCount = 10L
 
-        given(githubRestApi.fetchUserCommitTotalCount(username))
-            .willReturn(commitCount)
+        given(githubRestApi.fetchUserCommitSearchInfo(username))
+            .willReturn(
+                UserCommitSearchResponse(
+                    totalCount = commitCount,
+                    items =
+                        listOf(
+                            UserCommitSearchResponse.Item(
+                                author =
+                                    UserCommitSearchResponse.Item.Author(
+                                        id = githubId,
+                                        login = username,
+                                    ),
+                            ),
+                        ),
+                ),
+            )
 
         // when
-        val result = githubService.getTotalCommitCount(username)
+        val result = githubService.getUserCommitInfo(username)
 
         // then
-        assertThat(result).isEqualTo(commitCount)
+        assertThat(result.totalCommitCount).isEqualTo(commitCount)
+        assertThat(result.githubId).isEqualTo(githubId)
     }
 
     @Test
