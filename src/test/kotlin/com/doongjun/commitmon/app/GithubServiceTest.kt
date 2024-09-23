@@ -62,7 +62,7 @@ class GithubServiceTest {
     }
 
     @Test
-    fun getFollowInfo_Test() {
+    fun getUserFollowInfo_Test() {
         // given
         val username = "doongjun"
         val followerInfo =
@@ -105,7 +105,7 @@ class GithubServiceTest {
         given(githubGraphqlApi.fetchUserFollowInfo(username, 2))
             .willReturn(UserFollowInfoResponse.User(followerInfo, followingInfo))
 
-        val result = githubService.getFollowInfo(username, 2)
+        val result = githubService.getUserFollowInfo(username, 2)
 
         assertThat(result.followerGithubIds).containsExactly(1, 2)
         assertThat(result.followingGithubIds).containsExactly(1)
@@ -114,7 +114,7 @@ class GithubServiceTest {
     }
 
     @Test
-    fun getFollowInfo_Paged_Test() {
+    fun getUserFollowInfo_Paged_Test() {
         // given
         val username = "doongjun"
 
@@ -216,7 +216,7 @@ class GithubServiceTest {
                 ),
             )
 
-        val result = githubService.getFollowInfo(username, 1)
+        val result = githubService.getUserFollowInfo(username, 1)
 
         assertThat(result.followerGithubIds).containsExactly(1, 2, 3)
         assertThat(result.followingGithubIds).containsExactly(1, 4)

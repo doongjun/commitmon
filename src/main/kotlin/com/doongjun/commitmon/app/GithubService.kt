@@ -1,10 +1,11 @@
 package com.doongjun.commitmon.app
 
-import com.doongjun.commitmon.app.data.GetFollowInfoDto
 import com.doongjun.commitmon.app.data.GetUserCommitInfo
+import com.doongjun.commitmon.app.data.GetUserFollowInfoDto
 import com.doongjun.commitmon.infra.GithubGraphqlApi
 import com.doongjun.commitmon.infra.GithubRestApi
 import com.doongjun.commitmon.infra.data.FollowInfo
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 @Service
@@ -12,6 +13,7 @@ class GithubService(
     private val githubRestApi: GithubRestApi,
     private val githubGraphqlApi: GithubGraphqlApi,
 ) {
+    @Cacheable(value = ["userCommitInfo"], key = "#username")
     fun getUserCommitInfo(username: String): GetUserCommitInfo {
         val (totalCount, items) = githubRestApi.fetchUserCommitSearchInfo(username)
 
@@ -21,15 +23,16 @@ class GithubService(
         )
     }
 
-    fun getFollowInfo(
+    @Cacheable(value = ["userFollowInfo"], key = "#username")
+    fun getUserFollowInfo(
         username: String,
         pageSize: Int,
-    ): GetFollowInfoDto {
+    ): GetUserFollowInfoDto {
         val (followers, following) =
             githubGraphqlApi
                 .fetchUserFollowInfo(username, pageSize)
 
-        return GetFollowInfoDto(
+        return GetUserFollowInfoDto(
             followerGithubIds =
                 fetchAllIds(followers) { cursor ->
                     githubGraphqlApi
