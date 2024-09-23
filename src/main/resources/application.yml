@@ -13,6 +13,10 @@ spring:
         dialect: org.hibernate.dialect.MariaDBDialect
         show_sql: true
         format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 logging:
   level:
