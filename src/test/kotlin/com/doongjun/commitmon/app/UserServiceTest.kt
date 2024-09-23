@@ -1,6 +1,7 @@
 package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
+import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
 import com.doongjun.commitmon.domain.CommitmonLevel
 import com.doongjun.commitmon.domain.User
@@ -140,5 +141,26 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.PERFECT)
         assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
         assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
+    }
+
+    @Test
+    fun patch_Test() {
+        // given
+        val user = userRepository.save(User(1L, "doongjun"))
+        val dto =
+            PatchUserDto(
+                totalCommitCount = 10L,
+            )
+        clear()
+
+        // when
+        userService.patch(user.id, dto)
+        clear()
+
+        // then
+        val findUser = userRepository.findByIdOrNull(user.id)
+        assertThat(findUser?.name).isEqualTo(user.name)
+        assertThat(findUser?.githubId).isEqualTo(user.githubId)
+        assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
     }
 }

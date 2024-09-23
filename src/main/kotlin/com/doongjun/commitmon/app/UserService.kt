@@ -2,6 +2,7 @@ package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
+import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
 import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
@@ -21,6 +22,11 @@ class UserService(
     fun get(id: Long): GetUserDto =
         userRepository.findByIdOrNull(id)?.let { user -> GetUserDto.from(user) }
             ?: throw IllegalArgumentException("Failed to fetch user by id: $id")
+
+    @Transactional(readOnly = true)
+    fun getByGithubId(githubId: Long): GetUserDto =
+        userRepository.findByGithubId(githubId)?.let { user -> GetUserDto.from(user) }
+            ?: throw IllegalArgumentException("Failed to fetch user by githubId: $githubId")
 
     fun create(dto: CreateUserDto): Long {
         val user =
@@ -50,6 +56,27 @@ class UserService(
             totalCommitCount = dto.totalCommitCount,
             followers = followers,
             following = following,
+        )
+
+        userRepository.save(user)
+    }
+
+    fun patch(
+        id: Long,
+        dto: PatchUserDto,
+    ) {
+        val user =
+            userRepository.findByIdOrNull(id)
+                ?: throw IllegalArgumentException("Failed to fetch user by id: $id")
+
+        val followers = dto.followerGithubIds?.let { userRepository.findAllByGithubIdIn(it) }
+        val following = dto.followingGithubIds?.let { userRepository.findAllByGithubIdIn(it) }
+
+        user.update(
+            name = dto.name ?: user.name,
+            totalCommitCount = dto.totalCommitCount ?: user.totalCommitCount,
+            followers = followers ?: user.followers,
+            following = following ?: user.following,
         )
 
         userRepository.save(user)
