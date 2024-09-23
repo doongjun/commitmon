@@ -18,6 +18,7 @@ noArg {
     annotation("jakarta.persistence.Entity")
     annotation("jakarta.persistence.MappedSuperclass")
     annotation("jakarta.persistence.Embeddable")
+    annotations("com.doongjun.commitmon.core.NoArgs")
 }
 
 group = "com.doongjun"
