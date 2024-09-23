@@ -18,8 +18,6 @@ class User(
     val githubId: Long,
     name: String,
     totalCommitCount: Long = 0,
-    followers: List<User> = emptyList(),
-    following: List<User> = emptyList(),
 ) : BaseEntity() {
     @Column(name = "name", nullable = false)
     var name: String = name
@@ -35,11 +33,11 @@ class User(
         protected set
 
     @OneToMany(mappedBy = "follower", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
-    protected val mutableFollowers: MutableSet<Follow> = toFollowers(followers)
+    protected val mutableFollowers: MutableSet<Follow> = mutableSetOf()
     val followers: List<User> get() = mutableFollowers.map { it.following }
 
     @OneToMany(mappedBy = "following", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
-    protected val mutableFollowing: MutableSet<Follow> = toFollowing(following)
+    protected val mutableFollowing: MutableSet<Follow> = mutableSetOf()
     val following: List<User> get() = mutableFollowing.map { it.follower }
 
     val mutualFollowers: List<User> get() = following.filter { it in followers }

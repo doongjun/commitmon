@@ -41,8 +41,6 @@ class UserTest {
                 githubId = githubId,
                 name = name,
                 totalCommitCount = totalCommitCount,
-                followers = followers,
-                following = following,
             )
 
         // then
@@ -51,10 +49,40 @@ class UserTest {
         assertThat(user.name).isEqualTo(name)
         assertThat(user.totalCommitCount).isEqualTo(totalCommitCount)
         assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.EGG)
-        assertThat(user.followers).containsExactlyElementsOf(followers)
-        assertThat(user.following).containsExactlyElementsOf(following)
+        assertThat(user.followers).isEmpty()
+        assertThat(user.following).isEmpty()
         assertThat(user.createdDate).isNotNull()
         assertThat(user.lastModifiedDate).isNotNull()
+    }
+
+    @Test
+    fun update_ThenEmptyToNotEmptyFollow_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = totalCommitCount,
+            )
+
+        val updateName = "dongjunKim"
+        val updateTotalCommitCount = 200L
+
+        // when
+        user.update(
+            name = updateName,
+            totalCommitCount = updateTotalCommitCount,
+            followers = followers,
+            following = following,
+        )
+
+        // then
+        assertThat(user.id).isNotNull()
+        assertThat(user.name).isEqualTo(updateName)
+        assertThat(user.totalCommitCount).isEqualTo(updateTotalCommitCount)
+        assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.IN_TRAINING)
+        assertThat(user.followers).containsExactlyElementsOf(followers)
+        assertThat(user.following).containsExactlyElementsOf(following)
     }
 
     @Test
@@ -65,9 +93,13 @@ class UserTest {
                 githubId = githubId,
                 name = name,
                 totalCommitCount = totalCommitCount,
-                followers = followers,
-                following = following,
             )
+        user.update(
+            name = name,
+            totalCommitCount = totalCommitCount,
+            followers = followers,
+            following = following,
+        )
 
         val updateName = "dongjunKim"
         val updateTotalCommitCount = 200L
