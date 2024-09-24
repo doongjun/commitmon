@@ -1,6 +1,6 @@
 package com.doongjun.commitmon.core
 
-import java.util.concurrent.ThreadLocalRandom
+import java.util.concurrent.*
 
 class AdventureGenerator {
     companion object {
