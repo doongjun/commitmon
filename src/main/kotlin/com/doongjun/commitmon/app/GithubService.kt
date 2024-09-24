@@ -28,11 +28,12 @@ class GithubService(
         username: String,
         pageSize: Int,
     ): GetUserFollowInfoDto {
-        val (followers, following) =
+        val (databaseId, followers, following) =
             githubGraphqlApi
                 .fetchUserFollowInfo(username, pageSize)
 
         return GetUserFollowInfoDto(
+            userGithubId = databaseId,
             followerGithubIds =
                 fetchAllIds(followers) { cursor ->
                     githubGraphqlApi

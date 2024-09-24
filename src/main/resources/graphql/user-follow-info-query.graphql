@@ -3,6 +3,7 @@ query(
     $first: Int
 ) {
     user(login: $login) {
+        databaseId
         followers(first: $first) {
             pageInfo {
                 hasNextPage
