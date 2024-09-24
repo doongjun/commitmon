@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class CommitmonApplication
 
 fun main(args: Array<String>) {
-	runApplication<CommitmonApplication>(*args)
+    runApplication<CommitmonApplication>(*args)
 }
