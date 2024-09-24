@@ -27,7 +27,7 @@
         }
     </style>
     <image x="0" y="0" width="600" height="400" href="./map/sky.svg" />
-    <image x="0" y="100" width="600" height="300" href="./map/desert.svg" />
+    <image x="0" y="150" width="600" height="250" href="./map/desert.svg" />
     [(${templates})]
     <a href="https://github.com/doongjun/commitmon">
         <image x="75%" y="90%" width="130" height="25" href="./github-button.svg" />

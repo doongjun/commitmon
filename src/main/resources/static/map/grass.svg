@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="600" height="300">
-    <rect x="0" y="0" width="600" height="250" fill="#26de4a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" width="600" height="250">
+    <rect x="0" y="0" width="600" height="200" fill="#26de4a"/>
     <rect x="0" y="0" width="600" height="3" fill="#2fca46"/>
-    <svg x="0" y="250" height="50" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+    <svg x="0" y="200" height="50" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
         <path stroke="#26de4a" d="M0 0h3M6 0h1" />
         <path stroke="#25de4a" d="M3 0h3M11 0h1M13 0h1" />
         <path stroke="#27dd4a" d="M7 0h1M10 0h1" />
