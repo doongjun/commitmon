@@ -62,7 +62,7 @@ class AdventureFacade(
                         setVariable("motion", AdventureGenerator.generateMotion())
                         setVariable("y", AdventureGenerator.generateY(follower.commitmon.isFlying))
                         setVariable("username", follower.name)
-                        setVariable("exp", 70) //TODO: 수정 필요
+                        setVariable("exp", 70) // TODO: 수정 필요
                     },
                 )
             }
