@@ -1,6 +1,6 @@
 package com.doongjun.commitmon.core
 
-import java.util.concurrent.*
+import java.util.concurrent.ThreadLocalRandom
 
 class AdventureGenerator {
     companion object {
@@ -9,7 +9,6 @@ class AdventureGenerator {
         fun generateY(isFlying: Boolean): Int = if (isFlying) random.nextInt(5, 15) else random.nextInt(30, 80)
 
         fun generateMotion(): Motion {
-            println()
             val duration = random.nextInt(30, 180)
             val toRight = random.nextBoolean()
             val d = if (toRight) -1 else 1
