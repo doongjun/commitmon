@@ -4,6 +4,8 @@ import com.doongjun.commitmon.app.data.CreateUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
 import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.core.AdventureGenerator
+import com.doongjun.commitmon.event.UpdateUserFollowInfo
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 import org.thymeleaf.context.Context
 import org.thymeleaf.spring6.SpringTemplateEngine
@@ -13,31 +15,40 @@ class AdventureFacade(
     private val userService: UserService,
     private val githubService: GithubService,
     private val svgTemplateEngine: SpringTemplateEngine,
+    private val publisher: ApplicationEventPublisher,
 ) {
     fun getAnimation(username: String): String {
         val (githubId, totalCommitCount) = githubService.getUserCommitInfo(username)
 
-        return runCatching {
-            val user = userService.getByGithubId(githubId)
+        handleUserData(username, githubId, totalCommitCount)
+
+        return createAnimation(userService.getByGithubId(githubId))
+    }
+
+    private fun handleUserData(
+        username: String,
+        githubId: Long,
+        totalCommitCount: Long,
+    ) {
+        runCatching {
+            userService.getSimpleByGithubId(githubId)
+        }.onSuccess { user ->
             PatchUserDto(
                 name = username,
                 totalCommitCount = totalCommitCount,
             ).let { dto ->
                 userService.patch(user.id, dto)
             }
-            createAnimation(userService.get(user.id))
-        }.getOrElse { e ->
-            if (e is IllegalArgumentException) {
-                CreateUserDto(
-                    githubId = githubId,
-                    name = username,
-                    totalCommitCount = totalCommitCount,
-                ).let { dto ->
-                    createAnimation(userService.get(userService.create(dto)))
-                }
-            } else {
-                throw e
+        }.onFailure {
+            CreateUserDto(
+                githubId = githubId,
+                name = username,
+                totalCommitCount = totalCommitCount,
+            ).let { dto ->
+                userService.create(dto)
             }
+        }.also {
+            publisher.publishEvent(UpdateUserFollowInfo(username))
         }
     }
 
