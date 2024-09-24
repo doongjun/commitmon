@@ -1,6 +1,7 @@
 package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
+import com.doongjun.commitmon.app.data.GetSimpleUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
 import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
@@ -26,6 +27,11 @@ class UserService(
     @Transactional(readOnly = true)
     fun getByGithubId(githubId: Long): GetUserDto =
         userRepository.findByGithubId(githubId)?.let { user -> GetUserDto.from(user) }
+            ?: throw IllegalArgumentException("Failed to fetch user by githubId: $githubId")
+
+    @Transactional(readOnly = true)
+    fun getSimpleByGithubId(githubId: Long): GetSimpleUserDto =
+        userRepository.findByGithubId(githubId)?.let { user -> GetSimpleUserDto.from(user) }
             ?: throw IllegalArgumentException("Failed to fetch user by githubId: $githubId")
 
     fun create(dto: CreateUserDto): Long {

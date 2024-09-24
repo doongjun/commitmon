@@ -4,6 +4,7 @@ data class UserFollowInfoResponse(
     val user: User?,
 ) {
     data class User(
+        val databaseId: Long,
         val followers: FollowInfo,
         val following: FollowInfo,
     )

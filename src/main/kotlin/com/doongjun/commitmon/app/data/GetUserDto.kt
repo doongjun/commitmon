@@ -10,14 +10,14 @@ data class GetUserDto(
     val name: String,
     val totalCommitCount: Long,
     val commitmon: Commitmon,
-    val followers: List<SimpleUserDto>,
-    val following: List<SimpleUserDto>,
-    val mutualFollowers: List<SimpleUserDto>,
+    val followers: List<GetSimpleUserDto>,
+    val following: List<GetSimpleUserDto>,
+    val mutualFollowers: List<GetSimpleUserDto>,
     val createdDate: Instant,
     val lastModifiedDate: Instant,
 ) {
-    fun toSimple(): SimpleUserDto =
-        SimpleUserDto(
+    fun toSimple(): GetSimpleUserDto =
+        GetSimpleUserDto(
             id = id,
             githubId = githubId,
             name = name,
@@ -33,30 +33,11 @@ data class GetUserDto(
                 name = user.name,
                 totalCommitCount = user.totalCommitCount,
                 commitmon = user.commitmon,
-                followers = user.followers.map { SimpleUserDto.from(it) },
-                following = user.following.map { SimpleUserDto.from(it) },
-                mutualFollowers = user.mutualFollowers.map { SimpleUserDto.from(it) },
+                followers = user.followers.map { GetSimpleUserDto.from(it) },
+                following = user.following.map { GetSimpleUserDto.from(it) },
+                mutualFollowers = user.mutualFollowers.map { GetSimpleUserDto.from(it) },
                 createdDate = user.createdDate,
                 lastModifiedDate = user.lastModifiedDate,
             )
-    }
-
-    data class SimpleUserDto(
-        val id: Long,
-        val githubId: Long,
-        val name: String,
-        val totalCommitCount: Long,
-        val commitmon: Commitmon,
-    ) {
-        companion object {
-            fun from(user: User): SimpleUserDto =
-                SimpleUserDto(
-                    id = user.id,
-                    githubId = user.githubId,
-                    name = user.name,
-                    totalCommitCount = user.totalCommitCount,
-                    commitmon = user.commitmon,
-                )
-        }
     }
 }

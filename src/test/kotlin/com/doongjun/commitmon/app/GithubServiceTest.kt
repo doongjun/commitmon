@@ -11,22 +11,22 @@ import com.doongjun.commitmon.infra.data.UserFollowersResponse
 import com.doongjun.commitmon.infra.data.UserFollowingResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.mockito.BDDMockito.given
-import org.mockito.BDDMockito.times
-import org.mockito.BDDMockito.verify
-import org.springframework.beans.factory.annotation.Autowired
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 
 @SpringBootTest
 class GithubServiceTest {
-    @Autowired
+    @InjectMocks
     private lateinit var githubService: GithubService
 
-    @MockBean
+    @Mock
     private lateinit var githubRestApi: GithubRestApi
 
-    @MockBean
+    @Mock
     private lateinit var githubGraphqlApi: GithubGraphqlApi
 
     @Test
@@ -36,22 +36,21 @@ class GithubServiceTest {
         val githubId = 1L
         val commitCount = 10L
 
-        given(githubRestApi.fetchUserCommitSearchInfo(username))
-            .willReturn(
-                UserCommitSearchResponse(
-                    totalCount = commitCount,
-                    items =
-                        listOf(
-                            UserCommitSearchResponse.Item(
-                                author =
-                                    UserCommitSearchResponse.Item.Author(
-                                        id = githubId,
-                                        login = username,
-                                    ),
-                            ),
+        whenever(githubRestApi.fetchUserCommitSearchInfo(username)).then {
+            return@then UserCommitSearchResponse(
+                totalCount = commitCount,
+                items =
+                    listOf(
+                        UserCommitSearchResponse.Item(
+                            author =
+                                UserCommitSearchResponse.Item.Author(
+                                    id = githubId,
+                                    login = username,
+                                ),
                         ),
-                ),
+                    ),
             )
+        }
 
         // when
         val result = githubService.getUserCommitInfo(username)
@@ -59,6 +58,8 @@ class GithubServiceTest {
         // then
         assertThat(result.totalCommitCount).isEqualTo(commitCount)
         assertThat(result.githubId).isEqualTo(githubId)
+
+        verify(githubRestApi, times(1)).fetchUserCommitSearchInfo(username)
     }
 
     @Test
@@ -102,11 +103,13 @@ class GithubServiceTest {
                     ),
             )
 
-        given(githubGraphqlApi.fetchUserFollowInfo(username, 2))
-            .willReturn(UserFollowInfoResponse.User(followerInfo, followingInfo))
+        whenever(githubGraphqlApi.fetchUserFollowInfo(username, 2)).then {
+            return@then UserFollowInfoResponse.User(1L, followerInfo, followingInfo)
+        }
 
         val result = githubService.getUserFollowInfo(username, 2)
 
+        assertThat(result.userGithubId).isEqualTo(1)
         assertThat(result.followerGithubIds).containsExactly(1, 2)
         assertThat(result.followingGithubIds).containsExactly(1)
 
@@ -118,106 +121,107 @@ class GithubServiceTest {
         // given
         val username = "doongjun"
 
-        given(githubGraphqlApi.fetchUserFollowInfo(username, 1))
-            .willReturn(
-                UserFollowInfoResponse.User(
-                    followers =
-                        FollowInfo(
-                            totalCount = 3,
-                            pageInfo =
-                                FollowPageInfo(
-                                    hasNextPage = true,
-                                    endCursor = "follower-cursor-1",
-                                ),
-                            nodes =
-                                listOf(
-                                    FollowNode(
-                                        login = "follower1",
-                                        databaseId = 1,
-                                    ),
-                                ),
-                        ),
-                    following =
-                        FollowInfo(
-                            totalCount = 2,
-                            pageInfo =
-                                FollowPageInfo(
-                                    hasNextPage = true,
-                                    endCursor = "following-cursor-1",
-                                ),
-                            nodes =
-                                listOf(
-                                    FollowNode(
-                                        login = "following1",
-                                        databaseId = 1,
-                                    ),
-                                ),
-                        ),
-                ),
-            )
-        given(githubGraphqlApi.fetchUserFollowers(username, 1, "follower-cursor-1"))
-            .willReturn(
-                UserFollowersResponse.User(
+        whenever(githubGraphqlApi.fetchUserFollowInfo(username, 1)).then {
+            return@then UserFollowInfoResponse.User(
+                databaseId = 1,
+                followers =
                     FollowInfo(
                         totalCount = 3,
                         pageInfo =
                             FollowPageInfo(
                                 hasNextPage = true,
-                                endCursor = "follower-cursor-2",
+                                endCursor = "follower-cursor-1",
                             ),
                         nodes =
                             listOf(
                                 FollowNode(
-                                    login = "follower2",
-                                    databaseId = 2,
+                                    login = "follower1",
+                                    databaseId = 1,
                                 ),
                             ),
                     ),
-                ),
-            )
-        given(githubGraphqlApi.fetchUserFollowers(username, 1, "follower-cursor-2"))
-            .willReturn(
-                UserFollowersResponse.User(
-                    FollowInfo(
-                        totalCount = 3,
-                        pageInfo =
-                            FollowPageInfo(
-                                hasNextPage = false,
-                                endCursor = "follower-cursor-3",
-                            ),
-                        nodes =
-                            listOf(
-                                FollowNode(
-                                    login = "follower3",
-                                    databaseId = 3,
-                                ),
-                            ),
-                    ),
-                ),
-            )
-        given(githubGraphqlApi.fetchUserFollowing(username, 1, "following-cursor-1"))
-            .willReturn(
-                UserFollowingResponse.User(
+                following =
                     FollowInfo(
                         totalCount = 2,
                         pageInfo =
                             FollowPageInfo(
-                                hasNextPage = false,
-                                endCursor = "following-cursor-2",
+                                hasNextPage = true,
+                                endCursor = "following-cursor-1",
                             ),
                         nodes =
                             listOf(
                                 FollowNode(
-                                    login = "following2",
-                                    databaseId = 4,
+                                    login = "following1",
+                                    databaseId = 1,
                                 ),
                             ),
                     ),
+            )
+        }
+
+        whenever(githubGraphqlApi.fetchUserFollowers(username, 1, "follower-cursor-1")).then {
+            return@then UserFollowersResponse.User(
+                FollowInfo(
+                    totalCount = 3,
+                    pageInfo =
+                        FollowPageInfo(
+                            hasNextPage = true,
+                            endCursor = "follower-cursor-2",
+                        ),
+                    nodes =
+                        listOf(
+                            FollowNode(
+                                login = "follower2",
+                                databaseId = 2,
+                            ),
+                        ),
                 ),
             )
+        }
+
+        whenever(githubGraphqlApi.fetchUserFollowers(username, 1, "follower-cursor-2")).then {
+            UserFollowersResponse.User(
+                FollowInfo(
+                    totalCount = 3,
+                    pageInfo =
+                        FollowPageInfo(
+                            hasNextPage = false,
+                            endCursor = "follower-cursor-3",
+                        ),
+                    nodes =
+                        listOf(
+                            FollowNode(
+                                login = "follower3",
+                                databaseId = 3,
+                            ),
+                        ),
+                ),
+            )
+        }
+
+        whenever(githubGraphqlApi.fetchUserFollowing(username, 1, "following-cursor-1")).then {
+            return@then UserFollowingResponse.User(
+                FollowInfo(
+                    totalCount = 2,
+                    pageInfo =
+                        FollowPageInfo(
+                            hasNextPage = false,
+                            endCursor = "following-cursor-2",
+                        ),
+                    nodes =
+                        listOf(
+                            FollowNode(
+                                login = "following2",
+                                databaseId = 4,
+                            ),
+                        ),
+                ),
+            )
+        }
 
         val result = githubService.getUserFollowInfo(username, 1)
 
+        assertThat(result.userGithubId).isEqualTo(1)
         assertThat(result.followerGithubIds).containsExactly(1, 2, 3)
         assertThat(result.followingGithubIds).containsExactly(1, 4)
 
