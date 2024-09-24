@@ -16,10 +16,8 @@ import org.mockito.Mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-class GithubServiceTest {
+class GithubServiceTest : BaseAppTest() {
     @InjectMocks
     private lateinit var githubService: GithubService
 
