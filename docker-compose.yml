@@ -1,6 +1,6 @@
 services:
-  db:
-    image: mariadb
+  mariadb:
+    image: mariadb:11.5.2
     container_name: mariadb
     restart: always
     environment:
@@ -8,8 +8,8 @@ services:
       - MARIADB_DATABASE=commitmon
     ports:
       - 3306:3306
-  cache:
-    image: redis
+  redis:
+    image: redis:7.4.0
     container_name: redis
     restart: always
     ports:
