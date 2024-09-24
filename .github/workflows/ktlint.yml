@@ -1,14 +1,10 @@
-name: ktlint
-
-on:
-  pull_request:
-    branches:
-      - main
-
+name: reviewdog
+on: [pull_request]
 jobs:
   ktlint:
     name: Check Code Quality
     runs-on: ubuntu-latest
+
     steps:
       - name: Clone repo
         uses: actions/checkout@master
