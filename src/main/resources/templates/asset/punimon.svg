@@ -1,21 +1,23 @@
 <svg fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
     <a href="https://github.com/[[${username}]]">
         <g id="body-[[${id}]]">
-            <g id="frame1-[[${id}]]">
-                <path stroke="#000000"
-                      d="M6 3h6M18 3h12M6 4h6M18 4h12M6 5h6M18 5h12M3 6h3M12 6h6M21 6h3M30 6h3M3 7h3M12 7h6M21 7h3M30 7h3M3 8h3M12 8h6M21 8h3M30 8h3M3 9h3M9 9h12M30 9h3M3 10h3M9 10h12M30 10h3M3 11h3M9 11h12M30 11h3M6 12h3M27 12h3M6 13h3M27 13h3M6 14h3M27 14h3M3 15h3M21 15h3M30 15h3M3 16h3M21 16h3M30 16h3M3 17h3M21 17h3M30 17h3M3 18h6M18 18h6M30 18h3M3 19h6M18 19h6M30 19h3M3 20h6M18 20h6M30 20h3M3 21h3M30 21h3M3 22h3M30 22h3M3 23h3M30 23h3M6 24h3M27 24h3M6 25h3M27 25h3M6 26h3M27 26h3M9 27h18M9 28h18M9 29h18"/>
-                <path stroke="#ff2047"
-                      d="M6 6h6M18 6h3M24 6h6M6 7h6M18 7h3M24 7h6M6 8h6M18 8h3M24 8h6M6 9h3M21 9h9M6 10h3M21 10h9M6 11h3M21 11h9M9 12h18M9 13h18M9 14h18M9 15h9M24 15h6M9 16h9M24 16h6M9 17h9M24 17h6M9 18h9M24 18h6M9 19h9M24 19h6M9 20h9M24 20h6M6 21h24M6 22h24M6 23h24M9 24h18M9 25h18M9 26h18"/>
-                <path stroke="#ffffff" d="M6 15h3M18 15h3M6 16h3M18 16h3M6 17h3M18 17h3"/>
-            </g>
-            <g id="frame2-[[${id}]]">
-                <path stroke="#000000"
-                      d="M9 6h6M18 6h9M9 7h6M18 7h9M9 8h6M18 8h9M6 9h3M15 9h6M27 9h3M6 10h3M15 10h6M27 10h3M6 11h3M15 11h6M27 11h3M6 12h15M27 12h3M6 13h15M27 13h3M6 14h15M27 14h3M6 15h3M27 15h3M6 16h3M27 16h3M6 17h3M27 17h3M3 18h3M21 18h3M30 18h3M3 19h3M21 19h3M30 19h3M3 20h3M21 20h3M30 20h3M3 21h6M18 21h6M30 21h3M3 22h6M18 22h6M30 22h3M3 23h6M18 23h6M30 23h3M3 24h3M30 24h3M3 25h3M30 25h3M3 26h3M30 26h3M6 27h24M6 28h24M6 29h24"/>
-                <path stroke="#ff2047"
-                      d="M9 9h6M21 9h6M9 10h6M21 10h6M9 11h6M21 11h6M21 12h6M21 13h6M21 14h6M9 15h18M9 16h18M9 17h18M9 18h9M24 18h6M9 19h9M24 19h6M9 20h9M24 20h6M9 21h9M24 21h6M9 22h9M24 22h6M9 23h9M24 23h6M6 24h24M6 25h24M6 26h24"/>
-                <path stroke="#ffffff" d="M6 18h3M18 18h3M6 19h3M18 19h3M6 20h3M18 20h3"/>
-            </g>
-            <svg viewBox="0 0 100 30" width="100" height="30" x="0" y="-20">
+            <svg viewBox="0 0 100 100" width="100" height="100" x="32" y="40">
+                <g id="frame1-[[${id}]]">
+                    <path stroke="#000000"
+                          d="M6 3h6M18 3h12M6 4h6M18 4h12M6 5h6M18 5h12M3 6h3M12 6h6M21 6h3M30 6h3M3 7h3M12 7h6M21 7h3M30 7h3M3 8h3M12 8h6M21 8h3M30 8h3M3 9h3M9 9h12M30 9h3M3 10h3M9 10h12M30 10h3M3 11h3M9 11h12M30 11h3M6 12h3M27 12h3M6 13h3M27 13h3M6 14h3M27 14h3M3 15h3M21 15h3M30 15h3M3 16h3M21 16h3M30 16h3M3 17h3M21 17h3M30 17h3M3 18h6M18 18h6M30 18h3M3 19h6M18 19h6M30 19h3M3 20h6M18 20h6M30 20h3M3 21h3M30 21h3M3 22h3M30 22h3M3 23h3M30 23h3M6 24h3M27 24h3M6 25h3M27 25h3M6 26h3M27 26h3M9 27h18M9 28h18M9 29h18"/>
+                    <path stroke="#ff2047"
+                          d="M6 6h6M18 6h3M24 6h6M6 7h6M18 7h3M24 7h6M6 8h6M18 8h3M24 8h6M6 9h3M21 9h9M6 10h3M21 10h9M6 11h3M21 11h9M9 12h18M9 13h18M9 14h18M9 15h9M24 15h6M9 16h9M24 16h6M9 17h9M24 17h6M9 18h9M24 18h6M9 19h9M24 19h6M9 20h9M24 20h6M6 21h24M6 22h24M6 23h24M9 24h18M9 25h18M9 26h18"/>
+                    <path stroke="#ffffff" d="M6 15h3M18 15h3M6 16h3M18 16h3M6 17h3M18 17h3"/>
+                </g>
+                <g id="frame2-[[${id}]]">
+                    <path stroke="#000000"
+                          d="M9 6h6M18 6h9M9 7h6M18 7h9M9 8h6M18 8h9M6 9h3M15 9h6M27 9h3M6 10h3M15 10h6M27 10h3M6 11h3M15 11h6M27 11h3M6 12h15M27 12h3M6 13h15M27 13h3M6 14h15M27 14h3M6 15h3M27 15h3M6 16h3M27 16h3M6 17h3M27 17h3M3 18h3M21 18h3M30 18h3M3 19h3M21 19h3M30 19h3M3 20h3M21 20h3M30 20h3M3 21h6M18 21h6M30 21h3M3 22h6M18 22h6M30 22h3M3 23h6M18 23h6M30 23h3M3 24h3M30 24h3M3 25h3M30 25h3M3 26h3M30 26h3M6 27h24M6 28h24M6 29h24"/>
+                    <path stroke="#ff2047"
+                          d="M9 9h6M21 9h6M9 10h6M21 10h6M9 11h6M21 11h6M21 12h6M21 13h6M21 14h6M9 15h18M9 16h18M9 17h18M9 18h9M24 18h6M9 19h9M24 19h6M9 20h9M24 20h6M9 21h9M24 21h6M9 22h9M24 22h6M9 23h9M24 23h6M6 24h24M6 25h24M6 26h24"/>
+                    <path stroke="#ffffff" d="M6 18h3M18 18h3M6 19h3M18 19h3M6 20h3M18 20h3"/>
+                </g>
+            </svg>
+            <svg viewBox="0 0 100 30" width="100" height="30" x="0" y="0">
                 <g id="username-[[${id}]]">
                     <rect x="0" y="0" width="100" height="20" fill="black" fill-opacity="0.8" rx="5"/>
                     <svg x="4" y="2.5" width="15" height="15" viewBox="0 0 100 100">
