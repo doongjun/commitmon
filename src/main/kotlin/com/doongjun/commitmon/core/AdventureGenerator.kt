@@ -6,7 +6,7 @@ class AdventureGenerator {
     companion object {
         private val random = ThreadLocalRandom.current()
 
-        fun generateY(isFlying: Boolean): Int = if (isFlying) random.nextInt(5, 15) else random.nextInt(30, 80)
+        fun generateY(isFlying: Boolean): Int = if (isFlying) random.nextInt(5, 15) else random.nextInt(30, 70)
 
         fun generateMotion(): Motion {
             val duration = random.nextInt(30, 180)
