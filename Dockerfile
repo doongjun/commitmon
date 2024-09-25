@@ -1,4 +1,4 @@
-FROM arm64v8/openjdk:21
+FROM openjdk:22-jdk
 EXPOSE 8080
 ARG JAR_FILE=build/libs/*-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
