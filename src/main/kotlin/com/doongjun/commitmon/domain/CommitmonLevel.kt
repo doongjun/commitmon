@@ -10,8 +10,10 @@ enum class CommitmonLevel(
     ROOKIE(400, 3), // 성장기
     CHAMPION(800, 4), // 성숙기
     PERFECT(1600, 5), // 완전체
-    ULTIMATE(3200, 5), // 궁극체
+    ULTIMATE(3200, 6), // 궁극체
     ;
+
+    fun nextLevel(): CommitmonLevel = entries.firstOrNull { it.order == this.order + 1 } ?: this
 
     companion object {
         fun fromExp(exp: Long): CommitmonLevel = entries.last { exp >= it.exp }
