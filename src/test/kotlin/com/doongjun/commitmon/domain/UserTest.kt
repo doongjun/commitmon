@@ -132,4 +132,88 @@ class UserTest {
         assertThat(user.following).containsExactlyElementsOf(updateFollowing)
         assertThat(user.mutualFollowers).containsExactlyElementsOf(listOf(mutualFollower))
     }
+
+    @Test
+    fun exp_Then0_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = 800,
+            )
+
+        // then
+        assertThat(user.exp).isEqualTo(0)
+    }
+
+    @Test
+    fun exp_Then10_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = 10,
+            )
+
+        // then
+        assertThat(user.exp).isEqualTo(10)
+    }
+
+    @Test
+    fun exp_Then25_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = 250,
+            )
+
+        // then
+        assertThat(user.exp).isEqualTo(25)
+    }
+
+    @Test
+    fun exp_Then50_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = 1200,
+            )
+
+        // then
+        assertThat(user.exp).isEqualTo(50)
+    }
+
+    @Test
+    fun exp_Then99_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = 3199,
+            )
+
+        // then
+        assertThat(user.exp).isEqualTo(99)
+    }
+
+    @Test
+    fun exp_Then100_Test() {
+        // given
+        val user =
+            User(
+                githubId = githubId,
+                name = name,
+                totalCommitCount = 3500,
+            )
+
+        // then
+        assertThat(user.exp).isEqualTo(100)
+    }
 }

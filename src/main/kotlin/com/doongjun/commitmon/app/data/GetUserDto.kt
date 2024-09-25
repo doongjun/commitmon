@@ -10,6 +10,7 @@ data class GetUserDto(
     val name: String,
     val totalCommitCount: Long,
     val commitmon: Commitmon,
+    val exp: Int = 0,
     val followers: List<GetSimpleUserDto>,
     val following: List<GetSimpleUserDto>,
     val mutualFollowers: List<GetSimpleUserDto>,
@@ -23,6 +24,7 @@ data class GetUserDto(
             name = name,
             totalCommitCount = totalCommitCount,
             commitmon = commitmon,
+            exp = exp,
         )
 
     companion object {
@@ -33,6 +35,7 @@ data class GetUserDto(
                 name = user.name,
                 totalCommitCount = user.totalCommitCount,
                 commitmon = user.commitmon,
+                exp = user.exp,
                 followers = user.followers.map { GetSimpleUserDto.from(it) },
                 following = user.following.map { GetSimpleUserDto.from(it) },
                 mutualFollowers = user.mutualFollowers.map { GetSimpleUserDto.from(it) },

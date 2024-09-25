@@ -42,6 +42,15 @@ class User(
 
     val mutualFollowers: List<User> get() = following.filter { it in followers }
 
+    val exp: Int get() {
+        return if (commitmon.level == CommitmonLevel.ULTIMATE) {
+            100
+        } else {
+            ((this.totalCommitCount - commitmon.level.exp).toDouble() / (commitmon.level.nextLevel().exp - commitmon.level.exp) * 100)
+                .toInt()
+        }
+    }
+
     fun update(
         name: String,
         totalCommitCount: Long,
