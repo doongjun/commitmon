@@ -17,12 +17,18 @@ class AdventureFacade(
     private val svgTemplateEngine: SpringTemplateEngine,
     private val publisher: ApplicationEventPublisher,
 ) {
-    fun getAnimation(username: String): String {
+    fun getAnimation(
+        username: String,
+        theme: Theme?,
+    ): String {
         val (githubId, totalCommitCount) = githubService.getUserCommitInfo(username)
 
         handleUserData(username, githubId, totalCommitCount)
 
-        return createAnimation(userService.getByGithubId(githubId))
+        return createAnimation(
+            user = userService.getByGithubId(githubId),
+            theme = theme ?: Theme.DESERT,
+        )
     }
 
     private fun handleUserData(
@@ -52,7 +58,10 @@ class AdventureFacade(
         }
     }
 
-    private fun createAnimation(user: GetUserDto): String {
+    private fun createAnimation(
+        user: GetUserDto,
+        theme: Theme,
+    ): String {
         val templates =
             (user.mutualFollowers + user.toSimple()).joinToString { u ->
                 svgTemplateEngine.process(
@@ -71,6 +80,7 @@ class AdventureFacade(
             "adventure",
             Context().apply {
                 setVariable("templates", templates)
+                setVariable("theme", theme.assetName)
             },
         )
     }
