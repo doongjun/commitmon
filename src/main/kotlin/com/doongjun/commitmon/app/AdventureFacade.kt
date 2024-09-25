@@ -54,15 +54,15 @@ class AdventureFacade(
 
     private fun createAnimation(user: GetUserDto): String {
         val templates =
-            (user.mutualFollowers + user.toSimple()).joinToString { follower ->
+            (user.mutualFollowers + user.toSimple()).joinToString { u ->
                 svgTemplateEngine.process(
-                    "asset/${follower.commitmon.assetName}",
+                    "asset/${u.commitmon.assetName}",
                     Context().apply {
-                        setVariable("id", follower.id)
+                        setVariable("id", u.id)
                         setVariable("motion", AdventureGenerator.generateMotion())
-                        setVariable("y", AdventureGenerator.generateY(follower.commitmon.isFlying))
-                        setVariable("username", follower.name)
-                        setVariable("exp", 70) // TODO: 수정 필요
+                        setVariable("y", AdventureGenerator.generateY(u.commitmon.isFlying))
+                        setVariable("username", u.name)
+                        setVariable("exp", u.exp)
                     },
                 )
             }
