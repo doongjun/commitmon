@@ -9,7 +9,7 @@ enum class Commitmon(
     val nameKo: String,
     val isFlying: Boolean = false,
 ) {
-    EGG(CommitmonLevel.EGG, assetName = "Egg", nameKo = "알"),
+    EGG(CommitmonLevel.EGG, assetName = "egg", nameKo = "알"),
 
     BOTAMON(CommitmonLevel.BABY, listOf(EGG), assetName = "botamon", nameKo = "깜몬"),
     KOROMON(CommitmonLevel.IN_TRAINING, listOf(EGG, BOTAMON), assetName = "koromon", nameKo = "코로몬"),
