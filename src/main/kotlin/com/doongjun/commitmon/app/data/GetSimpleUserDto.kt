@@ -9,6 +9,7 @@ data class GetSimpleUserDto(
     val name: String,
     val totalCommitCount: Long,
     val commitmon: Commitmon,
+    val exp: Int = 0,
 ) {
     companion object {
         fun from(user: User): GetSimpleUserDto =
@@ -18,6 +19,7 @@ data class GetSimpleUserDto(
                 name = user.name,
                 totalCommitCount = user.totalCommitCount,
                 commitmon = user.commitmon,
+                exp = user.exp,
             )
     }
 }
