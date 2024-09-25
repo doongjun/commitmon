@@ -1,4 +1,4 @@
-FROM arm64v8/openjdk:21 AS TEMP_BUILD_IMAGE
+FROM openjdk:21-jdk AS TEMP_BUILD_IMAGE
 MAINTAINER doongjun.kim@gmail.com
 ENV APP_HOME=/app
 WORKDIR $APP_HOME
@@ -6,7 +6,7 @@ COPY . ./
 RUN microdnf install findutils
 RUN ./gradlew build -x test --stacktrace
 
-FROM arm64v8/openjdk:21
+FROM openjdk:21-jdk
 ENV ARTIFACT_NAME=commitmon-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/app
 WORKDIR $APP_HOME
