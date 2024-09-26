@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/commitmon
+    url: ${DB_URL}
     username: root
     password: root
     driver-class-name: org.mariadb.jdbc.Driver
