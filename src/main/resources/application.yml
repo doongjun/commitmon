@@ -15,7 +15,7 @@ spring:
         format_sql: true
   data:
     redis:
-      host: localhost
+      host: ${REDIS_HOST}
       port: 6379
 
 logging:
