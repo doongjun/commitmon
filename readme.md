@@ -12,7 +12,7 @@ Displays the <b>Commitmon</b> of friends who are following each other.
 
 [🌟Thank You For Your Star! 🌟](https://github.com/doongjun/commitmon/stargazers)
 
-![commitmon](https://commitmon.me/adventure?username=Cluster-Taek)
+<img alt="commitmon" src="https://commitmon.me/adventure?username=Cluster-Taek" width="600px" />
 
 </div>
 
@@ -32,7 +32,7 @@ https://commitmon.me/adventure?username=${username}&theme=${theme}
 Actually, you can use the image URL directly in the markdown file.
 
 ```markdown
-![commitmon](https://commitmon.me/adventure?username=${username}&theme=${theme})
+<img alt="commitmon" src="https://commitmon.me/adventure?username=Cluster-Taek" width="600px" />
 ```
 
 ## Tips
