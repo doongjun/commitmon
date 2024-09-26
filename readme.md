@@ -1,4 +1,4 @@
-# CommitMon Adventure
+# Commitmon Adventure
 
 <div align="center">
 
@@ -6,9 +6,9 @@
 
 <h3>Welcome to the Digital World: Growing with your Commit</h3>
 
-Get Your Own Digimon and Level Up With Your Skills!
+Get Your Own <b>Commitmon</b> and Level Up With Your Skills!
 
-Displays the Digimon of friends who are following each other.
+Displays the <b>Commitmon</b> of friends who are following each other.
 
 ##Insert gif or link to demo
 
