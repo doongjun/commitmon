@@ -50,7 +50,7 @@ The images are provided by <b>Pixel Monster</b>.
 https://play.google.com/store/apps/details?id=com.locbob.pixelmon&pcampaignid=web_share)
 [<img src="https://github.com/user-attachments/assets/1ac7910c-abec-4379-bd93-099a60293f1b" width="200px">](https://apps.apple.com/kr/app/%ED%94%BD%EC%85%80%EB%AA%AC%EC%8A%A4%ED%84%B0/id1507599537)
 
-<hr/>
+-------------------
 
 <div align="center">
 
