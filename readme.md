@@ -1,4 +1,4 @@
-# CommitMon
+# CommitMon Adventure
 
 <div align="center">
 
@@ -41,7 +41,6 @@ link blabla...
 
 and more....
 
-
 ## Image License Information
 
 The images are provided by <b>Pixel Monster</b>.
@@ -51,3 +50,13 @@ The images are provided by <b>Pixel Monster</b>.
 https://play.google.com/store/apps/details?id=com.locbob.pixelmon&pcampaignid=web_share)
 [<img src="https://github.com/user-attachments/assets/1ac7910c-abec-4379-bd93-099a60293f1b" width="200px">](https://apps.apple.com/kr/app/%ED%94%BD%EC%85%80%EB%AA%AC%EC%8A%A4%ED%84%B0/id1507599537)
 
+<hr/>
+
+<div align="center">
+
+If you have any ideas or discover a bug, please issue it or contribute.  
+We will do our best to make it better.
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fdoongjun%2Fcommitmon&count_bg=%23E4770A&title_bg=%23000000&icon=&icon_color=%23000000&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
+</div>
