@@ -10,21 +10,30 @@ Get Your Own <b>Commitmon</b> and Level Up With Your Skills!
 
 Displays the <b>Commitmon</b> of friends who are following each other.
 
-##Insert gif or link to demo
+[🌟Thank You For Your Star! 🌟](https://github.com/doongjun/commitmon/stargazers)
+
+![commitmon](https://commitmon.me/adventure?username=${username}&theme=${theme})
 
 </div>
 
 ## Getting Start
 
+#### Image URL
+
 ```shell
-link blabla...
+https://commitmon.me/adventure?username=${username}&theme=${theme}
 ```
 
-| Parameter  | Type     | Description                                                                | Default Value |
-|:-----------| :------- |:---------------------------------------------------------------------------|:--------------|
-| `username` | `string` | **Required**. Your Github Name                                             | -             |
-| `theme`    | `grassland` \| `desert`   | Theme Of CommitMon.                                                        | `grassland`   |
+| Parameter  | Type                    | Description                    | Default Value |
+|:-----------|:------------------------|:-------------------------------|:--------------|
+| `username` | `string`                | **Required**. Your Github Name | -             |
+| `theme`    | `grassland` \| `desert` | Theme Of CommitMon.            | `grassland`   |
 
+Actually, you can use the image URL directly in the markdown file.
+
+```markdown
+![commitmon](https://commitmon.me/adventure?username=${username}&theme=${theme})
+```
 
 ## Tips
 
@@ -45,7 +54,6 @@ and more....
 
 The images are provided by <b>Pixel Monster</b>.
 
-
 [<img src="https://github.com/user-attachments/assets/8c7aa482-73ba-4587-bf60-680923ee1cdc" width="200px">](
 https://play.google.com/store/apps/details?id=com.locbob.pixelmon&pcampaignid=web_share)
 [<img src="https://github.com/user-attachments/assets/1ac7910c-abec-4379-bd93-099a60293f1b" width="200px">](https://apps.apple.com/kr/app/%ED%94%BD%EC%85%80%EB%AA%AC%EC%8A%A4%ED%84%B0/id1507599537)
@@ -58,5 +66,6 @@ If you have any ideas or discover a bug, please issue it or contribute.
 We will do our best to make it better.
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fdoongjun%2Fcommitmon&count_bg=%23E4770A&title_bg=%23000000&icon=&icon_color=%23000000&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+![GitHub Repo stars](https://img.shields.io/github/stars/doongjun/commitmon?style=flat&labelColor=%23000000&color=%230a65af)
 
 </div>
