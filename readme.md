@@ -20,10 +20,16 @@ Displays the Digimon of friends who are following each other.
 link blabla...
 ```
 
+| Parameter  | Type     | Description                                                                | Default Value |
+|:-----------| :------- |:---------------------------------------------------------------------------|:--------------|
+| `username` | `string` | **Required**. Your Github Name                                             | -             |
+| `theme`    | `grassland` \| `desert`   | Theme Of CommitMon.                                                        | `grassland`   |
+
+
 ## Tips
 
-- The Digimon is generated and fixed when the image is first loaded.
-- The number of commits is updated periodically. If it's not reflected in real time, please wait a moment.
+- The Digimon is <u>generated and fixed when the image is first loaded.</u>
+- <u>The number of commits is updated periodically</u>. If it's not reflected in real time, please wait a moment.
 
 ## Digimon Encyclopedia
 
@@ -39,6 +45,7 @@ and more....
 ## Image License Information
 
 The images are provided by <b>Pixel Monster</b>.
+
 
 [<img src="https://github.com/user-attachments/assets/8c7aa482-73ba-4587-bf60-680923ee1cdc" width="200px">](
 https://play.google.com/store/apps/details?id=com.locbob.pixelmon&pcampaignid=web_share)
