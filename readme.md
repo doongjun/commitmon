@@ -32,7 +32,7 @@ https://commitmon.me/adventure?username=${username}&theme=${theme}
 Actually, you can use the image URL directly in the markdown file.
 
 ```markdown
-<img alt="commitmon" src="https://commitmon.me/adventure?username=Cluster-Taek" width="600px" />
+<img alt="commitmon" src="https://commitmon.me/adventure?username=${username}&theme=${theme}" width="600px" />
 ```
 
 ## Tips
