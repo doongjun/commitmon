@@ -1,4 +1,4 @@
-name: SpringBoot APP CI/CD
+name: SpringBoot APP CI
 on:
   push:
     branches: [ main ]
@@ -26,22 +26,3 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
-      - name: SSH into EC2 instance and deploy
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          env: |
-            AWS_REGISTRY_URL: ${{ secrets.AWS_REGISTRY_URL }}
-            AWS_REGION: ap-northeast-2
-          script: |
-            echo "AWS CLI version: $(aws --version)"
-            echo "Docker version: $(docker --version)"
-
-            echo "Logging in to ECR...."
-            aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_REGISTRY_URL}
-            echo "Logged in successful..."
-
-            echo "Running the container..."
-            docker-compose -f docker/docker-compose.yml up -d
