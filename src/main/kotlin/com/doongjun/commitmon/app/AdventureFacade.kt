@@ -6,9 +6,11 @@ import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.core.AdventureGenerator
 import com.doongjun.commitmon.event.UpdateUserFollowInfo
 import org.springframework.context.ApplicationEventPublisher
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import org.thymeleaf.context.Context
 import org.thymeleaf.spring6.SpringTemplateEngine
+import java.nio.charset.Charset
 
 @Component
 class AdventureFacade(
@@ -80,7 +82,18 @@ class AdventureFacade(
             "adventure",
             Context().apply {
                 setVariable("templates", templates)
-                setVariable("theme", theme.assetName)
+                setVariable(
+                    "theme",
+                    ClassPathResource(
+                        "static/theme/${theme.assetName}.svg",
+                    ).getContentAsString(Charset.defaultCharset()),
+                )
+                setVariable(
+                    "logo",
+                    ClassPathResource(
+                        "static/logo.svg",
+                    ).getContentAsString(Charset.defaultCharset()),
+                )
             },
         )
     }

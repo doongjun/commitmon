@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="https://static.wikia.nocookie.net/logopedia/images/8/85/DigimonAdventureLogo.png/revision/latest?cb=20231217234056" width="300px"/>
+<img alt="logo" src="https://static.wikia.nocookie.net/logopedia/images/8/85/DigimonAdventureLogo.png/revision/latest?cb=20231217234056" width="300px"/>
 
 <h3>Welcome to the Digital World: Growing with your Commit</h3>
 
@@ -27,7 +27,7 @@ https://commitmon.me/adventure?username=${username}&theme=${theme}
 | Parameter  | Type                    | Description                    | Default Value |
 |:-----------|:------------------------|:-------------------------------|:--------------|
 | `username` | `string`                | **Required**. Your Github Name | -             |
-| `theme`    | `grassland` \| `desert` | Theme Of CommitMon.            | `grassland`   |
+| `theme`    | `desert` \| `grassland` | Theme Of CommitMon.            | `desert`   |
 
 Actually, you can use the image URL directly in the markdown file.
 
