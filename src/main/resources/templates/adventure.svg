@@ -1,4 +1,5 @@
-<svg viewBox="0 0 600 400" width="600" height="400" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 600 400" width="600" height="400" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
     <style>
         @keyframes frameToggle {
         0%, 49.99% {
@@ -26,7 +27,7 @@
         }
         }
     </style>
-    <image x="0" y="150" width="600" height="250" href="https://commitmon.s3.ap-northeast-2.amazonaws.com/theme/[[${theme}]].svg"/>
+    <image x="0" y="150" width="600" height="250" xlink:href="https://commitmon.s3.ap-northeast-2.amazonaws.com/theme/[[${theme}]].svg"/>
     [(${templates})]
-    <image x="75%" y="90%" width="130" height="25" href="https://commitmon.s3.ap-northeast-2.amazonaws.com/github-button.svg"/>
+    <image x="75%" y="90%" width="130" height="25" xlink:href="https://commitmon.s3.ap-northeast-2.amazonaws.com/github-button.svg"/>
 </svg>
