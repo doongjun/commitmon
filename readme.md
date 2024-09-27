@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="https://static.wikia.nocookie.net/logopedia/images/8/85/DigimonAdventureLogo.png/revision/latest?cb=20231217234056" width="300px"/>
+<img alt="logo" src="https://static.wikia.nocookie.net/logopedia/images/8/85/DigimonAdventureLogo.png/revision/latest?cb=20231217234056" width="300px"/>
 
 <h3>Welcome to the Digital World: Growing with your Commit</h3>
 
