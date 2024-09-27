@@ -64,32 +64,35 @@ class AdventureFacade(
         user: GetUserDto,
         theme: Theme,
     ): String {
-        val templates = (user.mutualFollowers + user.toSimple()).joinToString { u ->
-            svgTemplateEngine.process(
-                "asset/${u.commitmon.assetName}",
-                Context().apply {
-                    setVariable("id", u.id)
-                    setVariable("motion", AdventureGenerator.generateMotion())
-                    setVariable("y", AdventureGenerator.generateY(u.commitmon.isFlying))
-                    setVariable("username", u.name)
-                    setVariable("exp", u.exp)
-                },
-            )
-        }
+        val templates =
+            (user.mutualFollowers + user.toSimple()).joinToString { u ->
+                svgTemplateEngine.process(
+                    "asset/${u.commitmon.assetName}",
+                    Context().apply {
+                        setVariable("id", u.id)
+                        setVariable("motion", AdventureGenerator.generateMotion())
+                        setVariable("y", AdventureGenerator.generateY(u.commitmon.isFlying))
+                        setVariable("username", u.name)
+                        setVariable("exp", u.exp)
+                    },
+                )
+            }
 
         return svgTemplateEngine.process(
             "adventure",
             Context().apply {
                 setVariable("templates", templates)
                 setVariable(
-                    "theme", ClassPathResource(
+                    "theme",
+                    ClassPathResource(
                         "static/theme/${theme.assetName}.svg",
-                    ).getContentAsString(Charset.defaultCharset())
+                    ).getContentAsString(Charset.defaultCharset()),
                 )
                 setVariable(
-                    "logo", ClassPathResource(
+                    "logo",
+                    ClassPathResource(
                         "static/logo.svg",
-                    ).getContentAsString(Charset.defaultCharset())
+                    ).getContentAsString(Charset.defaultCharset()),
                 )
             },
         )
