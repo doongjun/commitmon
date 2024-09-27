@@ -1,9 +1,9 @@
-name: Deploy to ECR
+name: SpringBoot APP CI/CD
 on:
   push:
     branches: [ main ]
 jobs:
-  build:
+  deploy:
     name: Build Image
     runs-on: ubuntu-latest
     steps:
@@ -12,8 +12,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
       - name: Login to Amazon ECR
         id: login-ecr
@@ -26,3 +26,22 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
+      - name: SSH into EC2 instance and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          env: |
+            AWS_REGISTRY_URL: ${{ secrets.AWS_REGISTRY_URL }}
+            AWS_REGION: ap-northeast-2
+          script: |
+            echo "AWS CLI version: $(aws --version)"
+            echo "Docker version: $(docker --version)"
+
+            echo "Logging in to ECR...."
+            aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_REGISTRY_URL}
+            echo "Logged in successful..."
+
+            echo "Running the container..."
+            docker-compose -f docker/docker-compose.yml up -d
