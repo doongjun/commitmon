@@ -12,7 +12,7 @@ Displays the <b>Commitmon</b> of friends who are following each other.
 
 [🌟Thank You For Your Star! 🌟](https://github.com/doongjun/commitmon/stargazers)
 
-<img alt="commitmon" src="https://commitmon.me/adventure?username=Cluster-Taek" width="600px" />
+<img alt="commitmon" src="https://commitmon.me/adventure?username=doongjun" width="600px" />
 
 </div>
 
