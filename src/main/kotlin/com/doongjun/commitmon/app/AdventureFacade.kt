@@ -88,12 +88,6 @@ class AdventureFacade(
                         "static/theme/${theme.assetName}.svg",
                     ).getContentAsString(Charset.defaultCharset()),
                 )
-                setVariable(
-                    "logo",
-                    ClassPathResource(
-                        "static/logo.svg",
-                    ).getContentAsString(Charset.defaultCharset()),
-                )
             },
         )
     }

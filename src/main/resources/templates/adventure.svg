@@ -30,7 +30,4 @@
         [(${theme})]
     </svg>
     [(${templates})]
-    <svg x="80%" y="5%" width="130" height="25">
-        [(${logo})]
-    </svg>
 </svg>
