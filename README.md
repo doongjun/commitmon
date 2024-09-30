@@ -29,7 +29,7 @@ https://commitmon.me/adventure?username=${username}&theme=${theme}
 | Parameter  | Type                    | Description                    | Default Value |
 |:-----------|:------------------------|:-------------------------------|:--------------|
 | `username` | `string`                | **Required**. Your Github Name | -             |
-| `theme`    | `desert` \| `grassland` | Theme Of CommitMon.            | `desert`      |
+| `theme`    | `grassland` \| `desert` | Theme Of CommitMon.            | `grassland`   |
 
 Actually, you can use the image URL directly in the markdown file.
 
