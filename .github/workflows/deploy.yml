@@ -29,8 +29,8 @@ jobs:
       - name: Deploy to Amazon EC2
         run: |
           aws deploy create-deployment \
-            --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} \
+            --application-name ${{ secrets.AWS_CODE_DEPLOY_APPLICATION }} \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} \
+            --deployment-group-name ${{ secrets.AWS_CODE_DEPLOY_GROUP }} \
             --description "Deploy commitmon" \
-            --s3-location bucket=${{ env.AWS_S3_BUCKET_NAME }}, key=${{ env.AWS_REVISION_S3_KEY }}, bundleType=tar
+            --s3-location bucket=${{ secrets.AWS_S3_BUCKET_NAME }}, key=${{ secrets.AWS_REVISION_S3_KEY }}, bundleType=tar
