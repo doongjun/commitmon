@@ -7,6 +7,7 @@ import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
 import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -24,6 +25,7 @@ class UserService(
         userRepository.findByIdOrNull(id)?.let { user -> GetUserDto.from(user) }
             ?: throw IllegalArgumentException("Failed to fetch user by id: $id")
 
+    @Cacheable(value = ["userInfo"], key = "#githubId")
     @Transactional(readOnly = true)
     fun getByGithubId(githubId: Long): GetUserDto =
         userRepository.findByGithubId(githubId)?.let { user -> GetUserDto.from(user) }
