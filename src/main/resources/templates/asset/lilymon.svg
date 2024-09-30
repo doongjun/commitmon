@@ -1,0 +1,162 @@
+<svg fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+    <a href="https://github.com/[[${username}]]">
+        <g id="body-[[${id}]]">
+            <svg viewBox="0 0 100 100" width="100" height="100" x="15" y="25">
+                <g id="standing-[[${id}]]">
+                    <g id="frame1-[[${id}]]">
+                        <path stroke="#000000"
+                              d="M36 0h6M36 1h6M36 2h6M33 3h3M42 3h3M33 4h3M42 4h3M33 5h3M42 5h3M33 6h6M42 6h3M33 7h6M42 7h3M33 8h6M42 8h3M27 9h9M39 9h3M27 10h9M39 10h3M27 11h9M39 11h3M21 12h6M33 12h12M21 13h6M33 13h12M21 14h6M33 14h12M15 15h9M33 15h3M42 15h3M54 15h9M15 16h9M33 16h3M42 16h3M54 16h9M15 17h9M33 17h3M42 17h3M54 17h9M15 18h6M36 18h3M42 18h3M48 18h6M60 18h3M15 19h6M36 19h3M42 19h3M48 19h6M60 19h3M15 20h6M36 20h3M42 20h3M48 20h6M60 20h3M18 21h3M36 21h3M42 21h6M57 21h3M18 22h3M36 22h3M42 22h6M57 22h3M18 23h3M36 23h3M42 23h6M57 23h3M18 24h3M36 24h3M45 24h3M57 24h3M18 25h3M36 25h3M45 25h3M57 25h3M18 26h3M36 26h3M45 26h3M57 26h3M18 27h6M33 27h6M45 27h3M54 27h3M18 28h6M33 28h6M45 28h3M54 28h3M18 29h6M33 29h6M45 29h3M54 29h3M18 30h18M42 30h3M51 30h3M18 31h18M42 31h3M51 31h3M18 32h18M42 32h3M51 32h3M21 33h6M36 33h6M45 33h6M21 34h6M36 34h6M45 34h6M21 35h6M36 35h6M45 35h6M24 36h9M42 36h3M24 37h9M42 37h3M24 38h9M42 38h3M21 39h6M36 39h3M45 39h6M21 40h6M36 40h3M45 40h6M21 41h6M36 41h3M45 41h6M15 42h6M24 42h3M36 42h6M48 42h6M15 43h6M24 43h3M36 43h6M48 43h6M15 44h6M24 44h3M36 44h6M48 44h6M15 45h3M21 45h3M39 45h6M48 45h3M54 45h3M15 46h3M21 46h3M39 46h6M48 46h3M54 46h3M15 47h3M21 47h3M39 47h6M48 47h3M54 47h3M18 48h9M33 48h3M39 48h9M54 48h3M18 49h9M33 49h3M39 49h9M54 49h3M18 50h9M33 50h3M39 50h9M54 50h3M21 51h3M27 51h6M36 51h6M48 51h3M57 51h3M21 52h3M27 52h6M36 52h6M48 52h3M57 52h3M21 53h3M27 53h6M36 53h6M48 53h3M57 53h3M21 54h3M27 54h6M39 54h3M51 54h9M21 55h3M27 55h6M39 55h3M51 55h9M21 56h3M27 56h6M39 56h3M51 56h9M18 57h3M24 57h6M33 57h6M42 57h3M18 58h3M24 58h6M33 58h6M42 58h3M18 59h3M24 59h6M33 59h6M42 59h3M15 60h3M27 60h3M33 60h3M45 60h3M15 61h3M27 61h3M33 61h3M45 61h3M15 62h3M27 62h3M33 62h3M45 62h3M15 63h15M33 63h15M15 64h15M33 64h15M15 65h15M33 65h15"/>
+                        <path stroke="#ffff00"
+                              d="M36 3h6M36 4h6M36 5h6M39 6h3M39 7h3M39 8h3M36 9h3M36 10h3M36 11h3M45 42h3M45 43h3M45 44h3M18 45h3M45 45h3M18 46h3M45 46h3M18 47h3M45 47h3M18 60h3M39 60h6M18 61h3M39 61h6M18 62h3M39 62h6"/>
+                        <path stroke="#ffc1d2"
+                              d="M27 12h6M27 13h6M27 14h6M24 15h3M30 15h3M36 15h6M24 16h3M30 16h3M36 16h6M24 17h3M30 17h3M36 17h6M39 18h3M39 19h3M39 20h3M27 39h6M27 40h6M27 41h6M27 42h3M33 42h3M27 43h3M33 43h3M27 44h3M33 44h3M27 45h3M33 45h3M27 46h3M33 46h3M27 47h3M33 47h3"/>
+                        <path stroke="#ff6f96"
+                              d="M27 15h3M27 16h3M27 17h3M21 18h15M21 19h15M21 20h15M21 21h15M39 21h3M21 22h15M39 22h3M21 23h15M39 23h3M21 24h15M39 24h6M21 25h15M39 25h6M21 26h15M39 26h6M24 27h9M39 27h6M24 28h9M39 28h6M24 29h9M39 29h6M36 30h6M36 31h6M36 32h6M24 45h3M30 45h3M36 45h3M24 46h3M30 46h3M36 46h3M24 47h3M30 47h3M36 47h3M27 48h6M36 48h3M27 49h6M36 49h3M27 50h6M36 50h3"/>
+                        <path stroke="#288a1e"
+                              d="M54 18h6M54 19h6M54 20h6M48 21h9M48 22h9M48 23h9M48 24h9M48 25h9M48 26h9M48 27h6M48 28h6M48 29h6M45 30h6M45 31h6M45 32h6M42 33h3M42 34h3M42 35h3M51 45h3M51 46h3M51 47h3M48 48h6M48 49h6M48 50h6M51 51h6M51 52h6M51 53h6"/>
+                        <path stroke="#ffefdd"
+                              d="M27 33h9M27 34h9M27 35h9M36 36h6M36 37h6M36 38h6M39 39h3M39 40h3M39 41h3M24 51h3M33 51h3M24 52h3M33 52h3M24 53h3M33 53h3M24 54h3M33 54h6M24 55h3M33 55h6M24 56h3M33 56h6"/>
+                        <path stroke="#3acc2b"
+                              d="M33 36h3M33 37h3M33 38h3M33 39h3M42 39h3M33 40h3M42 40h3M33 41h3M42 41h3M21 42h3M30 42h3M42 42h3M21 43h3M30 43h3M42 43h3M21 44h3M30 44h3M42 44h3M21 57h3M39 57h3M21 58h3M39 58h3M21 59h3M39 59h3M21 60h6M36 60h3M21 61h6M36 61h3M21 62h6M36 62h3"/>
+                    </g>
+                    <g id="frame2-[[${id}]]">
+                        <path stroke="#000000"
+                              d="M36 3h6M36 4h6M36 5h6M33 6h3M42 6h3M33 7h3M42 7h3M33 8h3M42 8h3M33 9h6M42 9h3M33 10h6M42 10h3M33 11h6M42 11h3M27 12h9M39 12h3M27 13h9M39 13h3M27 14h9M39 14h3M21 15h6M33 15h12M21 16h6M33 16h12M21 17h6M33 17h12M18 18h6M33 18h3M42 18h3M51 18h9M18 19h6M33 19h3M42 19h3M51 19h9M18 20h6M33 20h3M42 20h3M51 20h9M18 21h3M36 21h3M42 21h9M57 21h3M18 22h3M36 22h3M42 22h9M57 22h3M18 23h3M36 23h3M42 23h9M57 23h3M18 24h3M36 24h3M42 24h6M54 24h3M18 25h3M36 25h3M42 25h6M54 25h3M18 26h3M36 26h3M42 26h6M54 26h3M18 27h3M36 27h3M45 27h3M54 27h3M18 28h3M36 28h3M45 28h3M54 28h3M18 29h3M36 29h3M45 29h3M54 29h3M18 30h6M33 30h6M45 30h3M51 30h3M18 31h6M33 31h6M45 31h3M51 31h3M18 32h6M33 32h6M45 32h3M51 32h3M18 33h18M42 33h3M48 33h3M18 34h18M42 34h3M48 34h3M18 35h18M42 35h3M48 35h3M21 36h6M36 36h12M21 37h6M36 37h12M21 38h6M36 38h12M24 39h9M42 39h3M24 40h9M42 40h3M24 41h9M42 41h3M21 42h6M36 42h3M45 42h6M21 43h6M36 43h3M45 43h6M21 44h6M36 44h3M45 44h6M15 45h6M24 45h3M36 45h6M48 45h3M15 46h6M24 46h3M36 46h6M48 46h3M15 47h6M24 47h3M36 47h6M48 47h3M15 48h3M21 48h3M39 48h6M48 48h6M15 49h3M21 49h3M39 49h6M48 49h6M15 50h3M21 50h3M39 50h6M48 50h6M18 51h9M33 51h3M39 51h9M51 51h3M18 52h9M33 52h3M39 52h9M51 52h3M18 53h9M33 53h3M39 53h9M51 53h3M21 54h3M27 54h6M36 54h6M45 54h3M54 54h3M21 55h3M27 55h6M36 55h6M45 55h3M54 55h3M21 56h3M27 56h6M36 56h6M45 56h3M54 56h3M18 57h3M24 57h6M33 57h6M42 57h3M48 57h9M18 58h3M24 58h6M33 58h6M42 58h3M48 58h9M18 59h3M24 59h6M33 59h6M42 59h3M48 59h9M15 60h3M27 60h3M33 60h3M45 60h3M15 61h3M27 61h3M33 61h3M45 61h3M15 62h3M27 62h3M33 62h3M45 62h3M15 63h15M33 63h15M15 64h15M33 64h15M15 65h15M33 65h15"/>
+                        <path stroke="#ffff00"
+                              d="M36 6h6M36 7h6M36 8h6M39 9h3M39 10h3M39 11h3M36 12h3M36 13h3M36 14h3M45 45h3M45 46h3M45 47h3M18 48h3M45 48h3M18 49h3M45 49h3M18 50h3M45 50h3M18 60h3M39 60h6M18 61h3M39 61h6M18 62h3M39 62h6"/>
+                        <path stroke="#ffc1d2"
+                              d="M27 15h6M27 16h6M27 17h6M24 18h3M30 18h3M36 18h6M24 19h3M30 19h3M36 19h6M24 20h3M30 20h3M36 20h6M39 21h3M39 22h3M39 23h3M27 42h6M27 43h6M27 44h6M27 45h3M33 45h3M27 46h3M33 46h3M27 47h3M33 47h3M27 48h3M33 48h3M27 49h3M33 49h3M27 50h3M33 50h3"/>
+                        <path stroke="#ff6f96"
+                              d="M27 18h3M27 19h3M27 20h3M21 21h15M21 22h15M21 23h15M21 24h15M39 24h3M21 25h15M39 25h3M21 26h15M39 26h3M21 27h15M39 27h6M21 28h15M39 28h6M21 29h15M39 29h6M24 30h9M39 30h6M24 31h9M39 31h6M24 32h9M39 32h6M36 33h6M36 34h6M36 35h6M24 48h3M30 48h3M36 48h3M24 49h3M30 49h3M36 49h3M24 50h3M30 50h3M36 50h3M27 51h6M36 51h3M27 52h6M36 52h3M27 53h6M36 53h3"/>
+                        <path stroke="#288a1e"
+                              d="M51 21h6M51 22h6M51 23h6M48 24h6M48 25h6M48 26h6M48 27h6M48 28h6M48 29h6M48 30h3M48 31h3M48 32h3M45 33h3M45 34h3M45 35h3M48 51h3M48 52h3M48 53h3M48 54h6M48 55h6M48 56h6"/>
+                        <path stroke="#ffefdd"
+                              d="M27 36h9M27 37h9M27 38h9M36 39h6M36 40h6M36 41h6M39 42h3M39 43h3M39 44h3M24 54h3M33 54h3M24 55h3M33 55h3M24 56h3M33 56h3"/>
+                        <path stroke="#3acc2b"
+                              d="M33 39h3M33 40h3M33 41h3M33 42h3M42 42h3M33 43h3M42 43h3M33 44h3M42 44h3M21 45h3M30 45h3M42 45h3M21 46h3M30 46h3M42 46h3M21 47h3M30 47h3M42 47h3M21 57h3M39 57h3M21 58h3M39 58h3M21 59h3M39 59h3M21 60h6M36 60h3M21 61h6M36 61h3M21 62h6M36 62h3"/>
+                    </g>
+                </g>
+                <g id="walking-[[${id}]]">
+                    <g id="frame3-[[${id}]]">
+                        <path stroke="#000000"
+                              d="M36 3h6M36 4h6M36 5h6M33 6h3M42 6h3M33 7h3M42 7h3M33 8h3M42 8h3M33 9h6M42 9h3M33 10h6M42 10h3M33 11h6M42 11h3M27 12h9M39 12h3M27 13h9M39 13h3M27 14h9M39 14h3M21 15h6M33 15h12M21 16h6M33 16h12M21 17h6M33 17h12M18 18h6M33 18h3M42 18h3M51 18h9M18 19h6M33 19h3M42 19h3M51 19h9M18 20h6M33 20h3M42 20h3M51 20h9M18 21h3M36 21h3M42 21h9M57 21h3M18 22h3M36 22h3M42 22h9M57 22h3M18 23h3M36 23h3M42 23h9M57 23h3M18 24h3M36 24h3M42 24h6M54 24h3M18 25h3M36 25h3M42 25h6M54 25h3M18 26h3M36 26h3M42 26h6M54 26h3M18 27h3M36 27h3M45 27h3M54 27h3M18 28h3M36 28h3M45 28h3M54 28h3M18 29h3M36 29h3M45 29h3M54 29h3M18 30h6M33 30h6M45 30h3M51 30h3M18 31h6M33 31h6M45 31h3M51 31h3M18 32h6M33 32h6M45 32h3M51 32h3M18 33h18M42 33h3M48 33h3M18 34h18M42 34h3M48 34h3M18 35h18M42 35h3M48 35h3M21 36h6M36 36h12M21 37h6M36 37h12M21 38h6M36 38h12M24 39h9M42 39h3M24 40h9M42 40h3M24 41h9M42 41h3M21 42h6M36 42h3M45 42h6M21 43h6M36 43h3M45 43h6M21 44h6M36 44h3M45 44h6M15 45h6M24 45h3M36 45h6M48 45h3M15 46h6M24 46h3M36 46h6M48 46h3M15 47h6M24 47h3M36 47h6M48 47h3M15 48h3M21 48h3M39 48h6M48 48h6M15 49h3M21 49h3M39 49h6M48 49h6M15 50h3M21 50h3M39 50h6M48 50h6M18 51h9M33 51h15M51 51h3M18 52h9M33 52h15M51 52h3M18 53h9M33 53h15M51 53h3M24 54h12M39 54h3M45 54h3M54 54h3M24 55h12M39 55h3M45 55h3M54 55h3M24 56h12M39 56h3M45 56h3M54 56h3M21 57h3M27 57h6M42 57h3M48 57h9M21 58h3M27 58h6M42 58h3M48 58h9M21 59h3M27 59h6M42 59h3M48 59h9M18 60h3M30 60h15M18 61h3M30 61h15M18 62h3M30 62h15M18 63h15M18 64h15M18 65h15"/>
+                        <path stroke="#ffff00"
+                              d="M36 6h6M36 7h6M36 8h6M39 9h3M39 10h3M39 11h3M36 12h3M36 13h3M36 14h3M45 45h3M45 46h3M45 47h3M18 48h3M45 48h3M18 49h3M45 49h3M18 50h3M45 50h3M36 57h6M36 58h6M36 59h6M21 60h3M21 61h3M21 62h3"/>
+                        <path stroke="#ffc1d2"
+                              d="M27 15h6M27 16h6M27 17h6M24 18h3M30 18h3M36 18h6M24 19h3M30 19h3M36 19h6M24 20h3M30 20h3M36 20h6M39 21h3M39 22h3M39 23h3M27 42h6M27 43h6M27 44h6M27 45h3M33 45h3M27 46h3M33 46h3M27 47h3M33 47h3M27 48h3M33 48h3M27 49h3M33 49h3M27 50h3M33 50h3"/>
+                        <path stroke="#ff6f96"
+                              d="M27 18h3M27 19h3M27 20h3M21 21h15M21 22h15M21 23h15M21 24h15M39 24h3M21 25h15M39 25h3M21 26h15M39 26h3M21 27h15M39 27h6M21 28h15M39 28h6M21 29h15M39 29h6M24 30h9M39 30h6M24 31h9M39 31h6M24 32h9M39 32h6M36 33h6M36 34h6M36 35h6M24 48h3M30 48h3M36 48h3M24 49h3M30 49h3M36 49h3M24 50h3M30 50h3M36 50h3M27 51h6M27 52h6M27 53h6"/>
+                        <path stroke="#288a1e"
+                              d="M51 21h6M51 22h6M51 23h6M48 24h6M48 25h6M48 26h6M48 27h6M48 28h6M48 29h6M48 30h3M48 31h3M48 32h3M45 33h3M45 34h3M45 35h3M48 51h3M48 52h3M48 53h3M48 54h6M48 55h6M48 56h6"/>
+                        <path stroke="#ffefdd"
+                              d="M27 36h9M27 37h9M27 38h9M36 39h6M36 40h6M36 41h6M39 42h3M39 43h3M39 44h3"/>
+                        <path stroke="#3acc2b"
+                              d="M33 39h3M33 40h3M33 41h3M33 42h3M42 42h3M33 43h3M42 43h3M33 44h3M42 44h3M21 45h3M30 45h3M42 45h3M21 46h3M30 46h3M42 46h3M21 47h3M30 47h3M42 47h3M36 54h3M36 55h3M36 56h3M24 57h3M33 57h3M24 58h3M33 58h3M24 59h3M33 59h3M24 60h6M24 61h6M24 62h6"/>
+                    </g>
+                    <g id="frame4-[[${id}]]">
+                        <path stroke="#000000"
+                              d="M36 0h6M36 1h6M36 2h6M33 3h3M42 3h3M33 4h3M42 4h3M33 5h3M42 5h3M33 6h6M42 6h3M33 7h6M42 7h3M33 8h6M42 8h3M27 9h9M39 9h3M27 10h9M39 10h3M27 11h9M39 11h3M21 12h6M33 12h12M21 13h6M33 13h12M21 14h6M33 14h12M15 15h9M33 15h3M42 15h3M54 15h9M15 16h9M33 16h3M42 16h3M54 16h9M15 17h9M33 17h3M42 17h3M54 17h9M15 18h6M36 18h3M42 18h3M48 18h6M60 18h3M15 19h6M36 19h3M42 19h3M48 19h6M60 19h3M15 20h6M36 20h3M42 20h3M48 20h6M60 20h3M18 21h3M36 21h3M42 21h6M57 21h3M18 22h3M36 22h3M42 22h6M57 22h3M18 23h3M36 23h3M42 23h6M57 23h3M18 24h3M36 24h3M45 24h3M57 24h3M18 25h3M36 25h3M45 25h3M57 25h3M18 26h3M36 26h3M45 26h3M57 26h3M18 27h6M33 27h6M45 27h3M54 27h3M18 28h6M33 28h6M45 28h3M54 28h3M18 29h6M33 29h6M45 29h3M54 29h3M18 30h18M42 30h3M51 30h3M18 31h18M42 31h3M51 31h3M18 32h18M42 32h3M51 32h3M21 33h6M36 33h6M45 33h6M21 34h6M36 34h6M45 34h6M21 35h6M36 35h6M45 35h6M24 36h9M39 36h6M24 37h9M39 37h6M24 38h9M39 38h6M24 39h3M36 39h3M42 39h9M24 40h3M36 40h3M42 40h9M24 41h3M36 41h3M42 41h9M18 42h9M36 42h3M45 42h3M51 42h3M18 43h9M36 43h3M45 43h3M51 43h3M18 44h9M36 44h3M45 44h3M51 44h3M18 45h6M39 45h3M45 45h3M54 45h3M18 46h6M39 46h3M45 46h3M54 46h3M18 47h6M39 47h3M45 47h3M54 47h3M21 48h6M33 48h3M39 48h9M54 48h3M21 49h6M33 49h3M39 49h9M54 49h3M21 50h6M33 50h3M39 50h9M54 50h3M21 51h3M27 51h6M36 51h6M48 51h3M57 51h3M21 52h3M27 52h6M36 52h6M48 52h3M57 52h3M21 53h3M27 53h6M36 53h6M48 53h3M57 53h3M18 54h3M24 54h9M39 54h3M51 54h9M18 55h3M24 55h9M39 55h3M51 55h9M18 56h3M24 56h9M39 56h3M51 56h9M15 57h3M27 57h3M33 57h6M42 57h3M15 58h3M27 58h3M33 58h6M42 58h3M15 59h3M27 59h3M33 59h6M42 59h3M15 60h15M33 60h3M45 60h3M15 61h15M33 61h3M45 61h3M15 62h15M33 62h3M45 62h3M33 63h15M33 64h15M33 65h15"/>
+                        <path stroke="#ffff00"
+                              d="M36 3h6M36 4h6M36 5h6M39 6h3M39 7h3M39 8h3M36 9h3M36 10h3M36 11h3M42 42h3M42 43h3M42 44h3M42 45h3M42 46h3M42 47h3M18 57h3M18 58h3M18 59h3M39 60h6M39 61h6M39 62h6"/>
+                        <path stroke="#ffc1d2"
+                              d="M27 12h6M27 13h6M27 14h6M24 15h3M30 15h3M36 15h6M24 16h3M30 16h3M36 16h6M24 17h3M30 17h3M36 17h6M39 18h3M39 19h3M39 20h3M27 39h6M27 40h6M27 41h6M27 42h3M33 42h3M27 43h3M33 43h3M27 44h3M33 44h3M27 45h3M33 45h3M27 46h3M33 46h3M27 47h3M33 47h3"/>
+                        <path stroke="#ff6f96"
+                              d="M27 15h3M27 16h3M27 17h3M21 18h15M21 19h15M21 20h15M21 21h15M39 21h3M21 22h15M39 22h3M21 23h15M39 23h3M21 24h15M39 24h6M21 25h15M39 25h6M21 26h15M39 26h6M24 27h9M39 27h6M24 28h9M39 28h6M24 29h9M39 29h6M36 30h6M36 31h6M36 32h6M24 45h3M30 45h3M36 45h3M24 46h3M30 46h3M36 46h3M24 47h3M30 47h3M36 47h3M27 48h6M36 48h3M27 49h6M36 49h3M27 50h6M36 50h3"/>
+                        <path stroke="#288a1e"
+                              d="M54 18h6M54 19h6M54 20h6M48 21h9M48 22h9M48 23h9M48 24h9M48 25h9M48 26h9M48 27h6M48 28h6M48 29h6M45 30h6M45 31h6M45 32h6M42 33h3M42 34h3M42 35h3M48 42h3M48 43h3M48 44h3M48 45h6M48 46h6M48 47h6M48 48h6M48 49h6M48 50h6M51 51h6M51 52h6M51 53h6"/>
+                        <path stroke="#ffefdd"
+                              d="M27 33h9M27 34h9M27 35h9M36 36h3M36 37h3M36 38h3M24 51h3M33 51h3M24 52h3M33 52h3M24 53h3M33 53h3M33 54h6M33 55h6M33 56h6"/>
+                        <path stroke="#3acc2b"
+                              d="M33 36h3M33 37h3M33 38h3M33 39h3M39 39h3M33 40h3M39 40h3M33 41h3M39 41h3M30 42h3M39 42h3M30 43h3M39 43h3M30 44h3M39 44h3M21 54h3M21 55h3M21 56h3M21 57h6M39 57h3M21 58h6M39 58h3M21 59h6M39 59h3M36 60h3M36 61h3M36 62h3"/>
+                    </g>
+                </g>
+            </svg>
+            <svg viewBox="0 0 100 30" width="100" height="30" x="0" y="0">
+                <g id="username-[[${id}]]">
+                    <rect x="0" y="0" width="100" height="20" fill="black" fill-opacity="0.8" rx="5"/>
+                    <svg x="4" y="2.5" width="15" height="15" viewBox="0 0 100 100">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+                              fill="#fff"/>
+                    </svg>
+                    <text x="25" y="11" dominant-baseline="middle" style="fill:white" font-size="13">
+                        [[${#strings.abbreviate(username, 12)}]]
+                    </text>
+                    <rect x="0" y="23" width="[[${exp}]]" height="2" fill="#48ff00" rx="1"/>
+                </g>
+            </svg>
+        </g>
+    </a>
+    <style>
+        #frame1-[[${id}]] {
+        animation: 1s frameToggle infinite;
+        }
+        #frame2-[[${id}]] {
+        animation: 1s frameToggle infinite reverse;
+        }
+        #frame3-[[${id}]] {
+        animation: 1s frameToggle infinite;
+        }
+        #frame4-[[${id}]] {
+        animation: 1s frameToggle infinite reverse;
+        }
+        #standing-[[${id}]] {
+        animation: standingToggle [[${motion.duration}]]s infinite;
+        }
+        #walking-[[${id}]] {
+        animation: walkingToggle [[${motion.duration}]]s infinite;
+        }
+        #body-[[${id}]] {
+        animation: move-body-[[${id}]] [[${motion.duration}]]s infinite;
+        }
+        #username-[[${id}]] {
+        animation: move-username-[[${id}]] [[${motion.duration}]]s infinite;
+        }
+        @keyframes move-body-[[${id}]] {
+        0%, 10% {
+        transform: translate([[${motion.positions[0].x}]]%, [[${y}]]%) scaleX([[${motion.positions[0].direction}]]);
+        }
+        20%, 30% {
+        transform: translate([[${motion.positions[1].x}]]%, [[${y}]]%) scaleX([[${motion.positions[1].direction}]]);
+        }
+        40%, 50% {
+        transform: translate([[${motion.positions[2].x}]]%, [[${y}]]%) scaleX([[${motion.positions[2].direction}]]);
+        }
+        50.01% {
+        transform: translate([[${motion.positions[3].x}]]%, [[${y}]]%) scaleX([[${motion.positions[3].direction}]]);
+        }
+        60%, 70% {
+        transform: translate([[${motion.positions[4].x}]]%, [[${y}]]%) scaleX([[${motion.positions[4].direction}]]);
+        }
+        80%, 100% {
+        transform: translate([[${motion.positions[5].x}]]%, [[${y}]]%) scaleX([[${motion.positions[5].direction}]]);
+        }
+        }
+        @keyframes move-username-[[${id}]] {
+        0%, 10% {
+        transform: scaleX([[${motion.positions[0].direction}]])
+        translateX([[${motion.positions[0].direction > 0 ? 0: -100}]]%);
+        }
+        20%, 30% {
+        transform: scaleX([[${motion.positions[1].direction}]])
+        translateX([[${motion.positions[1].direction > 0 ? 0: -100}]]%);
+        }
+        40%, 50% {
+        transform: scaleX([[${motion.positions[2].direction}]])
+        translateX([[${motion.positions[2].direction > 0 ? 0: -100}]]%);
+        }
+        50.01% {
+        transform: scaleX([[${motion.positions[3].direction}]])
+        translateX([[${motion.positions[3].direction > 0 ? 0: -100}]]%);
+        }
+        60%, 70% {
+        transform: scaleX([[${motion.positions[4].direction}]])
+        translateX([[${motion.positions[4].direction > 0 ? 0: -100}]]%);
+        }
+        80%, 100% {
+        transform: scaleX([[${motion.positions[5].direction}]])
+        translateX([[${motion.positions[5].direction > 0 ? 0: -100}]]%);
+        }
+        }
+    </style>
+</svg>
