@@ -80,7 +80,7 @@ enum class Commitmon(
     YURAMON(CommitmonLevel.BABY, listOf(EGG), assetName = "yuramon", nameKo = "유라몬"),
     TANEMON(CommitmonLevel.IN_TRAINING, listOf(EGG, YURAMON), assetName = "tanemon", nameKo = "시드몬"),
     PALMON(CommitmonLevel.ROOKIE, listOf(EGG, YURAMON, TANEMON), assetName = "palmon", nameKo = "팔몬"),
-    TOGEMON(CommitmonLevel.CHAMPION, listOf(EGG, YURAMON, TANEMON, PALMON), assetName = "togemon", nameKo = "니드"),
+    TOGEMON(CommitmonLevel.CHAMPION, listOf(EGG, YURAMON, TANEMON, PALMON), assetName = "togemon", nameKo = "니드몬"),
     LILYMON(CommitmonLevel.PERFECT, listOf(EGG, YURAMON, TANEMON, PALMON, TOGEMON), assetName = "lilymon", nameKo = "릴리몬"),
     ROSEMON(
         CommitmonLevel.ULTIMATE,
