@@ -47,6 +47,59 @@ enum class Commitmon(
         nameKo = "피닉스몬",
         true,
     ),
+
+    BUBBMON(CommitmonLevel.BABY, listOf(EGG), assetName = "bubbmon", nameKo = "뽀글몬"),
+    MOTIMON(CommitmonLevel.IN_TRAINING, listOf(EGG, BUBBMON), assetName = "motimon", nameKo = "모티몬"),
+    TENTOMON(CommitmonLevel.ROOKIE, listOf(EGG, BUBBMON, MOTIMON), assetName = "tentomon", nameKo = "텐타몬"),
+    KABUTERIMON(CommitmonLevel.CHAMPION, listOf(EGG, BUBBMON, MOTIMON, TENTOMON), assetName = "kabuterimon", nameKo = "캅테리몬"),
+    ATLURKABUTERIMON(
+        CommitmonLevel.PERFECT,
+        listOf(EGG, BUBBMON, MOTIMON, TENTOMON, KABUTERIMON),
+        assetName = "atlurkabuterimon",
+        nameKo = "아트라캅테리몬",
+    ),
+    HERCULESKABUTERIMON(
+        CommitmonLevel.ULTIMATE,
+        listOf(EGG, BUBBMON, MOTIMON, TENTOMON, KABUTERIMON, ATLURKABUTERIMON),
+        assetName = "herculeskabuterimon",
+        nameKo = "헤라클레스캅테리몬",
+    ),
+
+    POYOMON(CommitmonLevel.BABY, listOf(EGG), assetName = "poyomon", nameKo = "포요몬"),
+    TOKOMON(CommitmonLevel.IN_TRAINING, listOf(EGG, POYOMON), assetName = "tokomon", nameKo = "토코몬"),
+    PATAMON(CommitmonLevel.ROOKIE, listOf(EGG, POYOMON, TOKOMON), assetName = "patamon", nameKo = "파닥몬"),
+    ANGEMON(CommitmonLevel.CHAMPION, listOf(EGG, POYOMON, TOKOMON, PATAMON), assetName = "angemon", nameKo = "엔젤몬"),
+    HOLYANGEMON(CommitmonLevel.PERFECT, listOf(EGG, POYOMON, TOKOMON, PATAMON, ANGEMON), assetName = "holyangemon", nameKo = "홀리엔젤몬"),
+    SERAPHIMON(
+        CommitmonLevel.ULTIMATE,
+        listOf(EGG, POYOMON, TOKOMON, PATAMON, ANGEMON, HOLYANGEMON),
+        assetName = "seraphimon",
+        nameKo = "세라피몬",
+    ),
+
+    YURAMON(CommitmonLevel.BABY, listOf(EGG), assetName = "yuramon", nameKo = "유라몬"),
+    TANEMON(CommitmonLevel.IN_TRAINING, listOf(EGG, YURAMON), assetName = "tanemon", nameKo = "시드몬"),
+    PALMON(CommitmonLevel.ROOKIE, listOf(EGG, YURAMON, TANEMON), assetName = "palmon", nameKo = "팔몬"),
+    TOGEMON(CommitmonLevel.CHAMPION, listOf(EGG, YURAMON, TANEMON, PALMON), assetName = "togemon", nameKo = "니드"),
+    LILYMON(CommitmonLevel.PERFECT, listOf(EGG, YURAMON, TANEMON, PALMON, TOGEMON), assetName = "lilymon", nameKo = "릴리몬"),
+    ROSEMON(
+        CommitmonLevel.ULTIMATE,
+        listOf(EGG, YURAMON, TANEMON, PALMON, TOGEMON, LILYMON),
+        assetName = "rosemon",
+        nameKo = "로제몬",
+    ),
+
+    PICHIMON(CommitmonLevel.BABY, listOf(EGG), assetName = "pichimon", nameKo = "피치몬"),
+    PUKAMON(CommitmonLevel.IN_TRAINING, listOf(EGG, PICHIMON), assetName = "pukamon", nameKo = "둥실몬"),
+    GOMAMON(CommitmonLevel.ROOKIE, listOf(EGG, PICHIMON, PUKAMON), assetName = "gomamon", nameKo = "쉬라몬"),
+    IKKAKUMON(CommitmonLevel.CHAMPION, listOf(EGG, PICHIMON, PUKAMON, GOMAMON), assetName = "ikkakumon", nameKo = "원뿔몬"),
+    ZUDOMON(CommitmonLevel.PERFECT, listOf(EGG, PICHIMON, PUKAMON, GOMAMON, IKKAKUMON), assetName = "zudomon", nameKo = "쥬드몬"),
+    VIKEMON(
+        CommitmonLevel.ULTIMATE,
+        listOf(EGG, PICHIMON, PUKAMON, GOMAMON, IKKAKUMON, ZUDOMON),
+        assetName = "vikemon",
+        nameKo = "바이킹몬",
+    ),
     ;
 
     companion object {
