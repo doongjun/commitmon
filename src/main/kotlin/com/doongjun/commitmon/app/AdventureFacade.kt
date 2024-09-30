@@ -29,7 +29,7 @@ class AdventureFacade(
 
         return createAnimation(
             user = userService.getByGithubId(githubId),
-            theme = theme ?: Theme.DESERT,
+            theme = theme ?: Theme.GRASSLAND,
         )
     }
 
@@ -86,12 +86,6 @@ class AdventureFacade(
                     "theme",
                     ClassPathResource(
                         "static/theme/${theme.assetName}.svg",
-                    ).getContentAsString(Charset.defaultCharset()),
-                )
-                setVariable(
-                    "logo",
-                    ClassPathResource(
-                        "static/logo.svg",
                     ).getContentAsString(Charset.defaultCharset()),
                 )
             },
