@@ -29,7 +29,7 @@ class AdventureFacade(
 
         return createAnimation(
             user = userService.getByGithubId(githubId),
-            theme = theme ?: Theme.DESERT,
+            theme = theme ?: Theme.GRASSLAND,
         )
     }
 
