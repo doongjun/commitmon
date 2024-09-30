@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCust
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.cache.CacheKeyPrefix
 import org.springframework.data.redis.cache.RedisCacheConfiguration
 import org.springframework.data.redis.cache.RedisCacheManager.RedisCacheManagerBuilder
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
@@ -19,10 +20,22 @@ class CacheConfig {
         RedisCacheManagerBuilderCustomizer { builder: RedisCacheManagerBuilder ->
             builder
                 .withCacheConfiguration(
+                    "userInfo",
+                    RedisCacheConfiguration
+                        .defaultCacheConfig()
+                        .computePrefixWith(CacheKeyPrefix.simple())
+                        .entryTtl(Duration.ofMinutes(5))
+                        .disableCachingNullValues()
+                        .serializeKeysWith(
+                            RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer()),
+                        ).serializeValuesWith(
+                            RedisSerializationContext.SerializationPair.fromSerializer(GenericJackson2JsonRedisSerializer()),
+                        ),
+                ).withCacheConfiguration(
                     "userCommitInfo",
                     RedisCacheConfiguration
                         .defaultCacheConfig()
-                        .computePrefixWith { cacheName -> "cache :: $cacheName" }
+                        .computePrefixWith(CacheKeyPrefix.simple())
                         .entryTtl(Duration.ofMinutes(5))
                         .disableCachingNullValues()
                         .serializeKeysWith(
@@ -34,7 +47,7 @@ class CacheConfig {
                     "userFollowInfo",
                     RedisCacheConfiguration
                         .defaultCacheConfig()
-                        .computePrefixWith { cacheName -> "cache :: $cacheName" }
+                        .computePrefixWith(CacheKeyPrefix.simple())
                         .entryTtl(Duration.ofMinutes(60))
                         .disableCachingNullValues()
                         .serializeKeysWith(
