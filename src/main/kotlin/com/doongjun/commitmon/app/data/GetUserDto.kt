@@ -1,8 +1,10 @@
 package com.doongjun.commitmon.app.data
 
+import com.doongjun.commitmon.core.NoArgs
 import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.User
 
+@NoArgs
 data class GetUserDto(
     val id: Long,
     val githubId: Long,
