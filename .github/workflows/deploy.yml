@@ -1,4 +1,4 @@
-name: SpringBoot APP CI
+name: SpringBoot APP CI/CD
 on:
   push:
     branches: [ main ]
@@ -26,3 +26,11 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
+      - name: Deploy to Amazon EC2
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} \
+            --description "Deploy commitmon" \
+            --s3-location bucket=${{ env.AWS_S3_BUCKET_NAME }}, key=${{ env.AWS_REVISION_S3_KEY }}, bundleType=tar
