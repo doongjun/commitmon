@@ -2,7 +2,6 @@ package com.doongjun.commitmon.app.data
 
 import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.User
-import java.time.Instant
 
 data class GetUserDto(
     val id: Long,
@@ -14,8 +13,6 @@ data class GetUserDto(
     val followers: List<GetSimpleUserDto>,
     val following: List<GetSimpleUserDto>,
     val mutualFollowers: List<GetSimpleUserDto>,
-    val createdDate: Instant,
-    val lastModifiedDate: Instant,
 ) {
     fun toSimple(): GetSimpleUserDto =
         GetSimpleUserDto(
@@ -39,8 +36,6 @@ data class GetUserDto(
                 followers = user.followers.map { GetSimpleUserDto.from(it) },
                 following = user.following.map { GetSimpleUserDto.from(it) },
                 mutualFollowers = user.mutualFollowers.map { GetSimpleUserDto.from(it) },
-                createdDate = user.createdDate,
-                lastModifiedDate = user.lastModifiedDate,
             )
     }
 }
