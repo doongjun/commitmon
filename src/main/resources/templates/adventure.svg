@@ -26,6 +26,9 @@
         }
         }
     </style>
+    <text x="10" y="15" dominant-baseline="middle" font-size="18" font-weight="bold"
+          style="stroke:white; stroke-width:0.6em">[(${username})]'s total commits: [(${totalCommitCount})]
+    </text>
     <text x="10" y="15" dominant-baseline="middle" style="fill:black" font-size="18" font-weight="bold">
         [(${username})]'s total commits: [(${totalCommitCount})]
     </text>
