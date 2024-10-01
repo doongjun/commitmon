@@ -67,7 +67,7 @@ enum class Commitmon(
 
     POYOMON(CommitmonLevel.BABY, listOf(EGG), assetName = "poyomon", nameKo = "포요몬"),
     TOKOMON(CommitmonLevel.IN_TRAINING, listOf(EGG, POYOMON), assetName = "tokomon", nameKo = "토코몬"),
-    PATAMON(CommitmonLevel.ROOKIE, listOf(EGG, POYOMON, TOKOMON), assetName = "patamon", nameKo = "파닥몬"),
+    PATAMON(CommitmonLevel.ROOKIE, listOf(EGG, POYOMON, TOKOMON), assetName = "patamon", nameKo = "파닥몬", isFlying = true),
     ANGEMON(CommitmonLevel.CHAMPION, listOf(EGG, POYOMON, TOKOMON, PATAMON), assetName = "angemon", nameKo = "엔젤몬"),
     HOLYANGEMON(CommitmonLevel.PERFECT, listOf(EGG, POYOMON, TOKOMON, PATAMON, ANGEMON), assetName = "holyangemon", nameKo = "홀리엔젤몬"),
     SERAPHIMON(
@@ -75,6 +75,7 @@ enum class Commitmon(
         listOf(EGG, POYOMON, TOKOMON, PATAMON, ANGEMON, HOLYANGEMON),
         assetName = "seraphimon",
         nameKo = "세라피몬",
+        isFlying = true,
     ),
 
     YURAMON(CommitmonLevel.BABY, listOf(EGG), assetName = "yuramon", nameKo = "유라몬"),
