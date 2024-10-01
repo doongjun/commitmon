@@ -26,10 +26,10 @@ Displays the <b>Commitmon</b> of friends who are following each other.
 https://commitmon.me/adventure?username=${username}&theme=${theme}
 ```
 
-| Parameter  | Type                    | Description                    | Default Value |
-|:-----------|:------------------------|:-------------------------------|:--------------|
-| `username` | `string`                | **Required**. Your Github Name | -             |
-| `theme`    | `grassland` \| `desert` | Theme Of CommitMon.            | `grassland`   |
+| Parameter  | Type                                     | Description                    | Default Value |
+|:-----------|:-----------------------------------------|:-------------------------------|:--------------|
+| `username` | `string`                                 | **Required**. Your Github Name | -             |
+| `theme`    | `grassland` \| `desert` \| `transparent` | Theme Of CommitMon.            | `grassland`   |
 
 Actually, you can use the image URL directly in the markdown file.
 
