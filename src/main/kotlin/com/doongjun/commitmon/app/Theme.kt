@@ -5,4 +5,5 @@ enum class Theme(
 ) {
     DESERT("desert"),
     GRASSLAND("grassland"),
+    TRANSPARENT("transparent"),
 }
