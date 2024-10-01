@@ -81,13 +81,15 @@ class AdventureFacade(
         return svgTemplateEngine.process(
             "adventure",
             Context().apply {
-                setVariable("templates", templates)
+                setVariable("username", user.name)
+                setVariable("totalCommitCount", user.totalCommitCount)
                 setVariable(
                     "theme",
                     ClassPathResource(
                         "static/theme/${theme.assetName}.svg",
                     ).getContentAsString(Charset.defaultCharset()),
                 )
+                setVariable("templates", templates)
             },
         )
     }
