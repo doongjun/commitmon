@@ -51,21 +51,29 @@ class User(
         }
     }
 
-    fun update(
-        name: String,
-        totalCommitCount: Long,
-        followers: List<User>,
-        following: List<User>,
+    fun patch(
+        name: String? = null,
+        totalCommitCount: Long? = null,
+        followers: List<User>? = null,
+        following: List<User>? = null,
     ) {
-        this.name = name
-        this.totalCommitCount = totalCommitCount
-        evolveCommitmon(CommitmonLevel.fromExp(totalCommitCount))
-        updateFollowers(followers)
-        updateFollowing(following)
+        name?.let {
+            this.name = it
+        }
+        totalCommitCount?.let {
+            this.totalCommitCount = it
+            syncCommitmonLevel(CommitmonLevel.fromExp(it))
+        }
+        followers?.let {
+            updateFollowers(it)
+        }
+        following?.let {
+            updateFollowing(it)
+        }
     }
 
-    private fun evolveCommitmon(level: CommitmonLevel) {
-        if (this.commitmon.level.order < level.order) {
+    private fun syncCommitmonLevel(level: CommitmonLevel) {
+        if (this.commitmon.level != level) {
             this.commitmon = Commitmon.randomLevelTreeCommitmon(level, this.commitmon)
         }
     }

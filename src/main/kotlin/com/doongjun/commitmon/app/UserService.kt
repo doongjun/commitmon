@@ -59,7 +59,7 @@ class UserService(
         val followers = userRepository.findAllByGithubIdIn(dto.followerGithubIds)
         val following = userRepository.findAllByGithubIdIn(dto.followingGithubIds)
 
-        user.update(
+        user.patch(
             name = dto.name,
             totalCommitCount = dto.totalCommitCount,
             followers = followers,
@@ -80,11 +80,11 @@ class UserService(
         val followers = dto.followerGithubIds?.let { userRepository.findAllByGithubIdIn(it) }
         val following = dto.followingGithubIds?.let { userRepository.findAllByGithubIdIn(it) }
 
-        user.update(
-            name = dto.name ?: user.name,
-            totalCommitCount = dto.totalCommitCount ?: user.totalCommitCount,
-            followers = followers ?: user.followers,
-            following = following ?: user.following,
+        user.patch(
+            name = dto.name,
+            totalCommitCount = dto.totalCommitCount,
+            followers = followers,
+            following = following,
         )
 
         userRepository.save(user)

@@ -178,7 +178,7 @@ enum class Commitmon(
         ): Commitmon =
             COMMITMON_MAP[level]!!
                 .filter {
-                    it.path.containsAll(commitmon.path) && if (it.seed != null) it.seed == commitmon.seed else true
+                    if (commitmon.seed != null) it.seed == commitmon.seed else true
                 }.apply {
                     if (isEmpty()) return commitmon
                 }.let { it[random.nextInt(it.size)] }

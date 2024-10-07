@@ -56,7 +56,7 @@ class UserTest {
     }
 
     @Test
-    fun update_ThenEmptyToNotEmptyFollow_Test() {
+    fun patch_ThenEmptyToNotEmptyFollow_Test() {
         // given
         val user =
             User(
@@ -69,7 +69,7 @@ class UserTest {
         val updateTotalCommitCount = 200L
 
         // when
-        user.update(
+        user.patch(
             name = updateName,
             totalCommitCount = updateTotalCommitCount,
             followers = followers,
@@ -86,7 +86,7 @@ class UserTest {
     }
 
     @Test
-    fun update_Test() {
+    fun patch_Test() {
         // given
         val user =
             User(
@@ -94,7 +94,7 @@ class UserTest {
                 name = name,
                 totalCommitCount = totalCommitCount,
             )
-        user.update(
+        user.patch(
             name = name,
             totalCommitCount = totalCommitCount,
             followers = followers,
@@ -116,7 +116,7 @@ class UserTest {
             )
 
         // when
-        user.update(
+        user.patch(
             name = updateName,
             totalCommitCount = updateTotalCommitCount,
             followers = updateFollowers,
