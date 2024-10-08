@@ -25,8 +25,8 @@ class AdventureFacade(
         username: String,
         theme: Theme?,
         userFetchType: UserFetchType?,
-    ): String {
-        return createAnimation(
+    ): String =
+        createAnimation(
             user =
                 getOrCreateUser(
                     username = username,
@@ -34,7 +34,6 @@ class AdventureFacade(
                 ),
             theme = theme ?: Theme.GRASSLAND,
         )
-    }
 
     private fun getOrCreateUser(
         username: String,
