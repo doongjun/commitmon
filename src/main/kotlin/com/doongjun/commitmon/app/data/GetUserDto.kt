@@ -8,7 +8,6 @@ import com.doongjun.commitmon.domain.User
 @NoArgs
 data class GetUserDto(
     val id: Long,
-    val githubId: Long,
     val name: String,
     val totalCommitCount: Long,
     val commitmon: Commitmon,
@@ -18,7 +17,6 @@ data class GetUserDto(
     fun toSimple(): GetSimpleUserDto =
         GetSimpleUserDto(
             id = id,
-            githubId = githubId,
             name = name,
             totalCommitCount = totalCommitCount,
             commitmon = commitmon,
@@ -32,7 +30,6 @@ data class GetUserDto(
         ): GetUserDto =
             GetUserDto(
                 id = user.id,
-                githubId = user.githubId,
                 name = user.name,
                 totalCommitCount = user.totalCommitCount,
                 commitmon = user.commitmon,

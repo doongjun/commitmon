@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserRepository : JpaRepository<User, Long> {
-    fun findByGithubId(githubId: Long): User?
+    fun findByName(name: String): User?
 
-    fun findAllByGithubIdIn(githubIds: List<Long>): List<User>
+    fun findAllByNameIn(names: List<String>): List<User>
 
     fun existsByName(name: String): Boolean
 }

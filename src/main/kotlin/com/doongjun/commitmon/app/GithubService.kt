@@ -15,11 +15,10 @@ class GithubService(
 ) {
     @Cacheable(value = ["userCommitInfo"], key = "#username")
     fun getUserCommitInfo(username: String): GetUserCommitInfo {
-        val (totalCount, items) = githubRestApi.fetchUserCommitSearchInfo(username)
+        val (totalCount) = githubRestApi.fetchUserCommitSearchInfo(username)
 
         return GetUserCommitInfo(
             totalCommitCount = totalCount,
-            githubId = items.first().author.id,
         )
     }
 
@@ -28,20 +27,19 @@ class GithubService(
         username: String,
         pageSize: Int,
     ): GetUserFollowInfoDto {
-        val (databaseId, followers, following) =
+        val (followers, following) =
             githubGraphqlApi
                 .fetchUserFollowInfo(username, pageSize)
 
         return GetUserFollowInfoDto(
-            userGithubId = databaseId,
-            followerGithubIds =
-                fetchAllIds(followers) { cursor ->
+            followerNames =
+                fetchAllNames(followers) { cursor ->
                     githubGraphqlApi
                         .fetchUserFollowers(username, pageSize, cursor)
                         .followers
                 },
-            followingGithubIds =
-                fetchAllIds(following) { cursor ->
+            followingNames =
+                fetchAllNames(following) { cursor ->
                     githubGraphqlApi
                         .fetchUserFollowing(username, pageSize, cursor)
                         .following
@@ -49,22 +47,22 @@ class GithubService(
         )
     }
 
-    private fun fetchAllIds(
+    private fun fetchAllNames(
         initialInfo: FollowInfo,
         fetchMore: (String?) -> FollowInfo,
-    ): List<Long> {
-        val ids = initialInfo.nodes.map { it.databaseId }.toMutableList()
+    ): List<String> {
+        val names = initialInfo.nodes.map { it.login }.toMutableList()
         var hasNextPage = initialInfo.pageInfo.hasNextPage
         var cursor = initialInfo.pageInfo.endCursor
 
         while (hasNextPage) {
             val nextInfo = fetchMore(cursor)
-            ids.addAll(nextInfo.nodes.map { it.databaseId })
+            names.addAll(nextInfo.nodes.map { it.login })
 
             hasNextPage = nextInfo.pageInfo.hasNextPage
             cursor = nextInfo.pageInfo.endCursor
         }
 
-        return ids
+        return names
     }
 }

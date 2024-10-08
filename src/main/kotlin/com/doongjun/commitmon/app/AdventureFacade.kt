@@ -2,9 +2,9 @@ package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
-import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.core.AdventureGenerator
-import com.doongjun.commitmon.event.UpdateUserFollowInfo
+import com.doongjun.commitmon.event.UpdateUserInfo
+import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
@@ -19,49 +19,38 @@ class AdventureFacade(
     private val svgTemplateEngine: SpringTemplateEngine,
     private val publisher: ApplicationEventPublisher,
 ) {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     fun getAnimation(
         username: String,
         theme: Theme?,
         userFetchType: UserFetchType?,
     ): String {
-        val (githubId, totalCommitCount) = githubService.getUserCommitInfo(username)
-
-        handleUserData(username, githubId, totalCommitCount)
-
-        return createAnimation(
-            user =
-                userService.getByGithubId(
-                    githubId = githubId,
-                    userFetchType = userFetchType ?: UserFetchType.MUTUAL,
-                ),
-            theme = theme ?: Theme.GRASSLAND,
-        )
+        return createAnimation(getOrCreateUser(username), theme ?: Theme.GRASSLAND)
     }
 
-    private fun handleUserData(
-        username: String,
-        githubId: Long,
-        totalCommitCount: Long,
-    ) {
-        runCatching {
-            userService.getSimpleByGithubId(githubId)
-        }.onSuccess { user ->
-            PatchUserDto(
+    private fun getOrCreateUser(username: String): GetUserDto {
+        return runCatching {
+            userService.getByName(
                 name = username,
-                totalCommitCount = totalCommitCount,
-            ).let { dto ->
-                userService.patch(user.id, dto)
-            }
-        }.onFailure {
-            CreateUserDto(
-                githubId = githubId,
-                name = username,
-                totalCommitCount = totalCommitCount,
-            ).let { dto ->
-                userService.create(dto)
-            }
-        }.also {
-            publisher.publishEvent(UpdateUserFollowInfo(username))
+                userFetchType = UserFetchType.MUTUAL,
+            )
+        }.onSuccess { existsUser ->
+            publisher.publishEvent(UpdateUserInfo(existsUser.id))
+        }.getOrElse {
+            log.info("Creating user: $username")
+            val (totalCommitCount) = githubService.getUserCommitInfo(username)
+            val (followerNames, followingNames) = githubService.getUserFollowInfo(username, 100)
+            val userId =
+                CreateUserDto(
+                    name = username,
+                    totalCommitCount = totalCommitCount,
+                    followerNames = followerNames,
+                    followingNames = followingNames,
+                ).let { dto ->
+                    userService.create(dto)
+                }
+            userService.get(userId, UserFetchType.MUTUAL)
         }
     }
 

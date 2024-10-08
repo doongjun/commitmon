@@ -31,22 +31,11 @@ class GithubServiceTest : BaseAppTest() {
     fun getUserCommitInfo_Test() {
         // given
         val username = "doongjun"
-        val githubId = 1L
         val commitCount = 10L
 
         whenever(githubRestApi.fetchUserCommitSearchInfo(username)).then {
             return@then UserCommitSearchResponse(
                 totalCount = commitCount,
-                items =
-                    listOf(
-                        UserCommitSearchResponse.Item(
-                            author =
-                                UserCommitSearchResponse.Item.Author(
-                                    id = githubId,
-                                    login = username,
-                                ),
-                        ),
-                    ),
             )
         }
 
@@ -55,7 +44,6 @@ class GithubServiceTest : BaseAppTest() {
 
         // then
         assertThat(result.totalCommitCount).isEqualTo(commitCount)
-        assertThat(result.githubId).isEqualTo(githubId)
 
         verify(githubRestApi, times(1)).fetchUserCommitSearchInfo(username)
     }
@@ -76,11 +64,9 @@ class GithubServiceTest : BaseAppTest() {
                     listOf(
                         FollowNode(
                             login = "follower1",
-                            databaseId = 1,
                         ),
                         FollowNode(
                             login = "follower2",
-                            databaseId = 2,
                         ),
                     ),
             )
@@ -96,20 +82,18 @@ class GithubServiceTest : BaseAppTest() {
                     listOf(
                         FollowNode(
                             login = "following1",
-                            databaseId = 1,
                         ),
                     ),
             )
 
         whenever(githubGraphqlApi.fetchUserFollowInfo(username, 2)).then {
-            return@then UserFollowInfoResponse.User(1L, followerInfo, followingInfo)
+            return@then UserFollowInfoResponse.User(followerInfo, followingInfo)
         }
 
         val result = githubService.getUserFollowInfo(username, 2)
 
-        assertThat(result.userGithubId).isEqualTo(1)
-        assertThat(result.followerGithubIds).containsExactly(1, 2)
-        assertThat(result.followingGithubIds).containsExactly(1)
+        assertThat(result.followerNames).containsExactly("follower1", "follower2")
+        assertThat(result.followingNames).containsExactly("following1")
 
         verify(githubGraphqlApi, times(1)).fetchUserFollowInfo(username, 2)
     }
@@ -121,7 +105,6 @@ class GithubServiceTest : BaseAppTest() {
 
         whenever(githubGraphqlApi.fetchUserFollowInfo(username, 1)).then {
             return@then UserFollowInfoResponse.User(
-                databaseId = 1,
                 followers =
                     FollowInfo(
                         totalCount = 3,
@@ -134,7 +117,6 @@ class GithubServiceTest : BaseAppTest() {
                             listOf(
                                 FollowNode(
                                     login = "follower1",
-                                    databaseId = 1,
                                 ),
                             ),
                     ),
@@ -150,7 +132,6 @@ class GithubServiceTest : BaseAppTest() {
                             listOf(
                                 FollowNode(
                                     login = "following1",
-                                    databaseId = 1,
                                 ),
                             ),
                     ),
@@ -170,7 +151,6 @@ class GithubServiceTest : BaseAppTest() {
                         listOf(
                             FollowNode(
                                 login = "follower2",
-                                databaseId = 2,
                             ),
                         ),
                 ),
@@ -190,7 +170,6 @@ class GithubServiceTest : BaseAppTest() {
                         listOf(
                             FollowNode(
                                 login = "follower3",
-                                databaseId = 3,
                             ),
                         ),
                 ),
@@ -210,7 +189,6 @@ class GithubServiceTest : BaseAppTest() {
                         listOf(
                             FollowNode(
                                 login = "following2",
-                                databaseId = 4,
                             ),
                         ),
                 ),
@@ -219,9 +197,8 @@ class GithubServiceTest : BaseAppTest() {
 
         val result = githubService.getUserFollowInfo(username, 1)
 
-        assertThat(result.userGithubId).isEqualTo(1)
-        assertThat(result.followerGithubIds).containsExactly(1, 2, 3)
-        assertThat(result.followingGithubIds).containsExactly(1, 4)
+        assertThat(result.followerNames).containsExactly("follower1", "follower2", "follower3")
+        assertThat(result.followingNames).containsExactly("following1", "following2")
 
         verify(githubGraphqlApi, times(1)).fetchUserFollowInfo(username, 1)
         verify(githubGraphqlApi, times(1)).fetchUserFollowers(username, 1, "follower-cursor-1")

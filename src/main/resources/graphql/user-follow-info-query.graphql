@@ -3,14 +3,12 @@ query(
     $first: Int
 ) {
     user(login: $login) {
-        databaseId
         followers(first: $first) {
             pageInfo {
                 hasNextPage
                 endCursor
             }
             nodes {
-                databaseId
                 login
             }
         }
@@ -20,7 +18,6 @@ query(
                 endCursor
             }
             nodes {
-                databaseId
                 login
             }
         }

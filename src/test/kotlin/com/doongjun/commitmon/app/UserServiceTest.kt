@@ -1,7 +1,6 @@
 package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
-import com.doongjun.commitmon.app.data.PatchUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
 import com.doongjun.commitmon.domain.CommitmonLevel
 import com.doongjun.commitmon.domain.User
@@ -21,9 +20,8 @@ class UserServiceTest : BaseAppTest() {
     @Test
     fun existsByName_ThenIsTrue_Test() {
         // given
-        val githubId = 1L
         val name = "doongjun"
-        userRepository.save(User(githubId, name))
+        userRepository.save(User(name))
         clear()
 
         // when
@@ -48,7 +46,8 @@ class UserServiceTest : BaseAppTest() {
     @Test
     fun get_Test() {
         // given
-        val user = userRepository.save(User(1L, "doongjun"))
+        val name = "doongjun"
+        val user = userRepository.save(User(name))
         clear()
 
         // when
@@ -56,18 +55,18 @@ class UserServiceTest : BaseAppTest() {
 
         // then
         assertThat(dto.name).isEqualTo(user.name)
-        assertThat(dto.githubId).isEqualTo(user.githubId)
-        assertThat(dto.totalCommitCount).isEqualTo(user.totalCommitCount)
     }
 
     @Test
-    fun create_Test() {
+    fun create_ThenIsNotJoinedUser_Test() {
         // given
+        val name = "doongjun"
         val dto =
             CreateUserDto(
-                githubId = 1L,
-                name = "doongjun",
+                name = name,
                 totalCommitCount = 10L,
+                followerNames = listOf("andrew", "david"),
+                followingNames = listOf("david", "edward"),
             )
 
         // when
@@ -77,7 +76,6 @@ class UserServiceTest : BaseAppTest() {
         // then
         val findUser = userRepository.findByIdOrNull(id)
         assertThat(findUser?.name).isEqualTo(dto.name)
-        assertThat(findUser?.githubId).isEqualTo(dto.githubId)
         assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
         assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(findUser?.followers).isEmpty()
@@ -85,18 +83,46 @@ class UserServiceTest : BaseAppTest() {
     }
 
     @Test
-    fun update_ThenIsNotJoinedUser_Test() {
+    fun create_ThenIsJoinedUser_Test() {
         // given
-        val user = userRepository.save(User(1L, "doongjun"))
+        val name = "doongjun"
+        val anotherUser1 = userRepository.save(User("andrew"))
+        val anotherUser2 = userRepository.save(User("david"))
+        val anotherUser3 = userRepository.save(User("edward"))
+        val dto =
+            CreateUserDto(
+                name = name,
+                totalCommitCount = 1600L,
+                followerNames = listOf(anotherUser1.name, anotherUser2.name),
+                followingNames = listOf(anotherUser2.name, anotherUser3.name),
+            )
         clear()
 
+        // when
+        val id = userService.create(dto)
+        clear()
+
+        // then
+        val findUser = userRepository.findByIdOrNull(id)
+        assertThat(findUser?.name).isEqualTo(dto.name)
+        assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.PERFECT)
+        assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
+        assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
+    }
+
+    @Test
+    fun update_ThenIsNotJoinedUser_Test() {
+        // given
+        val name = "doongjun"
+        val user = userRepository.save(User(name))
         val dto =
             UpdateUserDto(
-                name = "doongjun",
                 totalCommitCount = 10L,
-                followerGithubIds = listOf(2L, 3L),
-                followingGithubIds = listOf(3L, 4L),
+                followerNames = listOf("andrew", "david"),
+                followingNames = listOf("david", "edward"),
             )
+        clear()
 
         // when
         userService.update(user.id, dto)
@@ -104,8 +130,6 @@ class UserServiceTest : BaseAppTest() {
 
         // then
         val findUser = userRepository.findByIdOrNull(user.id)
-        assertThat(findUser?.name).isEqualTo(dto.name)
-        assertThat(findUser?.githubId).isEqualTo(1L)
         assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
         assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(findUser?.followers).isEmpty()
@@ -115,19 +139,18 @@ class UserServiceTest : BaseAppTest() {
     @Test
     fun update_ThenIsJoinedUser_Test() {
         // given
-        val user = userRepository.save(User(1L, "doongjun"))
-        val anotherUser1 = userRepository.save(User(2L, "andrew"))
-        val anotherUser2 = userRepository.save(User(3L, "david"))
-        val anotherUser3 = userRepository.save(User(4L, "edward"))
-        clear()
-
+        val name = "doongjun"
+        val user = userRepository.save(User(name))
+        val anotherUser1 = userRepository.save(User("andrew"))
+        val anotherUser2 = userRepository.save(User("david"))
+        val anotherUser3 = userRepository.save(User("edward"))
         val dto =
             UpdateUserDto(
-                name = "doongjunKim",
                 totalCommitCount = 1600L,
-                followerGithubIds = listOf(2L, 3L),
-                followingGithubIds = listOf(3L, 4L),
+                followerNames = listOf(anotherUser1.name, anotherUser2.name),
+                followingNames = listOf(anotherUser2.name, anotherUser3.name),
             )
+        clear()
 
         // when
         userService.update(user.id, dto)
@@ -135,32 +158,9 @@ class UserServiceTest : BaseAppTest() {
 
         // then
         val findUser = userRepository.findByIdOrNull(user.id)
-        assertThat(findUser?.name).isEqualTo(dto.name)
-        assertThat(findUser?.githubId).isEqualTo(1L)
         assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
         assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.PERFECT)
         assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
         assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
-    }
-
-    @Test
-    fun patch_Test() {
-        // given
-        val user = userRepository.save(User(1L, "doongjun"))
-        val dto =
-            PatchUserDto(
-                totalCommitCount = 10L,
-            )
-        clear()
-
-        // when
-        userService.patch(user.id, dto)
-        clear()
-
-        // then
-        val findUser = userRepository.findByIdOrNull(user.id)
-        assertThat(findUser?.name).isEqualTo(user.name)
-        assertThat(findUser?.githubId).isEqualTo(user.githubId)
-        assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
     }
 }

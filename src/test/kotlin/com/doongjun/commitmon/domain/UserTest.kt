@@ -4,28 +4,26 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class UserTest {
-    private val githubId = 1L
     private val name = "doongjun"
     private val totalCommitCount = 10L
     private val followers =
         listOf(
-            User(2L, "andrew"),
-            User(3L, "david"),
+            User("andrew"),
+            User("david"),
         )
     private val following =
         listOf(
-            User(3L, "david"),
-            User(4L, "edward"),
+            User("david"),
+            User("edward"),
         )
 
     @Test
     fun constructor_Default_Test() {
         // when
-        val user = User(githubId, name)
+        val user = User(name)
 
         // then
         assertThat(user.id).isNotNull()
-        assertThat(user.githubId).isEqualTo(githubId)
         assertThat(user.name).isEqualTo(name)
         assertThat(user.createdDate).isNotNull()
         assertThat(user.lastModifiedDate).isNotNull()
@@ -38,14 +36,12 @@ class UserTest {
         // when
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = totalCommitCount,
             )
 
         // then
         assertThat(user.id).isNotNull()
-        assertThat(user.githubId).isEqualTo(githubId)
         assertThat(user.name).isEqualTo(name)
         assertThat(user.totalCommitCount).isEqualTo(totalCommitCount)
         assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.EGG)
@@ -56,21 +52,18 @@ class UserTest {
     }
 
     @Test
-    fun patch_ThenEmptyToNotEmptyFollow_Test() {
+    fun update_ThenEmptyToNotEmptyFollow_Test() {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = totalCommitCount,
             )
 
-        val updateName = "dongjunKim"
         val updateTotalCommitCount = 200L
 
         // when
-        user.patch(
-            name = updateName,
+        user.update(
             totalCommitCount = updateTotalCommitCount,
             followers = followers,
             following = following,
@@ -78,7 +71,6 @@ class UserTest {
 
         // then
         assertThat(user.id).isNotNull()
-        assertThat(user.name).isEqualTo(updateName)
         assertThat(user.totalCommitCount).isEqualTo(updateTotalCommitCount)
         assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.IN_TRAINING)
         assertThat(user.followers).containsExactlyElementsOf(followers)
@@ -86,38 +78,31 @@ class UserTest {
     }
 
     @Test
-    fun patch_Test() {
+    fun update_Test() {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = totalCommitCount,
+                followers = followers,
+                following = following,
             )
-        user.patch(
-            name = name,
-            totalCommitCount = totalCommitCount,
-            followers = followers,
-            following = following,
-        )
 
-        val updateName = "dongjunKim"
         val updateTotalCommitCount = 200L
-        val mutualFollower = User(4L, "frank")
+        val mutualFollower = User("frank")
         val updateFollowers =
             listOf(
-                User(3L, "david"),
+                User("david"),
                 mutualFollower,
             )
         val updateFollowing =
             listOf(
                 mutualFollower,
-                User(5L, "george"),
+                User("george"),
             )
 
         // when
-        user.patch(
-            name = updateName,
+        user.update(
             totalCommitCount = updateTotalCommitCount,
             followers = updateFollowers,
             following = updateFollowing,
@@ -125,7 +110,6 @@ class UserTest {
 
         // then
         assertThat(user.id).isNotNull()
-        assertThat(user.name).isEqualTo(updateName)
         assertThat(user.totalCommitCount).isEqualTo(updateTotalCommitCount)
         assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.IN_TRAINING)
         assertThat(user.followers).containsExactlyElementsOf(updateFollowers)
@@ -138,7 +122,6 @@ class UserTest {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = 800,
             )
@@ -152,7 +135,6 @@ class UserTest {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = 10,
             )
@@ -166,7 +148,6 @@ class UserTest {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = 250,
             )
@@ -180,7 +161,6 @@ class UserTest {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = 1200,
             )
@@ -194,7 +174,6 @@ class UserTest {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = 3199,
             )
@@ -208,7 +187,6 @@ class UserTest {
         // given
         val user =
             User(
-                githubId = githubId,
                 name = name,
                 totalCommitCount = 3500,
             )

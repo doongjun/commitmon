@@ -12,17 +12,19 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "`user`", indexes = [Index(name = "IDX_USER_GITHUB_ID", columnList = "github_id", unique = true)])
+@Table(
+    name = "`user`",
+    indexes = [
+        Index(name = "IDX_USER_NAME", columnList = "name", unique = true),
+    ],
+)
 class User(
-    @Column(name = "github_id", unique = true, nullable = false)
-    val githubId: Long,
-    name: String,
+    @Column(name = "name", unique = true, nullable = false)
+    val name: String,
     totalCommitCount: Long = 0,
+    followers: List<User> = emptyList(),
+    following: List<User> = emptyList(),
 ) : BaseEntity() {
-    @Column(name = "name", nullable = false)
-    var name: String = name
-        protected set
-
     @Column(name = "total_commit_count", nullable = false)
     var totalCommitCount: Long = totalCommitCount
         protected set
@@ -33,11 +35,11 @@ class User(
         protected set
 
     @OneToMany(mappedBy = "follower", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
-    protected val mutableFollowers: MutableSet<Follow> = mutableSetOf()
+    protected val mutableFollowers: MutableSet<Follow> = toFollowers(followers).toMutableSet()
     val followers: List<User> get() = mutableFollowers.map { it.following }
 
     @OneToMany(mappedBy = "following", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
-    protected val mutableFollowing: MutableSet<Follow> = mutableSetOf()
+    protected val mutableFollowing: MutableSet<Follow> = toFollowing(following).toMutableSet()
     val following: List<User> get() = mutableFollowing.map { it.follower }
 
     val mutualFollowers: List<User> get() = following.filter { it in followers }
@@ -51,25 +53,15 @@ class User(
         }
     }
 
-    fun patch(
-        name: String? = null,
-        totalCommitCount: Long? = null,
-        followers: List<User>? = null,
-        following: List<User>? = null,
+    fun update(
+        totalCommitCount: Long,
+        followers: List<User>,
+        following: List<User>,
     ) {
-        name?.let {
-            this.name = it
-        }
-        totalCommitCount?.let {
-            this.totalCommitCount = it
-            syncCommitmonLevel(CommitmonLevel.fromExp(it))
-        }
-        followers?.let {
-            updateFollowers(it)
-        }
-        following?.let {
-            updateFollowing(it)
-        }
+        this.totalCommitCount = totalCommitCount
+        syncCommitmonLevel(CommitmonLevel.fromExp(totalCommitCount))
+        updateFollowers(followers)
+        updateFollowing(following)
     }
 
     private fun syncCommitmonLevel(level: CommitmonLevel) {
