@@ -21,14 +21,20 @@ class UserService(
     fun existsByName(name: String) = userRepository.existsByName(name)
 
     @Transactional(readOnly = true)
-    fun get(id: Long): GetUserDto =
-        userRepository.findByIdOrNull(id)?.let { user -> GetUserDto.from(user) }
+    fun get(
+        id: Long,
+        userFetchType: UserFetchType,
+    ): GetUserDto =
+        userRepository.findByIdOrNull(id)?.let { user -> GetUserDto.from(user, userFetchType) }
             ?: throw IllegalArgumentException("Failed to fetch user by id: $id")
 
-    @Cacheable(value = ["userInfo"], key = "#githubId")
+    @Cacheable(value = ["userInfo"], key = "#githubId + '-' + #userFetchType.title")
     @Transactional(readOnly = true)
-    fun getByGithubId(githubId: Long): GetUserDto =
-        userRepository.findByGithubId(githubId)?.let { user -> GetUserDto.from(user) }
+    fun getByGithubId(
+        githubId: Long,
+        userFetchType: UserFetchType,
+    ): GetUserDto =
+        userRepository.findByGithubId(githubId)?.let { user -> GetUserDto.from(user, userFetchType) }
             ?: throw IllegalArgumentException("Failed to fetch user by githubId: $githubId")
 
     @Transactional(readOnly = true)

@@ -22,13 +22,18 @@ class AdventureFacade(
     fun getAnimation(
         username: String,
         theme: Theme?,
+        userFetchType: UserFetchType?,
     ): String {
         val (githubId, totalCommitCount) = githubService.getUserCommitInfo(username)
 
         handleUserData(username, githubId, totalCommitCount)
 
         return createAnimation(
-            user = userService.getByGithubId(githubId),
+            user =
+                userService.getByGithubId(
+                    githubId = githubId,
+                    userFetchType = userFetchType ?: UserFetchType.MUTUAL,
+                ),
             theme = theme ?: Theme.GRASSLAND,
         )
     }
@@ -65,7 +70,7 @@ class AdventureFacade(
         theme: Theme,
     ): String {
         val templates =
-            (user.mutualFollowers + user.toSimple()).joinToString { u ->
+            (user.fetchedUsers + user.toSimple()).joinToString { u ->
                 svgTemplateEngine.process(
                     "asset/${u.commitmon.assetName}",
                     Context().apply {

@@ -1,5 +1,6 @@
 package com.doongjun.commitmon.app.data
 
+import com.doongjun.commitmon.app.UserFetchType
 import com.doongjun.commitmon.core.NoArgs
 import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.User
@@ -12,9 +13,7 @@ data class GetUserDto(
     val totalCommitCount: Long,
     val commitmon: Commitmon,
     val exp: Int = 0,
-    val followers: List<GetSimpleUserDto>,
-    val following: List<GetSimpleUserDto>,
-    val mutualFollowers: List<GetSimpleUserDto>,
+    val fetchedUsers: List<GetSimpleUserDto>,
 ) {
     fun toSimple(): GetSimpleUserDto =
         GetSimpleUserDto(
@@ -27,7 +26,10 @@ data class GetUserDto(
         )
 
     companion object {
-        fun from(user: User): GetUserDto =
+        fun from(
+            user: User,
+            userFetchType: UserFetchType,
+        ): GetUserDto =
             GetUserDto(
                 id = user.id,
                 githubId = user.githubId,
@@ -35,9 +37,17 @@ data class GetUserDto(
                 totalCommitCount = user.totalCommitCount,
                 commitmon = user.commitmon,
                 exp = user.exp,
-                followers = user.followers.map { GetSimpleUserDto.from(it) },
-                following = user.following.map { GetSimpleUserDto.from(it) },
-                mutualFollowers = user.mutualFollowers.map { GetSimpleUserDto.from(it) },
+                fetchedUsers =
+                    when (userFetchType) {
+                        UserFetchType.ALL ->
+                            listOf(user.followers, user.following)
+                                .flatten()
+                                .map { GetSimpleUserDto.from(it) }
+                        UserFetchType.MUTUAL ->
+                            user.mutualFollowers
+                                .map { GetSimpleUserDto.from(it) }
+                        UserFetchType.SOLO -> emptyList()
+                    },
             )
     }
 }

@@ -52,7 +52,7 @@ class UserServiceTest : BaseAppTest() {
         clear()
 
         // when
-        val dto = userService.get(user.id)
+        val dto = userService.get(user.id, UserFetchType.SOLO)
 
         // then
         assertThat(dto.name).isEqualTo(user.name)
