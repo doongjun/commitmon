@@ -26,14 +26,24 @@ class AdventureFacade(
         theme: Theme?,
         userFetchType: UserFetchType?,
     ): String {
-        return createAnimation(getOrCreateUser(username), theme ?: Theme.GRASSLAND)
+        return createAnimation(
+            user =
+                getOrCreateUser(
+                    username = username,
+                    userFetchType = userFetchType ?: UserFetchType.MUTUAL,
+                ),
+            theme = theme ?: Theme.GRASSLAND,
+        )
     }
 
-    private fun getOrCreateUser(username: String): GetUserDto {
+    private fun getOrCreateUser(
+        username: String,
+        userFetchType: UserFetchType,
+    ): GetUserDto {
         return runCatching {
             userService.getByName(
                 name = username,
-                userFetchType = UserFetchType.MUTUAL,
+                userFetchType = userFetchType,
             )
         }.onSuccess { existsUser ->
             publisher.publishEvent(UpdateUserInfo(existsUser.id))
@@ -50,7 +60,7 @@ class AdventureFacade(
                 ).let { dto ->
                     userService.create(dto)
                 }
-            userService.get(userId, UserFetchType.MUTUAL)
+            userService.get(userId, userFetchType)
         }
     }
 

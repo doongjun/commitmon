@@ -27,8 +27,8 @@ class AdventureController(
         }
         return adventureFacade.getAnimation(
             username = username,
-            theme = Theme::assetName.findBy(theme),
-            userFetchType = UserFetchType::title.findBy(userFetchType),
+            theme = Theme::assetName.findBy(theme?.lowercase()),
+            userFetchType = UserFetchType::title.findBy(userFetchType?.lowercase()),
         )
     }
 }
