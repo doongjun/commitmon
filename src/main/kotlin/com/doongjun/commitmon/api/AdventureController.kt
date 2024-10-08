@@ -2,6 +2,7 @@ package com.doongjun.commitmon.api
 
 import com.doongjun.commitmon.app.AdventureFacade
 import com.doongjun.commitmon.app.Theme
+import com.doongjun.commitmon.app.UserFetchType
 import com.doongjun.commitmon.extension.findBy
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
@@ -17,6 +18,7 @@ class AdventureController(
     fun getAdventure(
         @RequestParam username: String,
         @RequestParam(required = false) theme: String?,
+        @RequestParam(required = false) userFetchType: String?,
         response: HttpServletResponse,
     ): String {
         response.apply {
@@ -26,6 +28,7 @@ class AdventureController(
         return adventureFacade.getAnimation(
             username = username,
             theme = Theme::assetName.findBy(theme),
+            userFetchType = UserFetchType::title.findBy(userFetchType),
         )
     }
 }

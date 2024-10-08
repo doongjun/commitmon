@@ -18,6 +18,10 @@ spring:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
 
+server:
+  tomcat:
+    relaxed-query-chars: "{,}"
+
 logging:
   level:
     org.hibernate.orm.jdbc.bind: TRACE

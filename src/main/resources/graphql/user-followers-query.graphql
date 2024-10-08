@@ -10,7 +10,6 @@ query(
                 endCursor
             }
             nodes {
-                databaseId
                 login
             }
         }

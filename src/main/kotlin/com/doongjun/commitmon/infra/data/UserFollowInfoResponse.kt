@@ -4,7 +4,6 @@ data class UserFollowInfoResponse(
     val user: User?,
 ) {
     data class User(
-        val databaseId: Long,
         val followers: FollowInfo,
         val following: FollowInfo,
     )
@@ -23,5 +22,4 @@ data class FollowPageInfo(
 
 data class FollowNode(
     val login: String,
-    val databaseId: Long,
 )

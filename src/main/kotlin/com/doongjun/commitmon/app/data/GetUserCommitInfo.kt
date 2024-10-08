@@ -5,6 +5,5 @@ import java.io.Serializable
 
 @NoArgs
 data class GetUserCommitInfo(
-    val githubId: Long,
     val totalCommitCount: Long,
 ) : Serializable

@@ -1,8 +1,10 @@
 package com.doongjun.commitmon.event
 
 import com.doongjun.commitmon.app.GithubService
+import com.doongjun.commitmon.app.UserFetchType
 import com.doongjun.commitmon.app.UserService
-import com.doongjun.commitmon.app.data.PatchUserDto
+import com.doongjun.commitmon.app.data.UpdateUserDto
+import org.slf4j.LoggerFactory
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
@@ -12,17 +14,24 @@ class ApplicationEventListener(
     private val userService: UserService,
     private val githubService: GithubService,
 ) {
-    @Async
-    @EventListener(UpdateUserFollowInfo::class)
-    fun handleUpdateUserFollowInfo(event: UpdateUserFollowInfo) {
-        val (githubId, followerGithubIds, followingGithubIds) = githubService.getUserFollowInfo(event.username, 100)
+    private val log = LoggerFactory.getLogger(javaClass)
 
-        val user = userService.getSimpleByGithubId(githubId)
-        PatchUserDto(
-            followerGithubIds = followerGithubIds,
-            followingGithubIds = followingGithubIds,
+    @Async
+    @EventListener(UpdateUserInfo::class)
+    fun handleUpdateUserInfo(event: UpdateUserInfo) {
+        val user = userService.get(event.userId, UserFetchType.SOLO)
+
+        val (totalCommitCount) = githubService.getUserCommitInfo(user.name)
+        val (followerNames, followingNames) = githubService.getUserFollowInfo(user.name, 100)
+
+        UpdateUserDto(
+            totalCommitCount = totalCommitCount,
+            followerNames = followerNames,
+            followingNames = followingNames,
         ).let { dto ->
-            userService.patch(user.id, dto)
+            userService.update(user.id, dto)
         }
+
+        log.info("User info updated: ${user.name}")
     }
 }

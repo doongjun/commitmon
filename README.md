@@ -23,19 +23,20 @@ Displays the <b>Commitmon</b> of friends who are following each other.
 #### Image URL
 
 ```shell
-https://commitmon.me/adventure?username=${username}&theme=${theme}
+https://commitmon.me/adventure?username=${username}&theme=${theme}&userFetchType=${userFetchType}
 ```
 
-| Parameter  | Type                                     | Description                    | Default Value |
-|:-----------|:-----------------------------------------|:-------------------------------|:--------------|
-| `username` | `string`                                 | **Required**. Your Github Name | -             |
-| `theme`    | `grassland` \| `desert` \| `transparent` | Theme Of CommitMon.            | `grassland`   |
-
+| Parameter       | Type                                                                              | Description                    | Default Value |
+|:----------------|:----------------------------------------------------------------------------------|:-------------------------------|:--------------|
+| `username`      | `string`                                                                          | **Required**. Your Github Name | -             |
+| `theme`         | `grassland` \| `desert` \| `transparent`                                          | Theme Of Commitmon.            | `grassland`   |
+| `userFetchType` | `all`(following and followers) \| `mutual`(following each other) \| `solo`(alone) | Type of Friends to fetch       | `mutual`      |
+ 
 Actually, you can use the image URL directly in the markdown file.
 
 ```markdown
 <a href="https://github.com/doongjun/commitmon">
-  <img alt="commitmon" src="https://commitmon.me/adventure?username=${username}&theme=${theme}" width="600px" />
+  <img alt="commitmon" src="https://commitmon.me/adventure?username=${username}&theme=${theme}&userFetchType=${userFetchType}" width="600px" />
 </a>
 ```
 

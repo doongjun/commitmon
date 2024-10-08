@@ -16,6 +16,10 @@ spring:
       host: ${REDIS_HOST}
       port: 6379
 
+server:
+  tomcat:
+    relaxed-query-chars: "{,}"
+
 app:
   github:
     token: ${GITHUB_TOKEN}
