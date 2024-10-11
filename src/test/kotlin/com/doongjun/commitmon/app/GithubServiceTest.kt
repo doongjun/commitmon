@@ -11,6 +11,7 @@ import com.doongjun.commitmon.infra.data.UserFollowersResponse
 import com.doongjun.commitmon.infra.data.UserFollowingResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.kotlin.times
@@ -94,12 +95,76 @@ class GithubServiceTest : BaseAppTest() {
 
         assertThat(result.followerNames).containsExactly("follower1", "follower2")
         assertThat(result.followingNames).containsExactly("following1")
+    }
+
+    @Test
+    fun getUserFollowInfo_ThenThrowException_Test() {
+        // given
+        val username = "doongjun"
+        val size = 101
+
+        // when
+        val exception =
+            assertThrows<IllegalArgumentException> {
+                githubService.getUserFollowInfo(username, size)
+            }
+
+        // then
+        assertThat(exception.message).isEqualTo("Size should be less than or equal to 100")
+    }
+
+    @Test
+    fun getAllUserFollowInfo_Test() {
+        // given
+        val username = "doongjun"
+        val followerInfo =
+            FollowInfo(
+                totalCount = 2,
+                pageInfo =
+                    FollowPageInfo(
+                        hasNextPage = false,
+                        endCursor = "",
+                    ),
+                nodes =
+                    listOf(
+                        FollowNode(
+                            login = "follower1",
+                        ),
+                        FollowNode(
+                            login = "follower2",
+                        ),
+                    ),
+            )
+        val followingInfo =
+            FollowInfo(
+                totalCount = 1,
+                pageInfo =
+                    FollowPageInfo(
+                        hasNextPage = false,
+                        endCursor = "",
+                    ),
+                nodes =
+                    listOf(
+                        FollowNode(
+                            login = "following1",
+                        ),
+                    ),
+            )
+
+        whenever(githubGraphqlApi.fetchUserFollowInfo(username, 2)).then {
+            return@then UserFollowInfoResponse.User(followerInfo, followingInfo)
+        }
+
+        val result = githubService.getAllUserFollowInfo(username, 2)
+
+        assertThat(result.followerNames).containsExactly("follower1", "follower2")
+        assertThat(result.followingNames).containsExactly("following1")
 
         verify(githubGraphqlApi, times(1)).fetchUserFollowInfo(username, 2)
     }
 
     @Test
-    fun getUserFollowInfo_Paged_Test() {
+    fun getAllUserFollowInfo_Paged_Test() {
         // given
         val username = "doongjun"
 
@@ -195,7 +260,7 @@ class GithubServiceTest : BaseAppTest() {
             )
         }
 
-        val result = githubService.getUserFollowInfo(username, 1)
+        val result = githubService.getAllUserFollowInfo(username, 1)
 
         assertThat(result.followerNames).containsExactly("follower1", "follower2", "follower3")
         assertThat(result.followingNames).containsExactly("following1", "following2")

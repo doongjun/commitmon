@@ -21,6 +21,7 @@ class ApplicationEventListener(
     fun handleUpdateUserInfo(event: UpdateUserInfo) {
         val user = userService.get(event.userId, UserFetchType.SOLO)
 
+        log.info("Updating user info: ${user.name}")
         val (totalCommitCount) = githubService.getUserCommitInfo(user.name)
         val (followerNames, followingNames) = githubService.getUserFollowInfo(user.name, 100)
 
@@ -31,7 +32,6 @@ class ApplicationEventListener(
         ).let { dto ->
             userService.update(user.id, dto)
         }
-
         log.info("User info updated: ${user.name}")
     }
 }
