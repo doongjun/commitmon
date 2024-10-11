@@ -38,8 +38,8 @@ class AdventureFacade(
     private fun getOrCreateUser(
         username: String,
         userFetchType: UserFetchType,
-    ): GetUserDto {
-        return runCatching {
+    ): GetUserDto =
+        runCatching {
             userService.getByName(
                 name = username,
                 userFetchType = userFetchType,
@@ -59,9 +59,10 @@ class AdventureFacade(
                 ).let { dto ->
                     userService.create(dto)
                 }
+
+            log.info("User created: $username")
             userService.get(userId, userFetchType)
         }
-    }
 
     private fun createAnimation(
         user: GetUserDto,

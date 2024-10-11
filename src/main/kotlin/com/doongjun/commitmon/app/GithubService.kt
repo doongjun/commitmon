@@ -25,6 +25,24 @@ class GithubService(
     @Cacheable(value = ["userFollowInfo"], key = "#username")
     fun getUserFollowInfo(
         username: String,
+        size: Int,
+    ): GetUserFollowInfoDto {
+        if (size > 100) {
+            throw IllegalArgumentException("Size should be less than or equal to 100")
+        }
+
+        val (followers, following) =
+            githubGraphqlApi
+                .fetchUserFollowInfo(username, size)
+
+        return GetUserFollowInfoDto(
+            followerNames = followers.nodes.map { it.login },
+            followingNames = following.nodes.map { it.login },
+        )
+    }
+
+    fun getAllUserFollowInfo(
+        username: String,
         pageSize: Int,
     ): GetUserFollowInfoDto {
         val (followers, following) =
