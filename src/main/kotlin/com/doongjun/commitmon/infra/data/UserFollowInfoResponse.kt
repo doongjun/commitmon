@@ -17,7 +17,7 @@ data class FollowInfo(
 
 data class FollowPageInfo(
     val hasNextPage: Boolean,
-    val endCursor: String,
+    val endCursor: String?,
 )
 
 data class FollowNode(
