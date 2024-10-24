@@ -60,6 +60,11 @@ Actually, you can use the image URL directly in the markdown file.
 
 and more....
 
+## Commitmon Change Request
+
+If you'd like to change your Commitmon, please send an email to **[doongjun.kim@gmail.com](mailto:doongjun.kim@gmail.com)**.  
+We'll be happy to assist you!
+
 ## Image License Information
 
 The images are provided by <b>Loco</b>.
