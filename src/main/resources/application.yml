@@ -24,3 +24,7 @@ app:
   github:
     token: ${GITHUB_TOKEN}
     base-url: https://api.github.com
+    oauth2:
+      base-url: https://github.com/login/oauth
+      client-id: ${GITHUB_CLIENT_ID}
+      client-secret: ${GITHUB_CLIENT_SECRET}
