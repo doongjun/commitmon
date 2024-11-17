@@ -21,6 +21,12 @@ server:
     relaxed-query-chars: "{,}"
 
 app:
+  auth:
+    jwt:
+      base64-secret: ${JWT_SECRET}
+      expired-ms: 3600000 # 1hour
+    refresh-token:
+      expired-ms: 1209600000 # 2weeks
   github:
     token: ${GITHUB_TOKEN}
     base-url: https://api.github.com

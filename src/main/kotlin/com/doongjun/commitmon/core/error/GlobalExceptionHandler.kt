@@ -75,4 +75,11 @@ class GlobalExceptionHandler {
         val response = ErrorResponse.of(ErrorCode.ACCESS_DENIED)
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response)
     }
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    protected fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<ErrorResponse> {
+        log.error("IllegalArgumentException", e)
+        val response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response)
+    }
 }
