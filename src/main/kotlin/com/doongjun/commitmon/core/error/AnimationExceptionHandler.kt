@@ -1,6 +1,6 @@
 package com.doongjun.commitmon.core.error
 
-import com.doongjun.commitmon.api.AdventureController
+import com.doongjun.commitmon.animation.AdventureController
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MissingServletRequestParameterException

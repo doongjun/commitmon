@@ -36,7 +36,6 @@ class AccountController(
         @RequestParam code: String,
     ): ResponseEntity<Unit> {
         val accessToken = accountFacade.login(code)
-
         return ResponseEntity
             .status(HttpStatus.TEMPORARY_REDIRECT)
             .header(
