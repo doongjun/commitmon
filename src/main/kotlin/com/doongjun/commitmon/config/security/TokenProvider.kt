@@ -8,23 +8,28 @@ import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.Date
 
 @Component
 class TokenProvider(
+    private val refreshTokenRepository: RefreshTokenRepository,
     @Value("\${app.auth.jwt.base64-secret}")
     private val base64Secret: String,
     @Value("\${app.auth.jwt.expired-ms}")
-    private val expiredMs: Long,
+    private val jwtExpiredMs: Long,
+    @Value("\${app.auth.refresh-token.expired-ms}")
+    private val refreshTokenExpiredMs: Long,
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
     fun createAccessToken(userId: Long): String {
         val now = Date()
-        val expiration = Date(now.time + expiredMs)
+        val expiration = Date(now.time + jwtExpiredMs)
 
-        return Jwts.builder()
+        return Jwts
+            .builder()
             .claims(mapOf("sub" to userId.toString()))
             .issuedAt(now)
             .expiration(expiration)
@@ -34,7 +39,8 @@ class TokenProvider(
 
     fun extractUserId(accessToken: String): Long {
         val claims =
-            Jwts.parser()
+            Jwts
+                .parser()
                 .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret)))
                 .build()
                 .parseSignedClaims(accessToken)
@@ -44,7 +50,8 @@ class TokenProvider(
 
     fun validateAccessToken(accessToken: String): Boolean {
         try {
-            Jwts.parser()
+            Jwts
+                .parser()
                 .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret)))
                 .build()
                 .parseSignedClaims(accessToken)
@@ -61,4 +68,14 @@ class TokenProvider(
         }
         return false
     }
+
+    fun createRefreshToken(userId: Long) =
+        refreshTokenRepository
+            .save(
+                RefreshToken(userId = userId, ttl = refreshTokenExpiredMs / 1000),
+            ).token!!
+
+    fun expireRefreshToken(refreshToken: String) = refreshTokenRepository.deleteById(refreshToken)
+
+    fun getRefreshToken(refreshToken: String) = refreshTokenRepository.findByIdOrNull(refreshToken)
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.validation.BindException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -74,6 +75,13 @@ class GlobalExceptionHandler {
         log.error("AccessDeniedException", e)
         val response = ErrorResponse.of(ErrorCode.ACCESS_DENIED)
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response)
+    }
+
+    @ExceptionHandler(AccountExpiredException::class)
+    protected fun handleAccountExpiredException(e: AccountExpiredException): ResponseEntity<ErrorResponse> {
+        log.error("AccessDeniedException", e)
+        val response = ErrorResponse.of(ErrorCode.UNAUTHORIZED)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response)
     }
 
     @ExceptionHandler(IllegalArgumentException::class)

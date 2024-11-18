@@ -1,13 +1,18 @@
 package com.doongjun.commitmon.api
 
 import com.doongjun.commitmon.api.data.RedirectDestination
+import com.doongjun.commitmon.api.data.RefreshTokenRequest
+import com.doongjun.commitmon.api.data.RefreshTokenResponse
 import com.doongjun.commitmon.app.AccountFacade
 import com.doongjun.commitmon.app.GithubOAuth2Service
+import jakarta.validation.Valid
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -35,12 +40,20 @@ class AccountController(
         @PathVariable destination: RedirectDestination,
         @RequestParam code: String,
     ): ResponseEntity<Unit> {
-        val accessToken = accountFacade.login(code)
+        val (accessToken, refreshToken) = accountFacade.login(code)
         return ResponseEntity
             .status(HttpStatus.TEMPORARY_REDIRECT)
             .header(
                 HttpHeaders.LOCATION,
-                "${destination.clientUrl}?accessToken=$accessToken",
+                "${destination.clientUrl}?accessToken=$accessToken&refreshToken=$refreshToken",
             ).build()
+    }
+
+    @PostMapping("/refresh")
+    fun refresh(
+        @Valid @RequestBody request: RefreshTokenRequest,
+    ): ResponseEntity<RefreshTokenResponse> {
+        val (accessToken, refreshToken) = accountFacade.refresh(token = request.refreshToken!!)
+        return ResponseEntity.ok(RefreshTokenResponse.of(accessToken, refreshToken))
     }
 }
