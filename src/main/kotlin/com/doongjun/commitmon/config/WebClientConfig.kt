@@ -25,7 +25,6 @@ class WebClientConfig {
 
     @Bean(name = ["githubRestWebClient"])
     fun githubRestWebClient(
-        @Value("\${app.github.token}") token: String,
         @Value("\${app.github.base-url}") baseUrl: String,
     ): WebClient =
         WebClient
@@ -34,6 +33,17 @@ class WebClientConfig {
             .baseUrl(baseUrl)
             .defaultHeaders { httpHeaders ->
                 httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer $token")
+            }.build()
+
+    @Bean(name = ["githubOAuth2WebClient"])
+    fun githubOAuth2WebClient(
+        @Value("\${app.github.oauth2.base-url}") baseUrl: String,
+    ): WebClient =
+        WebClient
+            .builder()
+            .uriBuilderFactory(DefaultUriBuilderFactory(baseUrl))
+            .baseUrl(baseUrl)
+            .defaultHeaders { httpHeaders ->
+                httpHeaders.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
             }.build()
 }

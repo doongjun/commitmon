@@ -1,4 +1,4 @@
-package com.doongjun.commitmon.api
+package com.doongjun.commitmon.animation
 
 import com.doongjun.commitmon.app.AdventureFacade
 import com.doongjun.commitmon.app.Theme
