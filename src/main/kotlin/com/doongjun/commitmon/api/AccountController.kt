@@ -5,6 +5,7 @@ import com.doongjun.commitmon.api.data.RefreshTokenRequest
 import com.doongjun.commitmon.api.data.RefreshTokenResponse
 import com.doongjun.commitmon.app.AccountFacade
 import com.doongjun.commitmon.app.GithubOAuth2Service
+import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -24,6 +25,7 @@ class AccountController(
     private val accountFacade: AccountFacade,
     private val githubOAuth2Service: GithubOAuth2Service,
 ) {
+    @Operation(summary = "로그인")
     @GetMapping("/login")
     fun login(
         @RequestHeader("Redirect-Destination", defaultValue = "LOCAL") destination: RedirectDestination,
@@ -35,6 +37,7 @@ class AccountController(
                 githubOAuth2Service.getRedirectUrl(destination),
             ).build()
 
+    @Operation(summary = "로그인 Callback (시스템에서 호출)")
     @GetMapping("/oauth/github/callback/{destination}")
     fun loginCallback(
         @PathVariable destination: RedirectDestination,
@@ -45,10 +48,11 @@ class AccountController(
             .status(HttpStatus.TEMPORARY_REDIRECT)
             .header(
                 HttpHeaders.LOCATION,
-                "${destination.clientUrl}?accessToken=$accessToken&refreshToken=$refreshToken",
+                destination.getClientUrl(accessToken, refreshToken),
             ).build()
     }
 
+    @Operation(summary = "토큰 갱신")
     @PostMapping("/refresh")
     fun refresh(
         @Valid @RequestBody request: RefreshTokenRequest,

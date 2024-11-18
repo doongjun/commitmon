@@ -22,11 +22,15 @@ class SecurityConfig(
             .addFilterBefore(JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter::class.java)
             .authorizeHttpRequests { authorize ->
                 authorize
-                    .requestMatchers("/adventure").permitAll()
-                    .requestMatchers("/api/v1/account/**").permitAll()
-                    .anyRequest().authenticated()
-            }
-            .exceptionHandling { exception ->
+                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                    .permitAll()
+                    .requestMatchers("/adventure")
+                    .permitAll()
+                    .requestMatchers("/api/v1/account/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+            }.exceptionHandling { exception ->
                 exception
                     .accessDeniedHandler(RestAccessDeniedHandler())
                     .authenticationEntryPoint(RestAuthenticationEntryPoint())
