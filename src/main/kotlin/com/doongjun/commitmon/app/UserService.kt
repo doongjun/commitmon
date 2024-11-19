@@ -4,6 +4,7 @@ import com.doongjun.commitmon.app.data.CreateUserDto
 import com.doongjun.commitmon.app.data.GetSimpleUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
+import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
 import org.springframework.cache.annotation.Cacheable
@@ -67,6 +68,19 @@ class UserService(
             followers = userRepository.findAllByNameIn(dto.followerNames),
             following = userRepository.findAllByNameIn(dto.followingNames),
         )
+
+        userRepository.save(user)
+    }
+
+    fun changeCommitmon(
+        id: Long,
+        commitmon: Commitmon,
+    ) {
+        val user =
+            userRepository.findByIdOrNull(id)
+                ?: throw NoSuchElementException("Failed to fetch user by id: $id")
+
+        user.changeCommitmon(commitmon)
 
         userRepository.save(user)
     }

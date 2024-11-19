@@ -8,6 +8,7 @@ import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 
@@ -188,5 +189,57 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
         assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
         assertThat(findUser?.autoLevelUp).isFalse()
+    }
+
+    @Test
+    fun changeCommitmon_ThenAutoLevelUpIsTrue_Test() {
+        // given
+        val name = "doongjun"
+        val user = userRepository.save(User(name = name, totalCommitCount = 200L))
+        val commitmon = Commitmon.PUKAMON
+        clear()
+
+        // when
+        userService.changeCommitmon(user.id, commitmon)
+        clear()
+
+        // then
+        val findUser = userRepository.findByIdOrNull(user.id)
+        assertThat(findUser?.commitmon).isEqualTo(commitmon)
+        assertThat(findUser?.autoLevelUp).isTrue()
+    }
+
+    @Test
+    fun changeCommitmon_ThenAutoLevelUpIsFalse_Test() {
+        // given
+        val name = "doongjun"
+        val user = userRepository.save(User(name = name, totalCommitCount = 200L))
+        val commitmon = Commitmon.PICHIMON
+        clear()
+
+        // when
+        userService.changeCommitmon(user.id, commitmon)
+        clear()
+
+        // then
+        val findUser = userRepository.findByIdOrNull(user.id)
+        assertThat(findUser?.commitmon).isEqualTo(commitmon)
+        assertThat(findUser?.autoLevelUp).isFalse()
+    }
+
+    @Test
+    fun changeCommitmon_ThenThrowException_Test() {
+        // given
+        val name = "doongjun"
+        val user = userRepository.save(User(name = name, totalCommitCount = 200L))
+        val commitmon = Commitmon.WARGREYMON
+        clear()
+
+        // when, then
+        val exception =
+            assertThrows<IllegalArgumentException> {
+                userService.changeCommitmon(user.id, commitmon)
+            }
+        assertThat(exception.message).isEqualTo("Cannot change to higher level")
     }
 }
