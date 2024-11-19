@@ -28,6 +28,8 @@ class SecurityConfig(
                     .permitAll()
                     .requestMatchers("/api/v1/account/**")
                     .permitAll()
+                    .requestMatchers("/api/v1/commitmons/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated()
             }.exceptionHandling { exception ->
