@@ -2,6 +2,7 @@ package com.doongjun.commitmon.infra
 
 import com.doongjun.commitmon.infra.data.UserCommitSearchResponse
 import com.doongjun.commitmon.infra.data.UserInfoResponse
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
@@ -12,6 +13,8 @@ class GithubRestApi(
     @Value("\${app.github.token}")
     private val githubToken: String,
 ) {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     fun fetchUserInfo(userToken: String): String =
         githubRestWebClient
             .get()
@@ -23,8 +26,10 @@ class GithubRestApi(
                 headers.add("Authorization", "Bearer $userToken")
             }.retrieve()
             .bodyToMono(UserInfoResponse::class.java)
-            .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user: $error") }
-            .block()!!
+            .onErrorMap { error ->
+                log.error(error.message)
+                throw IllegalArgumentException("Failed to fetch user: $error")
+            }.block()!!
             .login
 
     fun fetchUserCommitSearchInfo(username: String): UserCommitSearchResponse =
@@ -40,6 +45,8 @@ class GithubRestApi(
                 headers.add("Authorization", "Bearer $githubToken")
             }.retrieve()
             .bodyToMono(UserCommitSearchResponse::class.java)
-            .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user commit count: $error") }
-            .block()!!
+            .onErrorMap { error ->
+                log.error(error.message)
+                throw IllegalArgumentException("Failed to fetch user commit count: $error")
+            }.block()!!
 }

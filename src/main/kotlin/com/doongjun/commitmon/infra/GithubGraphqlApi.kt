@@ -6,6 +6,7 @@ import com.doongjun.commitmon.infra.data.UserFollowInfoResponse
 import com.doongjun.commitmon.infra.data.UserFollowInfoVariables
 import com.doongjun.commitmon.infra.data.UserFollowersResponse
 import com.doongjun.commitmon.infra.data.UserFollowingResponse
+import org.slf4j.LoggerFactory
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
@@ -16,6 +17,8 @@ import java.nio.charset.Charset
 class GithubGraphqlApi(
     private val githubGraphqlWebClient: WebClient,
 ) {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     companion object {
         private val userFollowInfoQuery =
             ClassPathResource(
@@ -53,10 +56,13 @@ class GithubGraphqlApi(
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(object : ParameterizedTypeReference<GraphqlResponse<UserFollowInfoResponse>>() {})
-                .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user follow info: $error") }
-                .block()!!
+                .onErrorMap { error ->
+                    log.error(error.message)
+                    throw IllegalArgumentException("Failed to fetch user follow info: $error")
+                }.block()!!
 
         if (isError(response)) {
+            log.error("Failed to fetch user follow info: ${response.errors}")
             throw IllegalArgumentException("Failed to fetch user follow info: ${response.errors}")
         }
 
@@ -85,10 +91,13 @@ class GithubGraphqlApi(
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(object : ParameterizedTypeReference<GraphqlResponse<UserFollowersResponse>>() {})
-                .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user followers: $error") }
-                .block()!!
+                .onErrorMap { error ->
+                    log.error(error.message)
+                    throw IllegalArgumentException("Failed to fetch user followers: $error")
+                }.block()!!
 
         if (isError(response)) {
+            log.error("Failed to fetch user followers: ${response.errors}")
             throw IllegalArgumentException("Failed to fetch user followers: ${response.errors}")
         }
 
@@ -117,10 +126,13 @@ class GithubGraphqlApi(
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(object : ParameterizedTypeReference<GraphqlResponse<UserFollowingResponse>>() {})
-                .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch user following: $error") }
-                .block()!!
+                .onErrorMap { error ->
+                    log.error(error.message)
+                    throw IllegalArgumentException("Failed to fetch user following: $error")
+                }.block()!!
 
         if (isError(response)) {
+            log.error("Failed to fetch user following: ${response.errors}")
             throw IllegalArgumentException("Failed to fetch user following: ${response.errors}")
         }
 

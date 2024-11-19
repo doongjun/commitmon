@@ -1,6 +1,7 @@
 package com.doongjun.commitmon.infra
 
 import com.doongjun.commitmon.infra.data.OAuthLoginResponse
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
@@ -8,6 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient
 class GithubOAuth2Api(
     private val githubOAuth2WebClient: WebClient,
 ) {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     fun fetchAccessToken(
         code: String,
         clientId: String,
@@ -24,6 +27,8 @@ class GithubOAuth2Api(
                     .build()
             }.retrieve()
             .bodyToMono(OAuthLoginResponse::class.java)
-            .onErrorMap { error -> throw IllegalArgumentException("Failed to fetch access token: $error") }
-            .block()!!
+            .onErrorMap { error ->
+                log.error(error.message)
+                throw IllegalArgumentException("Failed to fetch access token: $error")
+            }.block()!!
 }
