@@ -1,6 +1,7 @@
 package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
+import com.doongjun.commitmon.app.data.GetSimpleUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
 import com.doongjun.commitmon.domain.User
@@ -19,12 +20,17 @@ class UserService(
     fun existsByName(name: String) = userRepository.existsByName(name)
 
     @Transactional(readOnly = true)
+    fun getSimple(id: Long): GetSimpleUserDto =
+        userRepository.findByIdOrNull(id)?.let { user -> GetSimpleUserDto.from(user) }
+            ?: throw NoSuchElementException("Failed to fetch user by id: $id")
+
+    @Transactional(readOnly = true)
     fun get(
         id: Long,
         userFetchType: UserFetchType,
     ): GetUserDto =
         userRepository.findByIdOrNull(id)?.let { user -> GetUserDto.from(user, userFetchType) }
-            ?: throw IllegalArgumentException("Failed to fetch user by id: $id")
+            ?: throw NoSuchElementException("Failed to fetch user by id: $id")
 
     @Cacheable(value = ["userInfo"], key = "#name + '-' + #userFetchType.title")
     @Transactional(readOnly = true)
@@ -33,7 +39,7 @@ class UserService(
         userFetchType: UserFetchType,
     ): GetUserDto =
         userRepository.findByName(name)?.let { user -> GetUserDto.from(user, userFetchType) }
-            ?: throw IllegalArgumentException("Failed to fetch user by name: $name")
+            ?: throw NoSuchElementException("Failed to fetch user by name: $name")
 
     fun create(dto: CreateUserDto): Long {
         val user =
@@ -54,7 +60,7 @@ class UserService(
     ) {
         val user =
             userRepository.findByIdOrNull(id)
-                ?: throw IllegalArgumentException("Failed to fetch user by id: $id")
+                ?: throw NoSuchElementException("Failed to fetch user by id: $id")
 
         user.update(
             totalCommitCount = dto.totalCommitCount,

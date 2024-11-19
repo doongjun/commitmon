@@ -13,7 +13,16 @@ data class GetUserDto(
     val commitmon: Commitmon,
     val exp: Int = 0,
     val fetchedUsers: List<GetSimpleUserDto>,
+    private val followerIds: List<Long>,
+    private val followingIds: List<Long>,
 ) {
+    val followers: List<GetSimpleUserDto> by lazy {
+        fetchedUsers.filter { it.id in followerIds }
+    }
+    val following: List<GetSimpleUserDto> by lazy {
+        fetchedUsers.filter { it.id in followingIds }
+    }
+
     fun toSimple(): GetSimpleUserDto =
         GetSimpleUserDto(
             id = id,
@@ -39,12 +48,15 @@ data class GetUserDto(
                         UserFetchType.ALL ->
                             listOf(user.followers, user.following)
                                 .flatten()
+                                .distinct()
                                 .map { GetSimpleUserDto.from(it) }
                         UserFetchType.MUTUAL ->
                             user.mutualFollowers
                                 .map { GetSimpleUserDto.from(it) }
                         UserFetchType.SOLO -> emptyList()
                     },
+                followerIds = user.followers.map { it.id },
+                followingIds = user.following.map { it.id },
             )
     }
 }
