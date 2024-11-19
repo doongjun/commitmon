@@ -4,8 +4,10 @@ import com.doongjun.commitmon.app.UserFetchType
 import com.doongjun.commitmon.core.NoArgs
 import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.User
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @NoArgs
+@JsonIgnoreProperties(value = ["followerIds", "followingIds", "followers", "following"])
 data class GetUserDto(
     val id: Long,
     val name: String,
