@@ -34,6 +34,9 @@ class User(
     var commitmon: Commitmon = Commitmon.randomCommitmon(CommitmonLevel.fromExp(totalCommitCount))
         protected set
 
+    @Column(name = "auto_level_up", nullable = false)
+    var autoLevelUp: Boolean = true
+
     @OneToMany(mappedBy = "follower", fetch = LAZY, cascade = [ALL], orphanRemoval = true)
     protected val mutableFollowers: MutableSet<Follow> = toFollowers(followers).toMutableSet()
     val followers: List<User> get() = mutableFollowers.map { it.following }
@@ -59,12 +62,25 @@ class User(
         following: List<User>,
     ) {
         this.totalCommitCount = totalCommitCount
-        syncCommitmonLevel(CommitmonLevel.fromExp(totalCommitCount))
         updateFollowers(followers)
         updateFollowing(following)
+
+        if (this.autoLevelUp) {
+            autoLevelUpCommitmon(CommitmonLevel.fromExp(totalCommitCount))
+        }
     }
 
-    private fun syncCommitmonLevel(level: CommitmonLevel) {
+    fun changeCommitmon(commitmon: Commitmon) {
+        val currentLevel = CommitmonLevel.fromExp(totalCommitCount)
+        if (commitmon.level.order > currentLevel.order) {
+            throw IllegalArgumentException("Cannot change to higher level")
+        }
+
+        this.commitmon = commitmon
+        this.autoLevelUp = commitmon.level == currentLevel
+    }
+
+    private fun autoLevelUpCommitmon(level: CommitmonLevel) {
         if (this.commitmon.level != level) {
             this.commitmon = Commitmon.randomLevelTreeCommitmon(level, this.commitmon)
         }

@@ -27,6 +27,16 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
 
 app:
+  auth:
+    jwt:
+      base64-secret: 12345
+      expired-ms: 1000
+    refresh-token:
+      expired-ms: 1000
   github:
     token: 12345
     base-url: https://api.github.com
+    oauth2:
+      base-url: https://github.com/login/oauth
+      client-id: 12345
+      client-secret: 12345

@@ -2,6 +2,7 @@ package com.doongjun.commitmon.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class UserTest {
     private val name = "doongjun"
@@ -115,6 +116,108 @@ class UserTest {
         assertThat(user.followers).containsExactlyElementsOf(updateFollowers)
         assertThat(user.following).containsExactlyElementsOf(updateFollowing)
         assertThat(user.mutualFollowers).containsExactlyElementsOf(listOf(mutualFollower))
+    }
+
+    @Test
+    fun update_ThenBeLeveledUp_Test() {
+        // given
+        val user =
+            User(
+                name = name,
+                totalCommitCount = 200L,
+            )
+        user.changeCommitmon(Commitmon.KOROMON)
+
+        val updateTotalCommitCount = 800L
+        // when
+        user.update(
+            totalCommitCount = updateTotalCommitCount,
+            followers = emptyList(),
+            following = emptyList(),
+        )
+
+        // then
+        assertThat(user.id).isNotNull()
+        assertThat(user.totalCommitCount).isEqualTo(updateTotalCommitCount)
+        assertThat(user.commitmon).isEqualTo(Commitmon.GREYMON)
+        assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.CHAMPION)
+        assertThat(user.autoLevelUp).isTrue()
+    }
+
+    @Test
+    fun update_ThenNotBeLeveledUp_Test() {
+        // given
+        val user =
+            User(
+                name = name,
+                totalCommitCount = 200L,
+            )
+        user.changeCommitmon(Commitmon.BOTAMON)
+
+        val updateTotalCommitCount = 400L
+        // when
+        user.update(
+            totalCommitCount = updateTotalCommitCount,
+            followers = emptyList(),
+            following = emptyList(),
+        )
+
+        // then
+        assertThat(user.id).isNotNull()
+        assertThat(user.totalCommitCount).isEqualTo(updateTotalCommitCount)
+        assertThat(user.commitmon.level).isEqualTo(CommitmonLevel.BABY)
+        assertThat(user.autoLevelUp).isFalse()
+    }
+
+    @Test
+    fun changeCommitmon_ThenSameLevel_Test() {
+        // given
+        val user =
+            User(
+                name = name,
+                totalCommitCount = 200L,
+            )
+
+        // when
+        user.changeCommitmon(Commitmon.KOROMON)
+
+        // then
+        assertThat(user.commitmon).isEqualTo(Commitmon.KOROMON)
+        assertThat(user.autoLevelUp).isTrue()
+    }
+
+    @Test
+    fun changeCommitmon_ThenLowerLevel_Test() {
+        // given
+        val user =
+            User(
+                name = name,
+                totalCommitCount = 200L,
+            )
+
+        // when
+        user.changeCommitmon(Commitmon.EGG)
+
+        // then
+        assertThat(user.commitmon).isEqualTo(Commitmon.EGG)
+        assertThat(user.autoLevelUp).isFalse()
+    }
+
+    @Test
+    fun changeCommitmon_ThenHigherLevel_Test() {
+        // given
+        val user =
+            User(
+                name = name,
+                totalCommitCount = 200L,
+            )
+
+        // when, then
+        val exception =
+            assertThrows<IllegalArgumentException> {
+                user.changeCommitmon(Commitmon.ATLURKABUTERIMON)
+            }
+        assertThat(exception.message).isEqualTo("Cannot change to higher level")
     }
 
     @Test

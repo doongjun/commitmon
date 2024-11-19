@@ -2,6 +2,7 @@ package com.doongjun.commitmon.app
 
 import com.doongjun.commitmon.app.data.CreateUserDto
 import com.doongjun.commitmon.app.data.UpdateUserDto
+import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.CommitmonLevel
 import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
@@ -162,5 +163,30 @@ class UserServiceTest : BaseAppTest() {
         assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.PERFECT)
         assertThat(findUser?.followers).containsExactlyInAnyOrder(anotherUser1, anotherUser2)
         assertThat(findUser?.following).containsExactlyInAnyOrder(anotherUser2, anotherUser3)
+    }
+
+    @Test
+    fun update_ThenNotBeLeveledUp_Test() {
+        // given
+        val name = "doongjun"
+        val user = userRepository.save(User(name = name, totalCommitCount = 200L))
+        user.changeCommitmon(Commitmon.EGG)
+        val dto =
+            UpdateUserDto(
+                totalCommitCount = 1600L,
+                followerNames = emptyList(),
+                followingNames = emptyList(),
+            )
+        clear()
+
+        // when
+        userService.update(user.id, dto)
+        clear()
+
+        // then
+        val findUser = userRepository.findByIdOrNull(user.id)
+        assertThat(findUser?.totalCommitCount).isEqualTo(dto.totalCommitCount)
+        assertThat(findUser?.commitmon?.level).isEqualTo(CommitmonLevel.EGG)
+        assertThat(findUser?.autoLevelUp).isFalse()
     }
 }
