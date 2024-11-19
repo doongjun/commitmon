@@ -19,7 +19,7 @@ enum class Commitmon(
     METALGREYMON(
         CommitmonLevel.PERFECT,
         listOf(EGG, BOTAMON, KOROMON, AGUMON, GREYMON),
-        assetName = "metalGreymon",
+        assetName = "metalgreymon",
         nameKo = "메탈그레이몬",
         seed = 1,
     ),
@@ -33,7 +33,7 @@ enum class Commitmon(
 
     PUNIMON(CommitmonLevel.BABY, listOf(EGG), assetName = "punimon", nameKo = "푸니몬", seed = 2),
     TSUNOMON(CommitmonLevel.IN_TRAINING, listOf(EGG, PUNIMON), assetName = "tsunomon", nameKo = "뿔몬", seed = 2),
-    GABUMON(CommitmonLevel.ROOKIE, listOf(EGG, PUNIMON, TSUNOMON), assetName = "gabumon", nameKo = "가루몬", seed = 2),
+    GABUMON(CommitmonLevel.ROOKIE, listOf(EGG, PUNIMON, TSUNOMON), assetName = "gabumon", nameKo = "파피몬", seed = 2),
     GARURUMON(CommitmonLevel.CHAMPION, listOf(EGG, PUNIMON, TSUNOMON, GABUMON), assetName = "garurumon", nameKo = "가루몬", seed = 2),
     WEREGARURUMON(
         CommitmonLevel.PERFECT,

@@ -79,7 +79,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(AccountExpiredException::class)
     protected fun handleAccountExpiredException(e: AccountExpiredException): ResponseEntity<ErrorResponse> {
-        log.error("AccessDeniedException", e)
+        log.error("AccountExpiredException", e)
         val response = ErrorResponse.of(ErrorCode.UNAUTHORIZED)
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response)
     }
@@ -88,6 +88,13 @@ class GlobalExceptionHandler {
     protected fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<ErrorResponse> {
         log.error("IllegalArgumentException", e)
         val response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response)
+    }
+
+    @ExceptionHandler(NoSuchElementException::class)
+    protected fun handleNoSuchElementException(e: NoSuchElementException): ResponseEntity<ErrorResponse> {
+        log.error("NoSuchElementException", e)
+        val response = ErrorResponse.of(ErrorCode.NOT_FOUND)
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response)
     }
 }

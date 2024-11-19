@@ -2,7 +2,7 @@ package com.doongjun.commitmon.domain
 
 enum class CommitmonLevel(
     val exp: Long,
-    private val order: Int,
+    val order: Int,
 ) {
     EGG(0, 0), // 알
     BABY(100, 1), // 유아기
