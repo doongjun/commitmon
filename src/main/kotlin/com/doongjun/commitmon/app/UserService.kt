@@ -7,6 +7,7 @@ import com.doongjun.commitmon.app.data.UpdateUserDto
 import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.domain.User
 import com.doongjun.commitmon.domain.UserRepository
+import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class UserService(
     private val userRepository: UserRepository,
+    private val cacheManager: CacheManager,
 ) {
     @Transactional(readOnly = true)
     fun existsByName(name: String) = userRepository.existsByName(name)
@@ -83,5 +85,14 @@ class UserService(
         user.changeCommitmon(commitmon)
 
         userRepository.save(user)
+
+        clearCache(user.name)
+    }
+
+    private fun clearCache(name: String) {
+        val cache = cacheManager.getCache("userInfo")
+        UserFetchType.entries.forEach { userFetchType ->
+            cache?.evictIfPresent(name + '-' + userFetchType.title)
+        }
     }
 }
