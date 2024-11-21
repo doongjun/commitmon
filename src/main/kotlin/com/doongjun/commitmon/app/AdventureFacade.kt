@@ -3,6 +3,7 @@ package com.doongjun.commitmon.app
 import com.doongjun.commitmon.app.data.CreateUserDto
 import com.doongjun.commitmon.app.data.GetUserDto
 import com.doongjun.commitmon.core.AdventureGenerator
+import com.doongjun.commitmon.domain.Commitmon
 import com.doongjun.commitmon.event.UpdateUserInfo
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
@@ -34,6 +35,26 @@ class AdventureFacade(
                 ),
             theme = theme ?: Theme.GRASSLAND,
         )
+
+    fun getAnimationPreview(
+        userId: Long,
+        commitmon: Commitmon?,
+        theme: Theme,
+        userFetchType: UserFetchType,
+    ): String {
+        val user =
+            userService.get(
+                id = userId,
+                userFetchType = userFetchType,
+            )
+
+        user.commitmon = commitmon ?: user.commitmon
+
+        return createAnimation(
+            user = user,
+            theme = theme,
+        )
+    }
 
     private fun getOrCreateUser(
         username: String,

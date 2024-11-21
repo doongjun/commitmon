@@ -12,7 +12,7 @@ data class GetUserDto(
     val id: Long,
     val name: String,
     val totalCommitCount: Long,
-    val commitmon: Commitmon,
+    var commitmon: Commitmon,
     val exp: Int = 0,
     val fetchedUsers: List<GetSimpleUserDto>,
     private val followerIds: List<Long>,

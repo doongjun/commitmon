@@ -38,4 +38,12 @@ class SwaggerConfig {
             .group("api-v1-definition")
             .pathsToMatch("/api/**")
             .build()
+
+    @Bean
+    fun animation(): GroupedOpenApi =
+        GroupedOpenApi
+            .builder()
+            .group("animation-definition")
+            .pathsToMatch("/adventure/**")
+            .build()
 }
