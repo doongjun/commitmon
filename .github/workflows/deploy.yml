@@ -20,5 +20,5 @@ jobs:
           NCP_REGISTRY: ${{ secrets.NCP_CONTAINER_REGISTRY_URL }}
           IMAGE_TAG: ${{ github.run_number }}
         run: |
-          docker build -t $NCP_REGISTRY:$IMAGE_TAG -t $NCP_REGISTRY:latest .
-          docker push $NCP_REGISTRY --all-tags
+          docker build -t $NCP_REGISTRY/commitmon:$IMAGE_TAG -t $NCP_REGISTRY/commitmon:latest .
+          docker push $NCP_REGISTRY/commitmon --all-tags
