@@ -1,7 +1,7 @@
 name: SpringBoot APP CI/CD
 on:
   push:
-    branches: [ main ]
+    branches: [ main, 58-migration-from-aws-to-ncp ]
 jobs:
   deploy:
     name: Build Image
@@ -9,28 +9,16 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Login to NCP Container Registry
+        uses: docker/login-action@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push image to Amazon ECR
+          registry: ${{ secrets.NCP_CONTAINER_REGISTRY_URL }}
+          username: ${{ secrets.NCP_ACCESS_KEY_ID }}
+          password: ${{ secrets.NCP_SECRET_KEY }}
+      - name: Build, tag, and push image to NCP Container Registry
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: commitmon
+          NCP_REGISTRY: ${{ secrets.NCP_CONTAINER_REGISTRY_URL }}
           IMAGE_TAG: ${{ github.run_number }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
-      - name: Deploy to Amazon EC2
-        run: |
-          aws deploy create-deployment \
-            --application-name ${{ secrets.AWS_CODE_DEPLOY_APPLICATION }} \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name ${{ secrets.AWS_CODE_DEPLOY_GROUP }} \
-            --description "Deploy commitmon" \
-            --s3-location bucket=${{ secrets.AWS_S3_BUCKET_NAME }},key=${{ secrets.AWS_REVISION_S3_KEY }},bundleType=tar
+          docker build -t $NCP_REGISTRY:$IMAGE_TAG -t $NCP_REGISTRY:latest .
+          docker push $NCP_REGISTRY --all-tags
