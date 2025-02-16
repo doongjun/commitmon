@@ -15,7 +15,7 @@ jobs:
           registry: ${{ secrets.NCP_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.NCP_ACCESS_KEY_ID }}
           password: ${{ secrets.NCP_SECRET_KEY }}
-      - name: Build, tag, and push image to NCP Container Registry
+      - name: Build, Tag, and Push image to NCP Container Registry
         env:
           NCP_REGISTRY: ${{ secrets.NCP_CONTAINER_REGISTRY_URL }}
           IMAGE_TAG: ${{ github.run_number }}
